@@ -1,0 +1,29 @@
+{
+  "base": "https://d8j0ntlcm91z4.cloudfront.net/user_2wBAVh21Eg9QKYBQloVcNxmFKPJ/",
+  "episodios": [
+    {
+      "id": "cap1",
+      "tag": "LA LLORONA DEL GUAYURIBA · 1/3",
+      "hook": "SI LA OYES LEJOS…\nESTÁ DETRÁS DE TI",
+      "endcard": "CAPÍTULO 2\nNO ABRAS EL BULTO",
+      "fin_ini": 56.2,
+      "clips": [
+        "hf_20260922_170239_382fcad3-6d1b-4a8a-be1f-a70d405e7420.mp4",
+        "hf_20260922_170239_fd64e51e-c75d-4b2f-b2ab-47f10dc2f645.mp4",
+        "hf_20260922_170303_bae3fbc2-db97-4879-bd62-56026aace9d1.mp4",
+        "hf_20260922_170015_35ffad8e-e5fb-4ba1-9560-52debfec0866.mp4",
+        "hf_20260922_170303_4d2d65f3-9ee2-4fa5-8426-e00b2d1c5c38.mp4",
+        "hf_20260922_170014_6721cc46-5cbb-4936-adf0-7163c960643e.mp4"
+      ],
+      "vo": [
+        {"id":"1101","rol":"NAR","inicio":0.10,"archivo":"hf_20260922_165706_05439fe5-d752-4171-bcfc-ecfcb34d0328.wav","texto":"En Colombia hay una regla con La Llorona: si la oyes lejos, es porque está detrás de ti."},
+        {"id":"1102","rol":"NAR","inicio":10.40,"archivo":"hf_20260922_165705_f2005b21-3010-4aa6-b694-9f781536880e.wav","texto":"Eran las dos de la mañana, en el río Guayuriba. Y yo la oí clarito, allá lejos."},
+        {"id":"1103","rol":"NAR","inicio":20.40,"archivo":"hf_20260922_165706_f97f933b-0627-42b4-9581-f3554fe52ba8.wav","texto":"Mi abuela me lo advirtió mil veces: entre más lejos suena, más cerca está."},
+        {"id":"1104","rol":"NAR","inicio":30.50,"archivo":"hf_20260922_165706_5e4cc75e-e379-4407-815e-bd9eb49e2c5c.wav","texto":"La moto se apagó sola. Y empezó a gotear agua adentro del casco."},
+        {"id":"1105","rol":"NAR","inicio":40.30,"archivo":"hf_20260922_165706_1bb98e06-7dd9-4a5d-a0eb-a441d45afee6.wav","texto":"Dejé de oírla. Ese silencio fue lo peor."},
+        {"id":"1106","rol":"LLO","inicio":45.60,"archivo":"hf_20260922_165705_0c579ced-7e53-4f47-bf49-8bb725d0ecf3.wav","texto":"¿Has visto a mis hijos?"},
+        {"id":"1107","rol":"NAR","inicio":50.30,"archivo":"hf_20260922_165705_c5c386cd-26fe-46d5-9aaa-b824298fe071.wav","texto":"Me puso el bulto en los brazos. Y me dijo que no lo abriera."}
+      ]
+    }
+  ]
+}

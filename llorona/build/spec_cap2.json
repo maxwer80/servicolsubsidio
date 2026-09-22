@@ -1,0 +1,28 @@
+{
+  "base": "https://d8j0ntlcm91z4.cloudfront.net/user_2wBAVh21Eg9QKYBQloVcNxmFKPJ/",
+  "episodios": [
+    {
+      "id": "cap2",
+      "tag": "LA LLORONA DEL GUAYURIBA · 2/3",
+      "hook": "ME DESPERTÉ CON\nEL RÍO EN LA CAMA",
+      "endcard": "CAPÍTULO 3\nEL NOMBRE",
+      "fin_ini": 57.0,
+      "clips": [
+        "hf_20260922_170516_e8d1d6d1-51d1-438f-a8b1-5749b9052658.mp4",
+        "hf_20260922_170545_96eb936a-a4a3-4896-aca4-20f5c7092b8a.mp4",
+        "hf_20260922_170616_d71c3882-1baf-4423-949e-7b0af7f4416e.mp4",
+        "hf_20260922_170014_9c3370c7-0ea7-44bd-b472-718445778d9a.mp4",
+        "hf_20260922_170014_3994ce30-e713-4dcb-9322-9d5e96f40b88.mp4",
+        "hf_20260922_170616_39a733af-cfeb-4973-9c2d-cb35cd6f3a6f.mp4"
+      ],
+      "vo": [
+        {"id":"1201","rol":"NAR","inicio":0.15,"archivo":"hf_20260922_165706_4310bcc4-2d05-48f6-9b1e-cd0cf50fb5fa.wav","texto":"Desperté en mi cama con el río encima. Y el bulto seguía ahí."},
+        {"id":"1202","rol":"ABU","inicio":10.50,"archivo":"hf_20260922_165706_d3507c03-2289-4caa-85c2-4ac7596f90f6.wav","texto":"Ese bulto no es de ella, mijo. Ese bulto es de nosotros."},
+        {"id":"1203","rol":"NAR","inicio":20.40,"archivo":"hf_20260922_165706_c805ecf2-f3b2-4deb-ab82-f17b7a1417f3.wav","texto":"Mi bisabuelo la dejó ahogarse en ese vado. A ella y a la niña."},
+        {"id":"1204","rol":"NAR","inicio":30.40,"archivo":"hf_20260922_165705_d17d4fc5-185a-4c4b-9c51-782ad55838ab.wav","texto":"Esa noche el agua entró por debajo de la puerta. Y no estaba lloviendo."},
+        {"id":"1205","rol":"NAR","inicio":40.50,"archivo":"hf_20260922_165904_25101bee-4cc8-40a2-af25-ed6f40d56966.wav","texto":"Abrí una puntica del trapo, y una manito fría me agarró el dedo."},
+        {"id":"1206","rol":"ABU","inicio":50.20,"archivo":"hf_20260922_170147_07583449-fdf8-4fbd-93bd-6428a6a0182b.wav","texto":"Solo se rompe con un nombre, Samuel. Y usted no lo sabe."}
+      ]
+    }
+  ]
+}

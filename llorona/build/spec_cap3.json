@@ -1,0 +1,31 @@
+{
+  "base": "https://d8j0ntlcm91z4.cloudfront.net/user_2wBAVh21Eg9QKYBQloVcNxmFKPJ/",
+  "episodios": [
+    {
+      "id": "cap3",
+      "tag": "LA LLORONA DEL GUAYURIBA · 3/3",
+      "hook": "PARA QUE TE SUELTE\nDI EL NOMBRE DE LA NIÑA",
+      "endcard": "¿HAY CAPÍTULO 4?\nDILO EN LOS COMENTARIOS",
+      "fin_ini": 56.2,
+      "clips": [
+        "hf_20260922_170839_3e6c6e33-3a60-41c2-a914-eb5ae1cf9f47.mp4",
+        "hf_20260922_170839_7462d1e9-437c-4be4-a3cc-14d1c5db1a5f.mp4",
+        "hf_20260922_171123_f75b4eb9-e613-4f75-87e4-9f001b682ecd.mp4",
+        "hf_20260922_171123_32168036-e5fc-479a-909a-2785901b1841.mp4",
+        "hf_20260922_171122_7a22fdb6-bf60-4a84-900d-148a3e107e42.mp4",
+        "hf_20260922_171237_dc798e16-6991-41c5-9a5a-22b2bbce746c.mp4"
+      ],
+      "vo": [
+        {"id":"1301","rol":"NAR","inicio":0.10,"archivo":"hf_20260922_165904_888d7306-0288-4fca-8a86-18eee05b25aa.wav","texto":"Para que La Llorona lo suelte a uno, hay que decir el nombre de la niña."},
+        {"id":"1302","rol":"ABU","inicio":7.20,"archivo":"hf_20260922_165904_a917c177-bb93-4b51-8684-aed41ac447ac.wav","texto":"A las tres. En el vado. Y no se devuelva."},
+        {"id":"1303","rol":"NAR","inicio":13.20,"archivo":"hf_20260922_165904_bb68f48e-fad6-4304-931f-7c04d0595ce9.wav","texto":"Me metí al Guayuriba con el bulto y una vela que no se apagaba."},
+        {"id":"1304","rol":"NAR","inicio":20.40,"archivo":"hf_20260922_170147_b9d88ef6-bd53-4cc4-8845-e9e6f3644613.wav","texto":"Salió del agua. Y detrás de ella salieron todas las demás."},
+        {"id":"1305","rol":"SAM","inicio":31.00,"archivo":"hf_20260922_170147_ceb83c31-6bc4-47b2-93c8-135cdf00d96c.wav","texto":"¡Ana Celeste!"},
+        {"id":"1306","rol":"NAR","inicio":33.60,"archivo":"hf_20260922_170147_c461775a-db3e-4e11-861d-0cc813316746.wav","texto":"Grité el nombre, y el río se quedó quieto."},
+        {"id":"1307","rol":"LLO","inicio":40.60,"archivo":"hf_20260922_165904_42b89859-7a56-494f-824b-ad531df97623.wav","texto":"Gracias, Rangel."},
+        {"id":"1308","rol":"NAR","inicio":43.60,"archivo":"hf_20260922_172056_7af04703-34d9-43f4-8743-3e2b73d705df.wav","texto":"Por un segundo tuvo cara. Y se llevó a su niña."},
+        {"id":"1309","rol":"NAR","inicio":50.30,"archivo":"hf_20260922_170147_a4c73c45-e88c-4238-8e66-c314099c04f4.wav","texto":"Al amanecer había otro bulto en la puerta. Con otro nombre escrito."}
+      ]
+    }
+  ]
+}
