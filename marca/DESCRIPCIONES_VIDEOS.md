@@ -1,4 +1,4 @@
-# Descripciones de los 4 videos — Facebook y YouTube
+# Descripciones de los videos — Facebook y YouTube
 
 En Facebook los textos son cortos, con gancho y pregunta para que la gente comente.
 En YouTube van título + descripción con palabras clave (para que salga en búsquedas) + etiquetas.
@@ -165,8 +165,48 @@ submarino minerve, minerve 1968, submarinos desaparecidos, misterios del oceano,
 
 ---
 
+## 5. El Sombrerón
+
+### Facebook
+```
+Si un viernes por la noche escuchas cadenas detrás de ti… no corras. ⛓️🐎
+
+Abel conocía el secreto para salvarse del Sombrerón. Y aun así, no le sirvió.
+
+¿Tú te habrías levantado? Escribe "PARTE 2" en los comentarios 👇
+
+#HistoriasDelMundoMundial #ElSombrerón #LeyendasColombianas #Terror #HistoriasDeTerror #Antioquia #Colombia
+```
+
+### YouTube
+**Título:**
+```
+EL SOMBRERÓN: si oyes cadenas un viernes por la noche… no corras ⛓️ #Shorts
+```
+**Descripción:**
+```
+Si un viernes por la noche escuchas cadenas detrás de ti, no corras. Hay una sola cosa que te puede salvar.
+
+El Sombrerón es una de las leyendas más temidas de Antioquia: un jinete altísimo, vestido de negro, en un caballo negro, con dos perros enormes amarrados con cadenas y un sombrero tan grande que no se le ve la cara. Persigue a los borrachos, a los peleadores y a los que se burlan de los cuentos de los viejos.
+
+Abel sabía lo que había que hacer: tirarse al suelo con los brazos abiertos, como una cruz, y no levantarse hasta que todo pase. Esta es su historia.
+
+👉 ¿Quieres saber qué le pasó a Abel el viernes siguiente? Escribe "PARTE 2" en los comentarios.
+🔔 Suscríbete para más leyendas, misterios y casos reales cada semana.
+
+Las imágenes se recrearon con inteligencia artificial para ilustrar la leyenda.
+
+#Shorts #ElSombrerón #LeyendasColombianas #HistoriasDeTerror #Antioquia #HistoriasDelMundoMundial
+```
+**Etiquetas:**
+```
+el sombrerón, leyenda del sombrerón, leyendas colombianas, leyendas de antioquia, historias de terror, espantos colombianos, mitos y leyendas, terror colombiano, leyendas latinoamericanas, historias del mundo mundial
+```
+
+---
+
 ## Recordatorios al publicar
 
 - **Facebook:** súbelo como Reel y activa "Información de IA" si aparece.
 - **YouTube:** en "Contenido alterado o sintético" marca **Sí**. Las etiquetas van en "Mostrar más → Etiquetas".
-- Deja `#Shorts` en el título o la descripción de YouTube solo si el video dura 3 minutos o menos (los 4 cumplen).
+- Deja `#Shorts` en el título o la descripción de YouTube solo si el video dura 3 minutos o menos (todos cumplen).
