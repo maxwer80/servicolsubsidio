@@ -15,7 +15,8 @@ Generado con **Higgsfield** (tope pedido: 600 créditos):
   rehicieron tras revisarlos (salieron un obelisco y un templo asiático).
 - 38 clips con **Kling 3.0 Pro** (9:16) con sonido propio (selva, aves,
   lluvia, eco de piedra, viento, fuego, agua del cenote…), sin música: 185 s.
-- **Total Higgsfield: 544,5 créditos** (saldo antes 842,54 → después 298,04).
+- Plano del museo (M23) rehecho: la primera imagen salió de lado; 9,5 créditos.
+- **Total Higgsfield: 554 créditos.**
 - Música: **ElevenLabs Music v2 en Magnific** (205 s, instrumental, 4.100
   créditos de Magnific), porque Higgsfield no tiene un modelo de música aparte.
 
@@ -56,7 +57,7 @@ python3 montar.py spec.json palabras.json salida.mp4
 
 ## Video final
 
-https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/f4543253-1cef-4af9-8d14-cb4e14d31264.mp4
+https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/5123a83f-2672-4074-8078-fda8aa523b5c.mp4
 
 Medido: el video final queda en −14,2 LUFS integrados, 202,5 s; los tramos con
 voz en −14 LUFS y los respiros entre −24 y −29 LUFS (el ambiente se oye claro sin

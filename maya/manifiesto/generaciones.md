@@ -28,7 +28,7 @@ Música: ElevenLabs Music v2 en Magnific, 205 s, instrumental: `w4cVoMr7EI`
 | M20 | 70c2883c-4645-43e4-961d-7012d174f914 | 4122a930-e2b9-4f67-b525-4a346826121f | 3 |
 | M21 | 07d579de-0451-45c1-a21e-7ca97dd467e1 | 4e2e6a31-6fb5-4d6d-8343-84c3e3238b8b | 6 |
 | M22 | 0f691f7b-1131-4572-8f05-4cba9a7c9e26 | 2980ffed-ef9b-48b6-aead-8efe6a2fb148 | 5 |
-| M23 | fef219f4-bea3-4bf1-8321-2f5402bcf184 | 6b46611a-3a75-48e5-a324-f01754e370e0 | 3 |
+| M23 | cbbc1258-b04e-4a38-82bc-ffb87588ac45 | f02f0b36-c9ee-4497-a8f2-229949de0973 | 3 |
 | M24 | ebbd5ab3-53e3-469e-bc21-9c80b17c710a | 8249d5d7-92a0-45a4-9f21-84934445f45c | 5 |
 | M25 | da8a1694-eee4-44ba-9a9e-9223d83d6db6 | 8b26a6b7-a1b0-44d8-a7ae-8ae0884157d7 | 5 |
 | M26 | 14d4cb92-672b-4d32-8632-8473cf138b4e | ca55e0d9-922d-47e0-b3ac-bb6de51d9833 | 5 |
@@ -45,5 +45,5 @@ Música: ElevenLabs Music v2 en Magnific, 205 s, instrumental: `w4cVoMr7EI`
 | M37 | bcd77409-27f9-4c3d-b471-34e7f1fbf9ce | 2c62c9a5-7e06-4694-a49d-d3b940209dd3 | 4 |
 | M38 | 13fbd75b-f2f2-4b44-b0d3-da449243a80b | 875f0b94-e111-4347-9814-a3e7fd021959 | 6 |
 
-M10 y M26 se rehicieron: Cinema Studio dibujó un obelisco/arco romano en vez de El Castillo (M10, se pasó a Nano Banana Pro) y un templo asiático en vez de Tikal (M26).
+M10 y M26 se rehicieron: Cinema Studio dibujó un obelisco/arco romano en vez de El Castillo (M10, se pasó a Nano Banana Pro) y un templo asiático en vez de Tikal (M26). M23 (el museo, "millones de personas siguen viendo otra cosa") salió de lado dentro del cuadro vertical: se rehízo con Nano Banana Pro en vertical y derecho y se volvió a animar (9,5 créditos).
 Total de segundos de video: 185.
