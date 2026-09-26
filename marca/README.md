@@ -61,3 +61,17 @@ Paquete: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/
 
 El LEEME del paquete trae la descripción del canal, el @, las palabras clave y los pasos al subir.
 Créditos de Magnific: 720 (solo las 4 miniaturas; el resto se reutilizó sin costo).
+
+## Miniaturas de El Sombrerón y Las pirámides
+
+Paquete: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/3c211f51-5f2e-4652-92ed-2ab3f4892a8d.zip
+
+| Archivo | Tamaño | Uso |
+|---|---|---|
+| miniatura_youtube_{sombreron,piramides}_1280x720.jpg | 1280×720 | miniatura de YouTube |
+| portada_reel_short_{sombreron,piramides}_1080x1920.jpg | 1080×1920 | portada de Reel / Short / TikTok |
+| post_facebook_{sombreron,piramides}_1080x1350.jpg | 1080×1350 | post de imagen en Facebook |
+
+GPT 2.5 (medium) en Magnific, mismo estilo que las anteriores (título amarillo #FFE500,
+etiqueta azul marino con cian #4DE1FF). Textos verificados con OCR. 600 créditos de Magnific.
+Ids: Eb7yjc8uuO, tCLgbGMmZJ, u5JPLDxQLD (pirámides); N2docx46D9, O6VpGk0ynm, 8axsHWZIrU (Sombrerón).
