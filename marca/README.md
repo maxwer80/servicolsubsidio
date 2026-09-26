@@ -43,3 +43,21 @@ los subtítulos y las cifras de los 4 videos, así que página y videos se ven c
 | 4 portadas de publicación (calidad media) | 720 |
 | Logo transparente (calidad media) | 180 |
 | **Total** | **2.640** |
+
+---
+
+## Kit de YouTube
+
+Paquete: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/88529cf2-8054-4c55-995f-19ccaf24d50b.zip
+(banner suelto: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/08e309d2-99aa-44ce-b028-699ec9ad82ac.jpg)
+
+| Pieza | Archivo | Tamaño | Origen |
+|---|---|---|---|
+| Foto de perfil | 01_foto_perfil_800x800.png | 800×800 | mismo logo de Facebook |
+| Banner | 02_banner_2560x1440.jpg | 2560×1440 | portada de Facebook extendida; título dentro de la zona segura 1546×423 (verificado con OCR) |
+| Marca de agua del canal | 03_marca_agua_video_150x150.png | 150×150 | logo circular |
+| Miniaturas | 04_miniatura_{patasola,bermudas,mh370,minerve}_1280x720.jpg | 1280×720 | nuevas, GPT 2.5 en Magnific (Bh1rAcyoQR, Xmk12ccBfo, IfjLnDotvE, w4c0HL47EI) |
+| Logo horizontal transparente | 05_logo_horizontal_transparente.png | — | el mismo de los videos |
+
+El LEEME del paquete trae la descripción del canal, el @, las palabras clave y los pasos al subir.
+Créditos de Magnific: 720 (solo las 4 miniaturas; el resto se reutilizó sin costo).
