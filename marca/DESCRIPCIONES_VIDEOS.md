@@ -205,6 +205,48 @@ el sombrerón, leyenda del sombrerón, leyendas colombianas, leyendas de antioqu
 
 ---
 
+## 6. Las pirámides de Egipto: la teoría
+
+### Facebook
+```
+Hay una construcción en la Tierra que, según millones de personas… no la hicimos nosotros. 🔺👽
+
+Su latitud coincide con la velocidad de la luz, apunta al cinturón de Orión y adentro nunca apareció una momia. Y en 2017 encontraron un vacío gigante que nadie ha abierto.
+
+¿Humanos o visitantes? Escribe "PARTE 2" y te cuento qué hay detrás de esa cámara sellada 👇
+
+#HistoriasDelMundoMundial #Piramides #Egipto #GranPiramide #Misterio #Extraterrestres #Teorias
+```
+
+### YouTube
+**Título:**
+```
+LAS PIRÁMIDES DE EGIPTO: ¿no las hicimos nosotros? 🔺 La teoría #Shorts
+```
+**Descripción:**
+```
+Hay una construcción en la Tierra que, según millones de personas, no la hicimos nosotros.
+
+La Gran Pirámide de Guiza: más de dos millones de bloques, algunos de más de 50 toneladas, alineada con los puntos cardinales con un error menor a una décima de grado… hace 4.500 años.
+
+En este video repasamos las teorías más famosas: la latitud que coincide con la velocidad de la luz, el número pi escondido en sus medidas, la alineación con el cinturón de Orión, la idea de los antiguos astronautas de Erich von Däniken (1968), el sarcófago vacío, la pirámide como planta de energía, la Esfinge más antigua que Egipto y la cámara oculta que los científicos detectaron en 2017.
+
+Las teorías se presentan como lo que son: hipótesis que se han dicho durante décadas. Los arqueólogos sostienen que la construyeron miles de obreros egipcios. ¿Tú qué crees?
+
+👉 ¿Humanos o visitantes? Déjalo en los comentarios y escribe "PARTE 2".
+🔔 Suscríbete para más misterios, leyendas y casos reales cada semana.
+
+Las imágenes se recrearon con inteligencia artificial para ilustrar las teorías.
+
+#Shorts #Piramides #Egipto #GranPiramide #Misterios #Extraterrestres #HistoriasDelMundoMundial
+```
+**Etiquetas:**
+```
+piramides de egipto, gran piramide de giza, teoria de las piramides, misterios de egipto, extraterrestres, antiguos astronautas, esfinge, cinturon de orion, camara secreta piramide, historias del mundo mundial
+```
+
+---
+
 ## Recordatorios al publicar
 
 - **Facebook:** súbelo como Reel y activa "Información de IA" si aparece.

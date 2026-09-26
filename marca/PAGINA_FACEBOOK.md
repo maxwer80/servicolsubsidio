@@ -176,3 +176,4 @@ que te dice exactamente qué te falta. Referencias típicas:
   - Vuelo MH370 — https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/cc3ba0ae-ac07-4dc3-8aa0-d8c0a9654022.mp4
   - Submarino Minerve — https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/8b68abee-ff9e-4123-a9b5-2f2bbd391582.mp4
   - El Sombrerón — https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/44dc674b-31c7-46fb-8b6a-e869ed20ff7d.mp4
+  - Las pirámides de Egipto — https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/f2e850ae-ce78-4d5b-839d-595db9b048f8.mp4
