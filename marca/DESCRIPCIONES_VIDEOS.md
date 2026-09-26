@@ -247,8 +247,52 @@ piramides de egipto, gran piramide de giza, teoria de las piramides, misterios d
 
 ---
 
+## 7. Los mayas: la civilización que desapareció
+
+### Facebook
+```
+Construyeron ciudades más grandes que las de Europa, predijeron eclipses con siglos de anticipación… y un día simplemente se fueron. 🌿🔺
+
+Calcularon el año de Venus casi igual que la NASA, usaban el cero antes que Europa y en la tapa de la tumba del rey Pakal hay algo que millones de personas ven como… un astronauta.
+
+¿Rey o astronauta? Escribe "PARTE 2" y te cuento lo que encontraron dentro de los cenotes sagrados 👇
+
+#HistoriasDelMundoMundial #Mayas #ChichenItza #Pakal #Misterio #CivilizacionesPerdidas #Extraterrestres
+```
+
+### YouTube
+**Título:**
+```
+LOS MAYAS: la civilización que desapareció 🌿 ¿Rey o astronauta?
+```
+**Descripción:**
+```
+Construyeron ciudades más grandes que las de Europa en su época, predijeron eclipses con siglos de anticipación… y un día simplemente se fueron.
+
+Durante más de dos mil años los mayas dominaron las selvas de México y Centroamérica sin rueda, sin animales de carga y sin metal. Calcularon que Venus tarda 584 días en dar su vuelta (la NASA hoy mide 583,92) y usaban el cero cuando en Europa todavía no existía.
+
+En este video: la serpiente de luz que baja por Kukulkán en los equinoccios, el eco del quetzal en Chichén Itzá, la escalera secreta de Palenque (1952) y la tapa de Pakal que muchos ven como un astronauta, el calendario del 21 de diciembre de 2012, el abandono de Tikal, Calakmul y Copán alrededor del año 900, las más de 60.000 estructuras que los láseres encontraron bajo la selva y la ciudad que apareció en Campeche en 2024.
+
+Las teorías se presentan como lo que son: hipótesis que se han dicho durante décadas. Para los arqueólogos, la tapa muestra al rey cayendo al inframundo. Y algo que casi nadie cuenta: los mayas nunca desaparecieron, millones de personas hablan hoy lenguas mayas.
+
+👉 ¿Qué ves tú en la tapa de Pakal? ¿Un rey o un astronauta? Déjalo en los comentarios y escribe "PARTE 2".
+🔔 Suscríbete para más misterios, leyendas y casos reales cada semana.
+
+Las imágenes se recrearon con inteligencia artificial para ilustrar la historia.
+
+#Mayas #ChichenItza #Pakal #Misterios #CivilizacionesPerdidas #Extraterrestres #HistoriasDelMundoMundial
+```
+**Etiquetas:**
+```
+mayas, civilizacion maya, chichen itza, kukulkan, pakal astronauta, palenque, tikal, calendario maya 2012, colapso maya, ciudades perdidas, lidar guatemala, historias del mundo mundial
+```
+
+> Este video dura 3:22, así que **no** entra como Short (máximo 3 minutos): súbelo a YouTube como video normal (vertical) y sin `#Shorts`. En Facebook va como Reel sin problema.
+
+---
+
 ## Recordatorios al publicar
 
 - **Facebook:** súbelo como Reel y activa "Información de IA" si aparece.
 - **YouTube:** en "Contenido alterado o sintético" marca **Sí**. Las etiquetas van en "Mostrar más → Etiquetas".
-- Deja `#Shorts` en el título o la descripción de YouTube solo si el video dura 3 minutos o menos (todos cumplen).
+- Deja `#Shorts` en el título o la descripción de YouTube solo si el video dura 3 minutos o menos (todos cumplen menos Los mayas, que dura 3:22).

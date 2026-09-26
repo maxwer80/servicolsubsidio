@@ -75,3 +75,16 @@ Paquete: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/
 GPT 2.5 (medium) en Magnific, mismo estilo que las anteriores (título amarillo #FFE500,
 etiqueta azul marino con cian #4DE1FF). Textos verificados con OCR. 600 créditos de Magnific.
 Ids: Eb7yjc8uuO, tCLgbGMmZJ, u5JPLDxQLD (pirámides); N2docx46D9, O6VpGk0ynm, 8axsHWZIrU (Sombrerón).
+
+## Miniaturas de Los mayas
+
+Paquete: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/1c3ab1f1-0710-4424-9256-7ac79a042570.zip
+
+| Archivo | Tamaño | Uso |
+|---|---|---|
+| miniatura_youtube_mayas_1280x720.jpg | 1280×720 | miniatura de YouTube ("LOS MAYAS · UN DÍA… SE FUERON") |
+| portada_reel_short_mayas_1080x1920.jpg | 1080×1920 | portada de Reel / TikTok ("LOS MAYAS · ¿REY O ASTRONAUTA?") |
+| post_facebook_mayas_1080x1350.jpg | 1080×1350 | post de imagen en Facebook ("¿REY O ASTRONAUTA?") |
+
+GPT 2.5 (medium) en Magnific, mismo estilo. Textos revisados a ojo. 300 créditos de Magnific.
+Ids: bx9iHMy5Y2, 1l32Kd5r4r, yiMeJQOPW9.
