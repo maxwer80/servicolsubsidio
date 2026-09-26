@@ -10,7 +10,8 @@ Generado con **Higgsfield** (tope pedido: 600 créditos):
 - 35 fotogramas con **Cinema Studio Image 2.5** (2k, 9:16): 70 créditos.
 - 35 clips con **Kling 3.0 Pro** (9:16) con sonido propio (viento, arena,
   antorchas, zumbidos, piedra, tormenta…), sin música: 182 s, 455 créditos.
-- **Total Higgsfield: 525 créditos.**
+- Plano del escritor (P15) rehecho: la primera imagen salió de lado; 19,5 créditos.
+- **Total Higgsfield: 544,5 créditos.**
 - Música: Higgsfield no tiene un modelo de música aparte, así que la banda
   sonora se hizo con **ElevenLabs Music v2 en Magnific** (180 s, instrumental,
   3.600 créditos de Magnific).
@@ -51,7 +52,7 @@ python3 montar.py spec.json palabras.json salida.mp4
 
 ## Video final
 
-https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/f2e850ae-ce78-4d5b-839d-595db9b048f8.mp4
+https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/3c6b5216-6e70-4b9d-9868-e635a845aa17.mp4
 
 Medido: voz −20 LUFS, ambiente −38 LUFS y música −32 LUFS antes de la
 normalización; en el video final los tramos con voz quedan en −14 LUFS y los
