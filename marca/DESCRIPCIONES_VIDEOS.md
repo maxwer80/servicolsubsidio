@@ -291,6 +291,56 @@ mayas, civilizacion maya, chichen itza, kukulkan, pakal astronauta, palenque, ti
 
 ---
 
+## 8. El Arca de Noé: lo que el radar encontró
+
+### Facebook
+```
+Durante siglos buscaron el Arca de Noé en la cima de una montaña… pero puede que haya estado todo este tiempo enterrada en un valle. 🚢⛰️
+
+En Turquía hay una formación con forma de barco que mide 157 metros, justo 300 codos egipcios. En 2026 le pasaron un radar de tecnología militar y encontraron líneas rectas, ángulos de 90 grados, huecos… y un 40 % más de carbono dentro que fuera.
+
+Nada está confirmado todavía. ¿Roca o arca? Escribe "PARTE 2" y te cuento qué dicen los resultados del laboratorio 👇
+
+#HistoriasDelMundoMundial #ArcaDeNoe #Ararat #Durupinar #Misterio #Arqueologia #Biblia
+```
+
+### YouTube
+**Título:**
+```
+¿ENCONTRARON EL ARCA DE NOÉ? 🚢 Lo que el radar vio bajo la tierra #Shorts
+```
+**Descripción:**
+```
+Durante siglos buscaron el Arca de Noé en la cima de una montaña. Pero puede que haya estado todo este tiempo enterrada en un valle.
+
+La formación de Durupınar, a unos 30 km del monte Ararat, en Turquía, tiene forma de barco y mide 157 metros: justo los 300 codos egipcios del Génesis. La vio en 1959 un capitán del ejército turco en fotos aéreas de la OTAN; en 1960 una expedición cavó y usó dinamita sin encontrar nada, y en 1977 el explorador Ron Wyatt la volvió famosa.
+
+En 2026 un equipo de 20 investigadores de cinco países, dirigido por el arqueólogo Cenker Atila, volvió con un radar nacido para la Fuerza Aérea de Estados Unidos: líneas rectas, ángulos de 90 grados, capas, huecos, un "pasillo" de unos 75 metros, casi mil muestras de tierra con un 40 % más de carbono dentro que fuera, y una perforación a 18 metros con una capa tan dura que rompió la broca.
+
+Ojo: son datos preliminares, sin revisión científica. Los geólogos dicen que es una formación natural, y hasta algunos creyentes famosos dudan del equipo. Ahora las muestras van al laboratorio.
+
+👉 ¿Roca o arca? Déjalo en los comentarios y escribe "PARTE 2".
+🔔 Suscríbete para más misterios, leyendas y casos reales cada semana.
+
+Las imágenes se recrearon con inteligencia artificial a partir de fotos reales del lugar.
+Fuentes: Diario ADN, The Debrief, Arkeonews, Universidad Sivas Cumhuriyet.
+
+#Shorts #ArcaDeNoe #Ararat #Durupinar #Misterios #Arqueologia #HistoriasDelMundoMundial
+```
+**Etiquetas:**
+```
+arca de noe, arca de noe encontrada, durupinar, monte ararat, radar arca de noe, arqueologia biblica, noahs ark, misterios de la biblia, turquia, historias del mundo mundial
+```
+
+### TikTok
+```
+¿Encontraron el Arca de Noé? 🚢 Un radar vio líneas rectas y huecos bajo esta formación de 157 metros en Turquía 👀 ¿Roca o arca? Escribe PARTE 2 👇
+
+#arcadenoe #misterio #ararat #arqueologia #biblia #turquia #historiasdelmundomundial
+```
+
+---
+
 ## Recordatorios al publicar
 
 - **Facebook:** súbelo como Reel y activa "Información de IA" si aparece.

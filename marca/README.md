@@ -88,3 +88,15 @@ Paquete: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/
 
 GPT 2.5 (medium) en Magnific, mismo estilo. Textos revisados a ojo. 300 créditos de Magnific.
 Ids: bx9iHMy5Y2, 1l32Kd5r4r, yiMeJQOPW9.
+
+## Miniaturas de El Arca de Noé
+
+Paquete: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/b052c112-a7d2-446f-8fdf-5e30d9577c2e.zip
+
+| Archivo | Tamaño | Uso |
+|---|---|---|
+| miniatura_youtube_arca_1280x720.jpg | 1280×720 | miniatura de YouTube ("EL ARCA DE NOÉ · EL RADAR ENCONTRÓ ESTO") |
+| portada_reel_short_arca_1080x1920.jpg | 1080×1920 | portada de Reel / Short / TikTok ("¿ROCA O ARCA?") |
+| post_facebook_arca_1080x1350.jpg | 1080×1350 | post de imagen en Facebook ("¿ENCONTRARON EL ARCA?") |
+
+GPT 2 mini (medium) en Magnific, mismo estilo. 300 créditos de Magnific. Ids: TdQsmdcVNR, MBHgvoMDCm, xSZDP7YjfW.
