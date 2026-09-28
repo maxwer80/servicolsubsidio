@@ -341,6 +341,55 @@ arca de noe, arca de noe encontrada, durupinar, monte ararat, radar arca de noe,
 
 ---
 
+## 9. Los tres fareros de las Islas Flannan (1900)
+
+### Facebook
+```
+Navidad de 1900. Un barco llega a una isla perdida al oeste de Escocia… y el faro está apagado. 🌊🏝️
+
+Las camas vacías, la chimenea fría, el reloj parado y las lámparas listas para encenderse. De los tres fareros, ni rastro. Faltaban dos impermeables… el tercero seguía colgado. Uno salió a la tormenta en mangas de camisa.
+
+La leyenda habla de una mesa servida y un diario escalofriante, pero eso se inventó después. Lo que sí está en el informe oficial es más inquietante: daños a más de 30 metros sobre el mar.
+
+¿Tú qué crees que pasó en Flannan? Te leo en los comentarios 👇
+
+#HistoriasDelMundoMundial #IslasFlannan #Faro #Misterio #Escocia #CasosReales
+```
+
+### YouTube
+**Título:**
+```
+3 fareros desaparecieron sin dejar rastro 🌊 El misterio de las Islas Flannan #Shorts
+```
+**Descripción:**
+```
+Diciembre de 1900. En Eilean Mòr, una roca de las Islas Flannan al oeste de Escocia, tres fareros —James Ducat, Thomas Marshall y Donald MacArthur— cuidaban un faro encendido apenas un año antes.
+
+El 15 de diciembre un barco que pasaba de noche vio el faro apagado. El barco de relevo, el Hesperus, llegó el 26 de diciembre: no había bandera ni nadie en el muelle. Adentro, las camas vacías, la chimenea fría, el reloj parado y las lámparas limpias y listas. Faltaban dos impermeables; el tercero seguía en su gancho.
+
+La mesa servida, la silla volcada y el diario de la tormenta son parte de la leyenda que se inventó después. Lo que sí dice el informe del superintendente: en el muelle oeste, una caja guardada a más de 30 metros sobre el mar fue arrancada, las barandas de hierro quedaron dobladas y una roca de más de una tonelada se movió de su sitio.
+
+👉 ¿Una ola gigante? ¿Otra cosa? Te leo en los comentarios.
+🔔 Suscríbete para más misterios, leyendas y casos reales cada semana.
+
+Las imágenes y los clips se recrearon con inteligencia artificial.
+
+#Shorts #IslasFlannan #Faro #Misterios #Escocia #CasosReales #HistoriasDelMundoMundial
+```
+**Etiquetas:**
+```
+islas flannan, fareros desaparecidos, misterio del faro, eilean mor, flannan isles, faro escocia 1900, casos sin resolver, misterios reales, historias del mundo mundial
+```
+
+### TikTok
+```
+3 fareros desaparecieron en una isla en 1900 y nadie sabe qué pasó 🌊 El faro apagado, el reloj parado y un impermeable colgado 👀 ¿Tú qué crees? 👇
+
+#islasflannan #misterio #faro #escocia #casosreales #historiasdelmundomundial
+```
+
+---
+
 ## Recordatorios al publicar
 
 - **Facebook:** súbelo como Reel y activa "Información de IA" si aparece.
