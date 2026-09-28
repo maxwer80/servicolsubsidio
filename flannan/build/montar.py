@@ -344,7 +344,7 @@ def montar(spec, palabras, trabajo, salida):
         filtros = filtros.replace("[0:a]aformat", "[4:a]aformat")
     sh(f"ffmpeg -y -v error -i {base} -i {voz} -i {musica} -loop 1 -i {logo} {nat_in}"
        f"-filter_complex {shlex.quote(filtros)} "
-       f"-map '[vout]' -map '[aout]' -c:v libx264 -preset medium -crf 21 -profile:v high "
+       f"-map '[vout]' -map '[aout]' -c:v libx264 -preset fast -crf 20 -profile:v high "
        f"-pix_fmt yuv420p -r {FPS} -c:a aac -b:a 192k -ar 44100 -movflags +faststart "
        f"-t {dur} {shlex.quote(salida)}")
     return salida
