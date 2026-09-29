@@ -100,3 +100,16 @@ Paquete: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/
 | post_facebook_arca_1080x1350.jpg | 1080×1350 | post de imagen en Facebook ("¿ENCONTRARON EL ARCA?") |
 
 GPT 2 mini (medium) en Magnific, mismo estilo. 300 créditos de Magnific. Ids: TdQsmdcVNR, MBHgvoMDCm, xSZDP7YjfW.
+
+## Miniaturas de El Dorado · Parte 1
+
+Paquete: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/d1c794c2-b1c1-4a4e-a783-160ce7af236e.zip
+
+| Archivo | Tamaño | Uso |
+|---|---|---|
+| portada_reel_tiktok_dorado_1080x1920.jpg | 1080×1920 | portada de Reel / Short / TikTok ("EL DORADO · ¿EXISTIÓ DE VERDAD?") |
+| miniatura_youtube_dorado_1280x720.jpg | 1280×720 | miniatura de YouTube ("EL DORADO · EL HOMBRE DE ORO QUE NADIE ENCONTRÓ") |
+| post_facebook_dorado_1080x1350.jpg | 1080×1350 | post de imagen en Facebook ("¿DÓNDE ESTÁ EL DORADO? · 800 HOMBRES LO BUSCARON") |
+
+GPT 2 mini (medium) en Magnific, mismo estilo. Textos revisados a ojo. 300 créditos de Magnific.
+Ids: JNVA4FXOq4, yiDzN1jPW9, tCsbaDomZJ.
