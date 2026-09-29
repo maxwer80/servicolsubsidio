@@ -395,3 +395,15 @@ islas flannan, fareros desaparecidos, misterio del faro, eilean mor, flannan isl
 - **Facebook:** súbelo como Reel y activa "Información de IA" si aparece.
 - **YouTube:** en "Contenido alterado o sintético" marca **Sí**. Las etiquetas van en "Mostrar más → Etiquetas".
 - Deja `#Shorts` en el título o la descripción de YouTube solo si el video dura 3 minutos o menos (todos cumplen menos Los mayas, que dura 3:22).
+
+## 10. El Dorado · Parte 1
+
+**Facebook**
+Londres, 1618: a sir Walter Raleigh le cortan la cabeza por buscar una ciudad de oro que nunca existió. 🪙
+Todo empezó en la laguna de Guatavita, con un cacique muisca cubierto de polvo de oro… y terminó con tres ejércitos, un emperador endeudado y un pleito en España.
+¿Quieres saber cómo terminó la búsqueda de El Dorado? Escribe **PARTE 2** en los comentarios. 👇
+
+#ElDorado #Guatavita #Muiscas #HistoriaDeColombia #Leyendas #Misterios #HistoriasDelMundoMundial
+
+**YouTube (título):** El Dorado: el hombre de oro que nadie encontró | Parte 1
+**TikTok:** El engaño más caro de su época empezó en una laguna de Colombia. ¿Parte 2? 👇 #ElDorado #Guatavita #historia
