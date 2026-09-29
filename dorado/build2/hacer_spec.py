@@ -10,25 +10,25 @@ import sys
 from plan import CIERRE, DURACION, PAUSAS, mover, planos
 from planos import P
 
-VOZ = "https://raw.githubusercontent.com/maxwer80/servicolsubsidio/ecf5656/dorado/audio/faraon_v4.mp3"
+VOZ = "https://raw.githubusercontent.com/maxwer80/servicolsubsidio/9730214/dorado/audio/faraon_v4_parte2.mp3"
 LOGO_ZIP = "https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/8a7662c9-cd09-4545-9d55-e1dbf8e5fdf3.zip"
-FUNDIDOS = {"D01": (0.8, 0), "D58": (0.4, 0)}
+FUNDIDOS = {"E01": (0.8, 0), "E58": (0.4, 0)}
 DATOS = [
-    (0.3, 3.2, "LONDRES · 1618"),
-    (24.5, 28.2, "GUATAVITA · COLOMBIA"),
-    (28.3, 30.5, "SEGÚN LAS CRÓNICAS"),
-    (53.2, 57.4, "UN RITUAL YA EN DESUSO"),
-    (60.6, 65.6, "1528 · CARLOS V"),
-    (65.8, 68.2, "LOS WELSER · BANQUEROS"),
-    (69.4, 71.2, "PAGO: VENEZUELA"),
-    (80.6, 85.9, "1536 · 800 HOMBRES"),
-    (90.1, 93.3, "LLEGAN MENOS DE 200"),
-    (95.0, 99.7, "≈ 1.800 ESMERALDAS"),
-    (104.9, 109.4, "1539 · FEDERMANN"),
-    (113.4, 117.3, "BELALCÁZAR · DESDE QUITO"),
-    (117.4, 121.5, "3 EJÉRCITOS"),
-    (126.1, 129.5, "PLEITO EN ESPAÑA"),
-    (148.5, 149.7, "«MÁS LEJOS»"),
+    (0.2, 2.3, "1969 · PASCA, COLOMBIA"),
+    (22.4, 25.9, "1541 · GONZALO PIZARRO"),
+    (29.0, 31.6, "220 ESPAÑOLES"),
+    (31.74, 35.6, "MILES DE CARGADORES"),
+    (54.2, 59.9, "ORELLANA · EL AMAZONAS"),
+    (60.72, 64.4, "REGRESAN UNOS 80"),
+    (66.5, 72.2, "1561 · LOPE DE AGUIRRE"),
+    (101.3, 104.7, "1580 · SEPÚLVEDA"),
+    (108.06, 110.1, "−20 METROS"),
+    (123.2, 128.4, "RALEIGH · GUAYANA"),
+    (131.5, 135.8, "13 AÑOS PRESO"),
+    (146.42, 148.2, "1618 · EJECUTADO"),
+    (149.3, 153.2, "1904 · CONTRACTORS LTD"),
+    (162.98, 164.4, "EN QUIEBRA"),
+    (175.16, 177.2, "MUSEO DEL ORO · BOGOTÁ"),
 ]
 
 
@@ -46,11 +46,11 @@ spec = {
     "logo_zip": LOGO_ZIP, "logo_png": "04_logo_marca_de_agua.png",
     "tag": "MISTERIOS DEL MUNDO",
     "pausas": [list(p) for p in PAUSAS],
-    "hook": {**tramo(3.3, 12.2), "texto": "¿EXISTIÓ\nEL DORADO?"},
-    "titulo": {**tramo(16.9, 22.9), "texto": "EL DORADO · PARTE 1"},
+    "hook": {**tramo(2.4, 12.3), "texto": "¿DÓNDE ESTABA\nEL DORADO?"},
+    "titulo": {**tramo(14.84, 20.4), "texto": "EL DORADO · PARTE 2"},
     "datos": [{**tramo(a, b), "texto": t} for a, b, t in DATOS],
-    "cierre": {"ini": round(mover(CIERRE), 2), "texto": "¿DÓNDE ESTÁ\nEL DORADO?",
-               "sub": "Escribe PARTE 2 en los comentarios"},
+    "cierre": {"ini": round(mover(CIERRE), 2), "texto": "¿QUÉ LEYENDA\nSIGUE?",
+               "sub": "Escríbela en los comentarios"},
     "planos": lista,
 }
 print(json.dumps(spec, ensure_ascii=False))

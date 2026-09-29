@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Monta "El Dorado · parte 1" (9:16, 720x1280) a partir de los clips generados en
+"""Monta "El Dorado · parte 2" (9:16, 720x1280) a partir de los clips generados en
 Magnific (Seedance 2.5 y Kling 3.0 a 720p, con sonido nativo) y la voz de El Faraon.
 
 Los clips traen su propio ambiente y foley, así que el spec no lleva "ambiente" y se
@@ -356,7 +356,7 @@ def montar(spec, palabras, trabajo, salida):
 def main():
     spec = json.load(open(sys.argv[1], encoding="utf-8"))
     palabras = json.load(open(sys.argv[2], encoding="utf-8"))
-    salida = sys.argv[3] if len(sys.argv) > 3 else "/home/user/out/dorado1.mp4"
+    salida = sys.argv[3] if len(sys.argv) > 3 else "/home/user/out/dorado2.mp4"
     os.makedirs(os.path.dirname(salida), exist_ok=True)
     montar(spec, palabras, "/home/user/trabajo", salida)
     print("listo", duracion(salida), os.path.getsize(salida), flush=True)
