@@ -46,7 +46,9 @@ Las 7 imágenes nuevas llevan en el prompt dónde va el cielo, dónde el suelo y
 
 # Parte 2 — Los que fueron a buscarlo
 
-**Video final (3:10, 720×1280):** https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/62eab5a3-07f3-4c27-a04f-f1c4b57bb4e3.mp4
+**Video final v2 (3:10, 720×1280):** https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/acd7ed5f-49de-40b3-a849-bd758819dd0d.mp4
+
+(v1, con E02 y E09 de lado: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/62eab5a3-07f3-4c27-a04f-f1c4b57bb4e3.mp4)
 
 Guion: `GUION_PARTE2.md`, que va de la balsa muisca de Pasca (1969) a Pizarro y Orellana, Lope de Aguirre, Sepúlveda, Raleigh y Contractors Ltd, y cierra en el Museo del Oro.
 Voz: El Faraón, eleven_v4, una sola toma (`audio/faraon_v4_parte2.mp3`, 183,4 s).
@@ -59,7 +61,8 @@ Voz: El Faraón, eleven_v4, una sola toma (`audio/faraon_v4_parte2.mp3`, 183,4 s
 | 14 planos clave | **Seedance 2.5, 720p**, sonido nativo | ≈ 27.700 |
 | 44 planos | **Kling 3.0, 720p**, sonido nativo | ≈ 16.800 |
 | Música 190 s instrumental | ElevenLabs Music v2 | ≈ 3.800 |
-| **Total** | | **≈ 53.000** |
+| v2: E02 (cueva) y E09 (canela) salían de lado; 4 imágenes nuevas + 2 clips | Nano Banana Pro + Kling 3.0 | 1.035 |
+| **Total** | | **≈ 54.000** |
 
 Por debajo del tope de 60.000. Kling 2.5 no se usó.
 
@@ -67,5 +70,5 @@ Por debajo del tope de 60.000. Kling 2.5 no se usó.
 `build2/`, con la misma estructura que `build/`: `plan.py` (respiros en 20,5 / 65,8 / 94,9 / 122,4 / 148,8 s, todos dentro de silencios medidos de la voz), `planos.py` → `planos.json`, `palabras.json`, `hacer_spec.py` (rótulos 1541 · GONZALO PIZARRO, 1561 · LOPE DE AGUIRRE, −20 METROS, 1618 · EJECUTADO, 1904 · CONTRACTORS LTD…), `montar.py`, `imagenes.tsv` y `clips.tsv`.
 
 ## Medidas del render final
-−14,1 LUFS integrados; 190,5 s; 720×1280; sin imágenes congeladas. En la rejilla de fotogramas, los 58 planos salen derechos y sin teléfonos ni marcos.
+−14,1 LUFS integrados; 190,5 s; 720×1280; sin imágenes congeladas. v1 se revisó con una rejilla de miniaturas de 54×96 y a ese tamaño no se notaba que E02 y E09 estaban girados 90°. En v2 se revisaron los 58 planos a 100×178 y los sospechosos a 162×288, con E02 y E09 ya rehechos. Las imágenes de reemplazo describen la escena anclada al suelo: techo arriba, suelo abajo, troncos verticales, linterna con la llama hacia arriba.
 Para evitar planos de lado, los prompts de imagen empiezan con "Tall vertical 9:16 composition, the top of the frame is up". Los planos rehechos usan "Upright portrait-format cinematic frame… No phones" (con "smartphone photo" aparecían teléfonos dentro de la imagen).
