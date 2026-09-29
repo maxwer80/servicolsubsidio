@@ -424,3 +424,33 @@ Muiscas, conquistadores, la laguna de Guatavita… todo cuidando que cada detall
 ¿Qué leyenda quieres que haga después? Te leo en los comentarios 👇
 
 #InteligenciaArtificial #IA #VideoConIA #ElDorado #Guatavita #HistoriaDeColombia #Leyendas #CreadorDeContenido #ElevenLabs #Kling #HistoriasDelMundoMundial
+
+## 11. El Dorado · Parte 2
+
+**Facebook**
+Durante 400 años lo buscaron en la selva y en el fondo de una laguna. 🪙
+Se comieron sus caballos en la Amazonía, un soldado cojo le declaró la guerra al rey de España, vaciaron media laguna de Guatavita y una empresa inglesa quebró intentando secarla…
+Y al final El Dorado apareció en 1969, en una cueva de Pasca, dentro de una vasija de barro. Y cabía en una mano.
+
+Hoy lo puedes ver en el Museo del Oro de Bogotá. ¿Qué leyenda quieres que investigue ahora? Escríbela en los comentarios. 👇
+
+#ElDorado #BalsaMuisca #Guatavita #MuseoDelOro #HistoriaDeColombia #Leyendas #Misterios #HistoriasDelMundoMundial
+
+**YouTube (título):** El Dorado: 400 años buscándolo… y cabía en una mano | Parte 2
+**YouTube (descripción):** Pizarro, Orellana, Lope de Aguirre, Sepúlveda, Walter Raleigh y una empresa inglesa en quiebra: todos buscaron El Dorado. La respuesta estaba en una cueva de Pasca, Colombia. Parte 2 de la historia. #ElDorado #Guatavita #historia
+**TikTok:** Vaciaron una laguna para encontrar El Dorado… y estaba en una cueva. 🪙 #ElDorado #BalsaMuisca #historia #Colombia
+
+**Instagram (detrás de cámaras con IA)**
+Esto es lo que estoy haciendo con inteligencia artificial para mi página de Facebook 👇
+
+La segunda parte de El Dorado, hecha de principio a fin con IA:
+🎙️ La voz del narrador: ElevenLabs
+🖼️ Más de 60 imágenes de época: Nano Banana Pro
+🎬 58 escenas animadas con sonido: Seedance 2.5 y Kling 3.0
+🎵 Música original andina
+
+Conquistadores en la Amazonía, Lope de Aguirre, la laguna de Guatavita, la Torre de Londres y la balsa muisca de oro… cuidando que cada detalle sea fiel a su época.
+
+¿Quieres ver el video completo? Está en mi página de Facebook, Historias del Mundo Mundial. Link en la bio 🔗
+
+#InteligenciaArtificial #IA #VideoConIA #ElDorado #BalsaMuisca #HistoriaDeColombia #Leyendas #CreadorDeContenido #ElevenLabs #Kling #HistoriasDelMundoMundial

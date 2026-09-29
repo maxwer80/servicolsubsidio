@@ -113,3 +113,17 @@ Paquete: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/
 
 GPT 2 mini (medium) en Magnific, mismo estilo. Textos revisados a ojo. 300 créditos de Magnific.
 Ids: JNVA4FXOq4, yiDzN1jPW9, tCsbaDomZJ.
+
+## Miniaturas de El Dorado · Parte 2
+
+Paquete: https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/6bdcb03a-26d0-4f40-a866-7cd2704337e5.zip
+
+| Archivo | Tamaño | Uso |
+|---|---|---|
+| portada_reel_tiktok_dorado2_1080x1920.jpg | 1080×1920 | portada de Reel / Short / TikTok ("EL DORADO · PARTE 2 · ¿DÓNDE ESTABA?") |
+| miniatura_youtube_dorado2_1280x720.jpg | 1280×720 | miniatura de YouTube ("EL DORADO · PARTE 2 · 400 AÑOS BUSCÁNDOLO… Y CABÍA EN UNA MANO") |
+| post_facebook_dorado2_1080x1350.jpg | 1080×1350 | post de imagen en Facebook ("¿DÓNDE ESTABA EL DORADO? · VACIARON UNA LAGUNA PARA ENCONTRARLO") |
+
+GPT 2 mini (medium) en Magnific, mismo estilo. Textos revisados a ojo. 300 créditos de Magnific.
+El post de Facebook salió en 3:4; se llevó a 4:5 con fondo desenfocado para no recortar los textos.
+Ids: SyWT9WFUb8, LwGYOYSswO, WDEFdH7cXe.
