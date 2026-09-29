@@ -1,6 +1,6 @@
 # El Dorado · Parte 1: el hombre dorado que nunca apareció
 
-**Video final:** https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/c9508bc1-ab95-4e6b-942c-34cb349371c1.mp4
+**Video final:** https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/c38b255b-93fe-4687-9a9c-07dcdcc83a71.mp4
 
 **3:02 · 9:16 · 720×1280 · 30 fps · H.264 + AAC · −13,9 LUFS · logo de la marca arriba a la derecha.**
 Termina pidiendo "PARTE 2" en los comentarios.
@@ -39,4 +39,5 @@ El tope pedido era 60.000. Kling 2.5 no se usó.
 v2 (corrección): el respiro tras "…forma de cobrar" (1:21) pasó de 2,5 s a 0,8 s, porque sumado al silencio
 natural de la voz dejaba más de 4 s casi mudos y se oía como un corte. Las subidas y bajadas de volumen de los
 respiros ahora son rampas de 0,4 s. Entre 1:18 y 1:26 el audio ya no baja de −27 dB RMS en ventanas de 0,25 s.
+v3: el corte de voz de 1:21 estaba en 79,7 s, justo cuando empieza "1536" (whisper lo ubicaba ~1 s tarde), y partía la palabra. Ahora los respiros se ponen dentro de silencios medidos en la voz (79,2 s y 153,5 s); transcribiendo el video final, "1536" sale entero.
 Las 7 imágenes nuevas llevan en el prompt dónde va el cielo, dónde el suelo y hacia dónde apunta la cabeza de las personas.
