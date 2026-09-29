@@ -309,9 +309,11 @@ def montar(spec, palabras, trabajo, salida):
     c_ini = spec["cierre"]["ini"]
     # respiros: en los huecos abiertos en la voz el ambiente sube y la musica baja un poco
     huecos = [(mover(p, pausas) - d, mover(p, pausas)) for p, d in pausas]
-    en_hueco = "+".join(f"between(t,{a:.2f},{b:.2f})" for a, b in huecos) or "0"
-    sube = f"volume='if({en_hueco},2.2,1)':eval=frame"
-    baja = f"volume='if({en_hueco},0.75,1)':eval=frame"
+    # rampa de 0,4 s a cada lado del hueco (un escalon seco se oye como un corte)
+    en_hueco = "+".join(f"clip((t-{a:.2f})/0.4,0,1)*clip(({b:.2f}-t)/0.4,0,1)"
+                        for a, b in huecos) or "0"
+    sube = f"volume='1+1.2*({en_hueco})':eval=frame"
+    baja = f"volume='1-0.25*({en_hueco})':eval=frame"
     filtros = ";".join([
         # voz: limpia y un poco comprimida, sin moverla en el tiempo
         "[1:a]aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo,"

@@ -2,10 +2,10 @@
 import math
 
 # respiros: (punto de la voz original, segundos de silencio que se abren)
-PAUSAS = [(23.6, 2.0), (79.7, 2.5), (129.6, 2.5), (153.7, 2.0)]
+PAUSAS = [(23.6, 2.0), (79.7, 0.8), (129.6, 2.5), (153.7, 2.0)]
 FIN_VOZ = 170.1
 CIERRE = 164.9            # "Si quieres saber..." (tiempo de la voz original)
-DURACION = 184.0
+DURACION = 182.3
 LENTO_MAX = 1.2
 
 
