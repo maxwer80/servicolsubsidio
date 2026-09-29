@@ -128,3 +128,10 @@ Y cada indígena al que le preguntaban señalaba lo mismo: [pausa] más lejos.
 - Quesada: salió de Santa Marta en 1536 con unos 700–800 hombres y llegó al altiplano con unos 170–180.
 - 1539: encuentro de Quesada, Federmann y Belalcázar en la sabana de Bogotá; el pleito siguió en España.
 - Raleigh: ejecutado en Londres el 29 de octubre de 1618, tras la expedición de 1617–1618 en la que murió su hijo Wat.
+
+## Audio generado (ElevenLabs v4)
+
+- Modelo: `eleven_v4` · Voz: **Frank – Deep Documentary** (colombiana, grave) · 4 tomas, 10.752 créditos.
+- Etiquetas adaptadas al vocabulario de v4: `[serious] [deep voice]`, `[softly]`, `[calmly]`, `[firmly]`, `[sarcastic]`, `[dryly]`, `[tense]`, `[mysteriously]`, `[warmly]`, `[short pause]`, `[pause]`, `[long pause]`.
+- Flow: https://elevenlabs.io/app/flows/zyiNzSOPSJQDeAwSFKu0
+- Archivos: `dorado/audio/toma1.mp3` (2:46.8), `toma2.mp3` (2:47.2), `toma3.mp3` (2:44.0), `toma4.mp3` (2:50.4).
