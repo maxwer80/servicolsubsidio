@@ -1,8 +1,8 @@
 # El Dorado · Parte 1: el hombre dorado que nunca apareció
 
-**Video final:** https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/6b3f9be7-e8be-4fa3-a0e1-27d7cd1dd675.mp4
+**Video final:** https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/c9508bc1-ab95-4e6b-942c-34cb349371c1.mp4
 
-**3:04 · 9:16 · 720×1280 · 30 fps · H.264 + AAC · −13,9 LUFS · logo de la marca arriba a la derecha.**
+**3:02 · 9:16 · 720×1280 · 30 fps · H.264 + AAC · −13,9 LUFS · logo de la marca arriba a la derecha.**
 Termina pidiendo "PARTE 2" en los comentarios.
 
 Voz: **El Faraon** (ElevenLabs `eleven_v4`, una toma, `audio/faraon_v4.mp3`). Todo lo visual se hizo en **Magnific**:
@@ -13,7 +13,8 @@ Voz: **El Faraon** (ElevenLabs `eleven_v4`, una toma, `audio/faraon_v4.mp3`). To
 | 13 planos clave con sonido nativo | **Seedance 2.5, 720p** | 25.520 |
 | 45 planos con sonido nativo | **Kling 3.0, 720p** | ≈ 17.745 |
 | Música 185 s instrumental (ocarina, flauta, tambores, vihuela, cuerdas) | ElevenLabs Music v2 | 3.700 |
-| **Total** (saldo de la cuenta: 217.921 → 166.381) | | **51.540** |
+| Corrección v2: 7 planos que salían de lado (D01, D20, D21, D24, D28, D45, D50), imagen nueva + Kling 3.0 | Nano Banana Pro + Kling 3.0 | 3.360 |
+| **Total** (saldo de la cuenta: 217.921 → 163.021) | | **54.900** |
 
 El tope pedido era 60.000. Kling 2.5 no se usó.
 
@@ -33,4 +34,9 @@ El tope pedido era 60.000. Kling 2.5 no se usó.
 - `build/imagenes.tsv`, `build/clips.tsv`: la imagen y el clip de cada plano.
 
 ## Medidas del render final
-−13,9 LUFS integrados; 184,0 s; 720×1280; respiros entre −19 y −26 LUFS; sin imágenes congeladas.
+−13,9 LUFS integrados; 182,3 s; 720×1280; sin imágenes congeladas.
+
+v2 (corrección): el respiro tras "…forma de cobrar" (1:21) pasó de 2,5 s a 0,8 s, porque sumado al silencio
+natural de la voz dejaba más de 4 s casi mudos y se oía como un corte. Las subidas y bajadas de volumen de los
+respiros ahora son rampas de 0,4 s. Entre 1:18 y 1:26 el audio ya no baja de −27 dB RMS en ventanas de 0,25 s.
+Las 7 imágenes nuevas llevan en el prompt dónde va el cielo, dónde el suelo y hacia dónde apunta la cabeza de las personas.
