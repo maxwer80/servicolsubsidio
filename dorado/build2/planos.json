@@ -1,0 +1,582 @@
+[
+ {
+  "id": "E01",
+  "modelo": "S",
+  "dur": 4,
+  "ini": 0.0,
+  "fin": 3.14,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Two Colombian campesinos in wool ruanas and straw hats, one holding a kerosene lantern, cautiously entering the mouth of a dark rock cave on a green Andean hillside at dusk, mist. Camera held level, horizon horizontal. Photorealistic cinematic film still, rural Colombia in 1969, Cundinamarca Andes near Pasca, period-correct 1960s campesino clothing (wool ruanas, straw hats, rubber boots), deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The two men duck into the cave, the lantern light swings over the wet rock. Sound: wind, dripping water, footsteps on gravel. No music, no speech.",
+  "refs": ""
+ },
+ {
+  "id": "E02",
+  "modelo": "K",
+  "dur": 4,
+  "ini": 3.14,
+  "fin": 6.48,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Inside a dark rock cave lit only by a kerosene lantern, an old brown clay vessel half-buried in dry earth against the rock wall, dust in the air. Camera held level, horizon horizontal. Photorealistic cinematic film still, rural Colombia in 1969, Cundinamarca Andes near Pasca, period-correct 1960s campesino clothing (wool ruanas, straw hats, rubber boots), deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Slow push-in toward the clay vessel as the lantern light flickers. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E03",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 6.48,
+  "fin": 8.5,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Close-up of a campesino's rough hands brushing earth off an old Muisca clay vessel and reaching inside, kerosene lantern light. Camera held level, horizon horizontal. Photorealistic cinematic film still, rural Colombia in 1969, Cundinamarca Andes near Pasca, period-correct 1960s campesino clothing (wool ruanas, straw hats, rubber boots), deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The hands carefully lift the lid and reach into the vessel. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E04",
+  "modelo": "S",
+  "dur": 4,
+  "ini": 8.5,
+  "fin": 12.48,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. The legendary gold Muisca raft (Balsa Muisca) revealed in lantern light: a small flat raft of gold filigree with a large central gold cacique figure wearing a headdress surrounded by smaller gold attendant figures, resting in a campesino's cupped hands inside a dark cave. Camera held level, horizon horizontal. Photorealistic cinematic film still, rural Colombia in 1969, Cundinamarca Andes near Pasca, period-correct 1960s campesino clothing (wool ruanas, straw hats, rubber boots), deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The hands slowly raise the golden raft into the lantern light, gold glints and sparkles, dust floats. Sound: soft breath, dripping water, a faint echo in the cave. No music, no speech.",
+  "refs": ""
+ },
+ {
+  "id": "E05",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 12.48,
+  "fin": 14.84,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Macro close-up of the small gold Muisca raft figurine lying on a campesino's palm, showing it is smaller than the hand, lantern light. Camera held level, horizon horizontal. Photorealistic cinematic film still, rural Colombia in 1969, Cundinamarca Andes near Pasca, period-correct 1960s campesino clothing (wool ruanas, straw hats, rubber boots), deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Very slow orbit around the tiny golden raft, light sliding over the gold. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E06",
+  "modelo": "K",
+  "dur": 4,
+  "ini": 14.84,
+  "fin": 18.38,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. A rusted Spanish morion helmet and a broken sword overgrown with roots and moss on the floor of a dark Amazon rainforest, rain. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Rain drips on the rusted helmet, slow push-in, mist moving. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E07",
+  "modelo": "K",
+  "dur": 5,
+  "ini": 18.38,
+  "fin": 23.0,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. An abandoned dried muddy crater with a rusted steam pump and broken iron pipes, cracked earth, grey sky, no people. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1904 Colombia, Edwardian-era British mining engineers and Colombian workers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Slow drift across the rusted abandoned machinery, dust blowing in the wind. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E08",
+  "modelo": "S",
+  "dur": 4,
+  "ini": 23.0,
+  "fin": 26.7,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Gonzalo Pizarro on a horse in steel breastplate and morion leading a long column of Spanish soldiers, hundreds of indigenous porters, horses, pigs and dogs out of colonial Quito in 1541, Andes volcano behind, morning. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The column marches past the camera toward the misty mountains, Pizarro raises his hand to advance. Sound: hooves, marching feet, pigs grunting, dogs barking, wind. No music, no speech.",
+  "refs": "P"
+ },
+ {
+  "id": "E09",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 26.7,
+  "fin": 29.6,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. A misty tropical forest of wild cinnamon trees with reddish bark in the eastern Andes, a Spanish soldier peeling bark with a knife and smelling it. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The soldier peels the cinnamon bark and smells it, leaves sway in the mist. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E10",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 29.6,
+  "fin": 32.34,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. A long column of about two hundred Spanish soldiers in quilted cotton armor and steel helmets with pikes and crossbows marching down a steep muddy trail into the green Amazon jungle. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The soldiers march down the trail, armor clanking, mist between the trees. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E11",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 32.34,
+  "fin": 34.22,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Hundreds of indigenous Andean porters bent under heavy loads held by tumplines on their foreheads, walking barefoot in the mud of a jungle trail, Spanish guards behind. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The porters struggle forward step by step under the heavy loads in the mud. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E12",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 34.22,
+  "fin": 36.66,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Horses, a herd of pigs and hunting dogs driven along a narrow jungle trail by Spanish soldiers in 1541. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The pigs and dogs push along the trail, a horse slips in the mud. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E13",
+  "modelo": "S",
+  "dur": 4,
+  "ini": 36.66,
+  "fin": 40.52,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. The Spanish expedition struggling through torrential rain in the Amazon rainforest, men knee-deep in brown mud, a horse sinking, exhausted porters collapsing, dark green jungle. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Heavy rain pours, men pull a sinking horse out of the mud, a porter falls to his knees. Sound: pouring rain, thunder, horses neighing, men groaning. No music, no speech.",
+  "refs": ""
+ },
+ {
+  "id": "E14",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 40.52,
+  "fin": 42.24,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Starving Spanish soldiers with hollow cheeks sitting around a weak smoky fire under a rain-soaked jungle canopy, an empty food sack on the ground. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Rain drips, the fire smokes, a soldier shakes the empty sack. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E15",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 42.24,
+  "fin": 44.04,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Hungry Spanish soldiers roasting a pig on a wooden spit over a campfire in the jungle at night. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The spit turns slowly, fat drips into the fire, flames flare. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E16",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 44.04,
+  "fin": 45.84,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. A starving Spanish soldier sitting alone in the jungle at night holding an empty dog leash of leather, looking down in guilt, campfire light. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "He lowers his head and tightens his grip on the empty leash, the fire crackles. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E17",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 45.84,
+  "fin": 47.74,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. A group of starving Spanish soldiers standing in the rain around a dead horse lying in the jungle mud, seen from a distance, sombre, no blood. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Rain falls on the silent men, one removes his helmet, slow push-in. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E18",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 47.74,
+  "fin": 50.78,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Close-up of an iron pot boiling over a jungle fire with leather saddle straps and belts cut into pieces inside, a starving soldier stirring it. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The leather pieces churn in the boiling water, steam rises. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E19",
+  "modelo": "K",
+  "dur": 4,
+  "ini": 50.78,
+  "fin": 54.78,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Gonzalo Pizarro giving orders to Francisco de Orellana, a one-eyed conquistador with a patch over one eye, on the muddy bank of a wide jungle river beside a newly built wooden brigantine. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Pizarro points down the river, Orellana nods and turns toward the boat. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": "P"
+ },
+ {
+  "id": "E20",
+  "modelo": "S",
+  "dur": 4,
+  "ini": 54.78,
+  "fin": 58.28,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. A small 16th century Spanish brigantine with a patched sail and soldiers on board sailing away down an immense brown jungle river into the mist. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The brigantine drifts away with the current and slowly disappears into the mist while the camera stays on the shore. Sound: river current, birds, oars creaking. No music, no speech.",
+  "refs": ""
+ },
+ {
+  "id": "E21",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 58.28,
+  "fin": 61.32,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Aerial view of the immense mouth of the Amazon river opening into the Atlantic ocean, brown water meeting blue sea, a tiny sailing brigantine, 1542. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Slow aerial glide over the huge river mouth toward the open ocean. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E22",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 61.32,
+  "fin": 64.38,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Gonzalo Pizarro and a few dozen ragged, barefoot, emaciated Spanish survivors in torn clothes arriving at the edge of colonial Quito, townspeople staring in shock. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The survivors limp forward, Pizarro leans on a stick, townspeople step back. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": "P"
+ },
+ {
+  "id": "E23",
+  "modelo": "K",
+  "dur": 4,
+  "ini": 64.38,
+  "fin": 67.7,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Close-up of bare, wounded, muddy feet walking slowly on cobblestones of colonial Quito. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1541 Spanish expedition from Quito into the Amazon rainforest, period-correct conquistador armor and indigenous Andean porters, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The bare feet step slowly forward on the stones. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E24",
+  "modelo": "K",
+  "dur": 4,
+  "ini": 67.7,
+  "fin": 71.86,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Several 16th century Spanish brigantines and rafts crowded with soldiers going down a dark wide Amazon river at dusk in 1560, dense jungle on both sides. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1561 Spanish expedition on the Amazon and Orinoco rivers, period-correct 16th century Spanish soldiers and brigantines, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The boats drift down the river, oars dip into the dark water, mist rises. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E25",
+  "modelo": "S",
+  "dur": 4,
+  "ini": 71.86,
+  "fin": 76.02,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Lope de Aguirre, a gaunt lame Spanish soldier with wild staring eyes and a grey-black beard in a battered morion, limping along the deck of a brigantine on a dark river, stormy sky. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1561 Spanish expedition on the Amazon and Orinoco rivers, period-correct 16th century Spanish soldiers and brigantines, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Aguirre limps forward, stops and stares straight at the camera with a cold, unsettling look. Sound: river, creaking wood, distant thunder. No music, no speech.",
+  "refs": "A"
+ },
+ {
+  "id": "E26",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 76.02,
+  "fin": 77.6,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Night in a jungle camp, the canvas wall of a tent lit from inside by a candle, the shadows of several men with swords attacking a man inside, silhouettes only, no blood. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1561 Spanish expedition on the Amazon and Orinoco rivers, period-correct 16th century Spanish soldiers and brigantines, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The shadows lunge and the candle inside goes out. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E27",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 77.6,
+  "fin": 79.42,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Lope de Aguirre raising his sword in front of rebel Spanish soldiers on a riverbank at night, torches, a torn Spanish royal banner lying in the mud. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1561 Spanish expedition on the Amazon and Orinoco rivers, period-correct 16th century Spanish soldiers and brigantines, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Aguirre raises his sword, the soldiers raise their weapons, torches flare. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": "A"
+ },
+ {
+  "id": "E28",
+  "modelo": "K",
+  "dur": 4,
+  "ini": 79.42,
+  "fin": 83.26,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Lope de Aguirre writing a letter with a quill on parchment by candlelight inside a rough riverside hut, his face tense and furious. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1561 Spanish expedition on the Amazon and Orinoco rivers, period-correct 16th century Spanish soldiers and brigantines, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The quill scratches fast across the parchment, the candle flickers. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": "A"
+ },
+ {
+  "id": "E29",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 83.26,
+  "fin": 85.68,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Spanish royal soldiers with arquebuses and pikes surrounding a colonial adobe house in Barquisimeto, Venezuela, 1561, dusk. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1561 Spanish expedition on the Amazon and Orinoco rivers, period-correct 16th century Spanish soldiers and brigantines, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The soldiers close in around the house, pikes lowered. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E30",
+  "modelo": "S",
+  "dur": 6,
+  "ini": 85.68,
+  "fin": 90.92,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Lope de Aguirre kneeling in a dark adobe room in front of his frightened teenage daughter in a simple 16th century dress, holding her face with one hand, a single candle, tragic atmosphere, no weapons visible. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1561 Spanish expedition on the Amazon and Orinoco rivers, period-correct 16th century Spanish soldiers and brigantines, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Aguirre looks at his daughter with despair, she closes her eyes, the candle flame trembles and slowly goes out. Sound: heavy breathing, soldiers shouting outside, a door being hammered. No music, no speech.",
+  "refs": "A"
+ },
+ {
+  "id": "E31",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 90.92,
+  "fin": 93.08,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. An empty dark jungle river at dusk covered in mist, no boats. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1561 Spanish expedition on the Amazon and Orinoco rivers, period-correct 16th century Spanish soldiers and brigantines, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Mist slowly moves over the still water, slow drift. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E32",
+  "modelo": "K",
+  "dur": 5,
+  "ini": 93.08,
+  "fin": 97.48,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Many simple wooden crosses of graves along a muddy jungle riverbank, rain. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1561 Spanish expedition on the Amazon and Orinoco rivers, period-correct 16th century Spanish soldiers and brigantines, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Slow dolly along the line of crosses as rain falls. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E33",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 97.48,
+  "fin": 99.54,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. The round emerald-green crater lake of Guatavita seen from its rim, green Andean hills, low clouds, 1580. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Guatavita crater lake in the Colombian Andes in 1580, Spanish colonial New Granada, Muisca laborers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Slow drone move along the crater rim over the still lake. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E34",
+  "modelo": "K",
+  "dur": 4,
+  "ini": 99.54,
+  "fin": 103.1,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Underwater view of the dark green bottom of a lake, gold Muisca figurines and emeralds half-buried in the mud glinting in faint light rays. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Guatavita crater lake in the Colombian Andes in 1580, Spanish colonial New Granada, Muisca laborers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Light rays sway, the gold glints in the mud, slow push-in. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E35",
+  "modelo": "K",
+  "dur": 4,
+  "ini": 103.1,
+  "fin": 106.8,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Antonio de Sepúlveda, a Spanish merchant of 1580 in a black doublet, ruff and hat, holding a ledger and pointing at the rim of the Guatavita crater lake. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Guatavita crater lake in the Colombian Andes in 1580, Spanish colonial New Granada, Muisca laborers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "He points at the crater rim and turns to an overseer. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E36",
+  "modelo": "S",
+  "dur": 4,
+  "ini": 106.8,
+  "fin": 109.86,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Hundreds of indigenous Muisca laborers digging a huge deep V-shaped cut into the rim of the Guatavita crater lake with wooden tools and baskets of earth, Spanish overseers watching. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Guatavita crater lake in the Colombian Andes in 1580, Spanish colonial New Granada, Muisca laborers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The laborers dig and carry baskets of earth up the slope in long lines. Sound: digging, baskets, shouting overseers, wind. No music, no speech.",
+  "refs": ""
+ },
+ {
+  "id": "E37",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 109.86,
+  "fin": 111.94,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Water gushing out through a deep cut in the rim of the Guatavita crater lake, the lake level dropping and exposing muddy banks. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Guatavita crater lake in the Colombian Andes in 1580, Spanish colonial New Granada, Muisca laborers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The water rushes out through the cut, the shoreline recedes. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E38",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 111.94,
+  "fin": 114.08,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Muddy hands pulling small gold Muisca figurines out of the exposed mud of the lake bed. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Guatavita crater lake in the Colombian Andes in 1580, Spanish colonial New Granada, Muisca laborers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The hands pull a gold figure out of the mud and wipe it. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E39",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 114.08,
+  "fin": 116.48,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Close-up of a huge raw green emerald the size of a hen's egg in a dirty palm, sunlight. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Guatavita crater lake in the Colombian Andes in 1580, Spanish colonial New Granada, Muisca laborers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The hand slowly turns the emerald, light shines through it. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E40",
+  "modelo": "S",
+  "dur": 4,
+  "ini": 116.48,
+  "fin": 120.32,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. The walls of the deep cut in the rim of the Guatavita crater lake collapsing in a landslide of mud and rocks onto the laborers in the trench below, dust and chaos. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Guatavita crater lake in the Colombian Andes in 1580, Spanish colonial New Granada, Muisca laborers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The earth walls give way and a wave of mud crashes into the trench as workers run. Sound: rumble, cracking earth, screams in the distance, falling rocks. No music, no speech.",
+  "refs": ""
+ },
+ {
+  "id": "E41",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 120.32,
+  "fin": 122.06,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. An old poor Spanish man, Antonio de Sepúlveda, sitting alone in a bare cold room with an empty chest and a candle, 1580s New Granada. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Guatavita crater lake in the Colombian Andes in 1580, Spanish colonial New Granada, Muisca laborers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "He stares at the candle, slow push-in. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E42",
+  "modelo": "K",
+  "dur": 4,
+  "ini": 122.06,
+  "fin": 125.6,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. The V-shaped notch still visible today in the green rim of the Guatavita crater lake, Colombia, cloudy day, lush vegetation. Camera held level, horizon horizontal. Photorealistic cinematic film still, present day, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Slow aerial move toward the old notch in the crater rim. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E43",
+  "modelo": "K",
+  "dur": 6,
+  "ini": 125.6,
+  "fin": 131.32,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Sir Walter Raleigh in 1595, middle-aged with dark pointed beard, rich doublet and pearl earring, leaning over a hand-drawn map of Guiana and the Orinoco by candlelight. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Elizabethan and Jacobean England 1595-1618, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Raleigh traces a route on the map with his finger, the candle flickers. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": "R"
+ },
+ {
+  "id": "E44",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 131.32,
+  "fin": 133.9,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Sir Walter Raleigh kneeling and presenting a leather-bound book to Queen Elizabeth I on her throne in a candlelit Elizabethan court, courtiers watching. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Elizabethan and Jacobean England 1595-1618, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The queen takes the book and looks at him, courtiers whisper. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": "R"
+ },
+ {
+  "id": "E45",
+  "modelo": "S",
+  "dur": 5,
+  "ini": 133.9,
+  "fin": 138.7,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Sir Walter Raleigh, older with grey beard, in a cold stone cell of the Tower of London writing by candlelight, a small barred window. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Elizabethan and Jacobean England 1595-1618, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Raleigh writes, stops and looks up at the barred window as the seasons pass: light changes from winter grey to summer gold. Sound: quill, wind, distant bells. No music, no speech.",
+  "refs": "R"
+ },
+ {
+  "id": "E46",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 138.7,
+  "fin": 141.1,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. King James I of England on his throne in 1616, stern, pointing a finger in warning, dark wood-panelled hall. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Elizabethan and Jacobean England 1595-1618, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The king leans forward and raises a warning finger. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E47",
+  "modelo": "S",
+  "dur": 4,
+  "ini": 141.1,
+  "fin": 144.22,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. English soldiers in morion helmets attacking and burning the small Spanish river settlement of San Thomé on the Orinoco at night, thatched roofs on fire. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1618 English expedition on the Orinoco river in Guiana, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Soldiers charge through the burning village, smoke and sparks fill the air. Sound: fire, musket shots, shouting, alarm bell. No music, no speech.",
+  "refs": ""
+ },
+ {
+  "id": "E48",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 144.22,
+  "fin": 146.58,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. A young English officer in a breastplate falling to his knees amid smoke and fire at night, his comrades turning toward him, no blood. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1618 English expedition on the Orinoco river in Guiana, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The young man drops his sword and falls, smoke drifts. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E49",
+  "modelo": "K",
+  "dur": 3,
+  "ini": 146.58,
+  "fin": 148.82,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Old Sir Walter Raleigh standing alone on the deck of a galleon at dusk, grief-stricken, empty hands, grey sea. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1618 English expedition on the Orinoco river in Guiana, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Raleigh looks at his empty hands and then at the sea. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": "R"
+ },
+ {
+  "id": "E50",
+  "modelo": "K",
+  "dur": 4,
+  "ini": 148.82,
+  "fin": 152.3,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Old Sir Walter Raleigh kneeling at the wooden execution block on a scaffold in Westminster in 1618, the hooded executioner raising the axe, grey morning, crowd below. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate Elizabethan and Jacobean England 1595-1618, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The executioner lifts the axe; the camera cuts to the grey sky before any blow. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": "R"
+ },
+ {
+  "id": "E51",
+  "modelo": "K",
+  "dur": 5,
+  "ini": 152.3,
+  "fin": 156.6,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. British engineers in 1904 in pith helmets and tweed suits with a large steam pump and the stone entrance of a drainage tunnel at the Guatavita crater lake, Colombian workers. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1904 Colombia, Edwardian-era British mining engineers and Colombian workers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The steam pump puffs smoke, workers push a cart out of the tunnel. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E52",
+  "modelo": "S",
+  "dur": 4,
+  "ini": 156.6,
+  "fin": 159.1,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. The drained crater of Guatavita lake in 1904: a vast wet muddy bowl with a small pool left in the center, workers in the mud with shovels, a steam pump on the rim. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1904 Colombia, Edwardian-era British mining engineers and Colombian workers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Slow aerial reveal of the drained crater as the last water drains away. Sound: dripping mud, steam engine, wind. No music, no speech.",
+  "refs": ""
+ },
+ {
+  "id": "E53",
+  "modelo": "K",
+  "dur": 4,
+  "ini": 159.1,
+  "fin": 162.68,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Close-up of mud baked hard and cracked like cement under harsh sun on the bottom of a drained lake, a shovel stuck in it. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1904 Colombia, Edwardian-era British mining engineers and Colombian workers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "A worker hits the cracked hard mud with a pickaxe, it barely chips. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E54",
+  "modelo": "K",
+  "dur": 4,
+  "ini": 162.68,
+  "fin": 166.62,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. An auction room in London around 1910, an auctioneer with a gavel, a few small gold Muisca figurines on a velvet table, gentlemen in suits bidding. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1904 Colombia, Edwardian-era British mining engineers and Colombian workers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The auctioneer raises the gavel and brings it down. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E55",
+  "modelo": "K",
+  "dur": 5,
+  "ini": 166.62,
+  "fin": 171.28,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Rusted abandoned steam machinery and an overgrown tunnel entrance on the rim of the Guatavita crater, grass growing through the iron, mist. Camera held level, horizon horizontal. Photorealistic cinematic film still, historically accurate 1904 Colombia, Edwardian-era British mining engineers and Colombian workers, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Slow drift past the rusted machinery, grass sways in the wind. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ },
+ {
+  "id": "E56",
+  "modelo": "S",
+  "dur": 7,
+  "ini": 171.28,
+  "fin": 177.68,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. Inside a dark rock cave, the small gold Muisca raft emerging from dry mud and earth inside a broken clay vessel, lit by a kerosene lantern. Camera held level, horizon horizontal. Photorealistic cinematic film still, rural Colombia in 1969, Cundinamarca Andes near Pasca, period-correct 1960s campesino clothing (wool ruanas, straw hats, rubber boots), deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "The lantern light slowly reveals the gold raft as dust settles on it. Sound: dripping water, soft wind at the cave mouth. No music, no speech.",
+  "refs": ""
+ },
+ {
+  "id": "E57",
+  "modelo": "S",
+  "dur": 5,
+  "ini": 177.68,
+  "fin": 182.76,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. The gold Balsa Muisca displayed alone in a glass case in the dark exhibition hall of the Museo del Oro in Bogotá, spotlight, reflections on the glass, a few visitors silhouetted. Camera held level, horizon horizontal. Photorealistic cinematic film still, present day, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Slow push-in toward the golden raft in the glass case while visitors pass in silhouette. Sound: quiet museum ambience, soft footsteps. No music, no speech.",
+  "refs": ""
+ },
+ {
+  "id": "E58",
+  "modelo": "K",
+  "dur": 8,
+  "ini": 182.76,
+  "fin": 190.5,
+  "imagen": "Tall vertical 9:16 composition, the top of the frame is up: sky or ceiling at the top, ground at the bottom, people standing upright with heads toward the top. The round Guatavita crater lake at golden sunset seen from the rim, calm water, green hills, peaceful. Camera held level, horizon horizontal. Photorealistic cinematic film still, present day, deep green and warm gold palette, atmospheric mist, film grain, no text, no watermark.",
+  "movimiento": "Very slow push-in over the calm lake as the sun sets. Natural ambient sound effects only, no music, no speech, no voices.",
+  "refs": ""
+ }
+]

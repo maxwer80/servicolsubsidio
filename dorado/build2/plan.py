@@ -1,13 +1,13 @@
-"""El Dorado parte 1: cortes sobre la voz de El Faraon (eleven_v4, 170,6 s) y respiros."""
+"""El Dorado parte 2: cortes sobre la voz de El Faraon (eleven_v4, 183,4 s) y respiros."""
 import math
 
 # respiros: (punto de la voz original, segundos de silencio que se abren)
 # cada punto cae dentro de un silencio real de la voz (silencedetect -40 dB), no en los
 # tiempos de whisper: en "1536" whisper se corria ~1 s y el corte partia la palabra
-PAUSAS = [(23.6, 2.0), (79.2, 0.8), (129.6, 2.5), (153.5, 2.0)]
-FIN_VOZ = 170.1
-CIERRE = 164.9            # "Si quieres saber..." (tiempo de la voz original)
-DURACION = 182.3
+PAUSAS = [(20.5, 0.6), (65.8, 0.6), (94.9, 0.6), (122.4, 0.6), (148.8, 0.6)]
+FIN_VOZ = 183.04
+CIERRE = 179.7            # "¿Qué leyenda quieres…" (tiempo de la voz original)
+DURACION = 190.5
 LENTO_MAX = 1.2
 
 
