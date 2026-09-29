@@ -407,3 +407,20 @@ Todo empezó en la laguna de Guatavita, con un cacique muisca cubierto de polvo 
 
 **YouTube (título):** El Dorado: el hombre de oro que nadie encontró | Parte 1
 **TikTok:** El engaño más caro de su época empezó en una laguna de Colombia. ¿Parte 2? 👇 #ElDorado #Guatavita #historia
+
+**Instagram (detrás de cámaras con IA)**
+Esto es lo que estoy haciendo con inteligencia artificial para mi página de Facebook 👇
+
+La leyenda de El Dorado, hecha de principio a fin con IA:
+🎙️ La voz del narrador: ElevenLabs
+🖼️ Más de 60 imágenes de época: Nano Banana Pro
+🎬 58 escenas animadas con sonido: Seedance y Kling 3.0
+🎵 Música original con ocarina y tambores andinos
+
+Muiscas, conquistadores, la laguna de Guatavita… todo cuidando que cada detalle sea fiel al siglo XVI.
+
+¿Quieres ver el video completo? Está en mi página de Facebook, Historias del Mundo Mundial. Link en la bio 🔗
+
+¿Qué leyenda quieres que haga después? Te leo en los comentarios 👇
+
+#InteligenciaArtificial #IA #VideoConIA #ElDorado #Guatavita #HistoriaDeColombia #Leyendas #CreadorDeContenido #ElevenLabs #Kling #HistoriasDelMundoMundial
