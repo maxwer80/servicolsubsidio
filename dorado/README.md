@@ -41,3 +41,31 @@ natural de la voz dejaba más de 4 s casi mudos y se oía como un corte. Las sub
 respiros ahora son rampas de 0,4 s. Entre 1:18 y 1:26 el audio ya no baja de −27 dB RMS en ventanas de 0,25 s.
 v3: el corte de voz de 1:21 estaba en 79,7 s, justo cuando empieza "1536" (whisper lo ubicaba ~1 s tarde), y partía la palabra. Ahora los respiros se ponen dentro de silencios medidos en la voz (79,2 s y 153,5 s); transcribiendo el video final, "1536" sale entero.
 Las 7 imágenes nuevas llevan en el prompt dónde va el cielo, dónde el suelo y hacia dónde apunta la cabeza de las personas.
+
+---
+
+# Parte 2 — Los que fueron a buscarlo
+
+**Video final (3:10, 720×1280):** https://d2ol7oe51mr4n9.cloudfront.net/user_3F3sHT74ajkFDR1aNGJycFEgP61/62eab5a3-07f3-4c27-a04f-f1c4b57bb4e3.mp4
+
+Guion: `GUION_PARTE2.md`, que va de la balsa muisca de Pasca (1969) a Pizarro y Orellana, Lope de Aguirre, Sepúlveda, Raleigh y Contractors Ltd, y cierra en el Museo del Oro.
+Voz: El Faraón, eleven_v4, una sola toma (`audio/faraon_v4_parte2.mp3`, 183,4 s).
+
+## Créditos Magnific (aproximados)
+| Parte | Modelo | Créditos |
+|---|---|---|
+| 58 imágenes + 2 referencias de personaje (Pizarro, Aguirre) | Nano Banana Pro | ≈ 4.350 |
+| 5 imágenes rehechas (E20, E21, E33 y E52 salían de lado; E30 bloqueada por filtro) | Nano Banana Pro | ≈ 450 |
+| 14 planos clave | **Seedance 2.5, 720p**, sonido nativo | ≈ 27.700 |
+| 44 planos | **Kling 3.0, 720p**, sonido nativo | ≈ 16.800 |
+| Música 190 s instrumental | ElevenLabs Music v2 | ≈ 3.800 |
+| **Total** | | **≈ 53.000** |
+
+Por debajo del tope de 60.000. Kling 2.5 no se usó.
+
+## Cómo está armado
+`build2/`, con la misma estructura que `build/`: `plan.py` (respiros en 20,5 / 65,8 / 94,9 / 122,4 / 148,8 s, todos dentro de silencios medidos de la voz), `planos.py` → `planos.json`, `palabras.json`, `hacer_spec.py` (rótulos 1541 · GONZALO PIZARRO, 1561 · LOPE DE AGUIRRE, −20 METROS, 1618 · EJECUTADO, 1904 · CONTRACTORS LTD…), `montar.py`, `imagenes.tsv` y `clips.tsv`.
+
+## Medidas del render final
+−14,1 LUFS integrados; 190,5 s; 720×1280; sin imágenes congeladas. En la rejilla de fotogramas, los 58 planos salen derechos y sin teléfonos ni marcos.
+Para evitar planos de lado, los prompts de imagen empiezan con "Tall vertical 9:16 composition, the top of the frame is up". Los planos rehechos usan "Upright portrait-format cinematic frame… No phones" (con "smartphone photo" aparecían teléfonos dentro de la imagen).
