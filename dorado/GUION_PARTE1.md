@@ -135,3 +135,4 @@ Y cada indígena al que le preguntaban señalaba lo mismo: [pausa] más lejos.
 - Etiquetas adaptadas al vocabulario de v4: `[serious] [deep voice]`, `[softly]`, `[calmly]`, `[firmly]`, `[sarcastic]`, `[dryly]`, `[tense]`, `[mysteriously]`, `[warmly]`, `[short pause]`, `[pause]`, `[long pause]`.
 - Flow: https://elevenlabs.io/app/flows/zyiNzSOPSJQDeAwSFKu0
 - Archivos: `dorado/audio/toma1.mp3` (2:46.8), `toma2.mp3` (2:47.2), `toma3.mp3` (2:44.0), `toma4.mp3` (2:50.4).
+- **Toma El Faraon** (elegida por el usuario): voz *El Faraon – Deep, Powerful and Peaceful* (colombiana), `eleven_v4`, 1 toma, 2:50.6 → `dorado/audio/faraon_v4.mp3`.
