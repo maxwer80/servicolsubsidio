@@ -2,7 +2,9 @@
 import math
 
 # respiros: (punto de la voz original, segundos de silencio que se abren)
-PAUSAS = [(23.6, 2.0), (79.7, 0.8), (129.6, 2.5), (153.7, 2.0)]
+# cada punto cae dentro de un silencio real de la voz (silencedetect -40 dB), no en los
+# tiempos de whisper: en "1536" whisper se corria ~1 s y el corte partia la palabra
+PAUSAS = [(23.6, 2.0), (79.2, 0.8), (129.6, 2.5), (153.5, 2.0)]
 FIN_VOZ = 170.1
 CIERRE = 164.9            # "Si quieres saber..." (tiempo de la voz original)
 DURACION = 182.3
