@@ -238,10 +238,8 @@ function background(t){X.fillStyle=PAPER;X.fillRect(0,0,W,H);
   X.fillStyle='rgba(29,29,34,.07)';for(let y=30;y<H;y+=48)for(let x=30+((y/48)%2)*24;x<W;x+=48){X.beginPath();X.arc(x,y,2.2,0,7);X.fill();}
   // ground line
   X.fillStyle='rgba(29,29,34,.06)';X.fillRect(0,760,W,6);}
-function chrome(t){// AI disclosure label top-left, channel logo below it at 50 %
-  save(()=>{X.font='800 27px Inter';X.letterSpacing='1.5px';const s='IMÁGENES CREADAS CON IA',w=X.measureText(s).width+48;
-    rr(40,34,w,54,12);X.fillStyle='rgba(52,52,58,.92)';X.fill();X.fillStyle='#fff';X.textAlign='left';X.textBaseline='middle';X.fillText(s,64,62);
-    if(logoOK){X.letterSpacing='0px';X.globalAlpha=.5;const lh=104,lw=lh*LOGO.width/LOGO.height;X.drawImage(LOGO,40+(w-lw)/2,102,lw,lh);}});
+function chrome(t){// channel logo top-left at 40 %
+  if(logoOK)save(()=>{X.globalAlpha=.4;const lh=110,lw=lh*LOGO.width/LOGO.height;X.drawImage(LOGO,48,34,lw,lh);});
   // progress bar
   const p=t/DUR;X.fillStyle='rgba(29,29,34,.12)';X.fillRect(0,H-8,W,8);X.fillStyle=RED;X.fillRect(0,H-8,W*p,8);}
 function wrapLines(s,maxW,font){X.font=font;const words=s.split(' ');const lines=[];let cur='';for(const w of words){const tst=cur?cur+' '+w:w;if(X.measureText(tst).width>maxW&&cur){lines.push(cur);cur=w;}else cur=tst;}if(cur)lines.push(cur);return lines;}
