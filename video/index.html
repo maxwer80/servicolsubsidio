@@ -5,6 +5,10 @@
 @font-face{font-family:Inter;font-weight:400;src:url(inter-latin-400-normal.woff2)}
 @font-face{font-family:Inter;font-weight:800;src:url(inter-latin-800-normal.woff2)}
 @font-face{font-family:Inter;font-weight:900;src:url(inter-latin-900-normal.woff2)}
+@font-face{font-family:Fraktur;src:url(unifrakturmaguntia-latin-400-normal.woff2)}
+@font-face{font-family:Playfair;font-weight:700;src:url(playfair-display-latin-700-normal.woff2)}
+@font-face{font-family:Playfair;font-weight:900;src:url(playfair-display-latin-900-normal.woff2)}
+@font-face{font-family:OldStd;src:url(old-standard-tt-latin-400-normal.woff2)}
 html,body{margin:0;background:#000}
 canvas{display:block}
 </style></head>
@@ -181,28 +185,50 @@ function icon(kind,x,y,s,u,c=INK){pop(x,y,u,()=>{X.scale(s,s);circ(0,0,80,'#fff'
  });}
 function district(x,y,w,h,c,u,lab){pop(x,y,u,()=>{X.fillStyle=c;X.strokeStyle=INK;X.lineWidth=5;X.beginPath();X.moveTo(-w/2,-h/2);X.lineTo(w/2-10,-h/2);X.lineTo(w/2,-h/2+16);X.lineTo(w/2-6,h/2);X.lineTo(-w/2+8,h/2);X.closePath();X.fill();X.stroke();if(lab)txt(lab,0,2,{size:26,color:'#fff'});});}
 
-// ---------- photo (toma del presidente) ----------
+// ---------- photo (toma del presidente) as newspaper clipping ----------
 const PHOTO=new Image();let photoOK=false;PHOTO.onload=()=>photoOK=true;PHOTO.src='photo.jpg';
-let halftone=null;
-function photoCard(x,y,w,h,rot,u){if(u<=0)return;save(()=>{const k=back(u);X.translate(x,y);X.rotate(rot);X.scale(k,k);X.globalAlpha*=clamp(u*3);
-  // paper frame + shadow
-  X.fillStyle='rgba(0,0,0,.18)';X.fillRect(-w/2+14,-h/2+16,w+24,h+24);X.fillStyle='#fff';X.fillRect(-w/2-12,-h/2-12,w+24,h+24);
-  X.save();X.beginPath();X.rect(-w/2,-h/2,w,h);X.clip();
-  if(photoOK){const ir=PHOTO.width/PHOTO.height,cr=w/h;let dw=w,dh=h;if(ir>cr)dw=h*ir;else dh=w/ir;const z=1+.06*clamp(u*.4);
-    X.filter='grayscale(1) contrast(1.25) brightness(1.05)';X.drawImage(PHOTO,-dw/2*z+w*.08,-dh/2*z,dw*z,dh*z);X.filter='none';
-    X.globalCompositeOperation='multiply';const g=X.createLinearGradient(-w/2,0,w/2,0);g.addColorStop(0,'#8FB3F0');g.addColorStop(1,'#F3A0A8');X.fillStyle=g;X.fillRect(-w/2,-h/2,w,h);X.globalCompositeOperation='source-over';
-  } else { // stylised placeholder: flag + bust silhouette
-    flagUS(-w/2,-h/2,w,h,.85);X.fillStyle='rgba(243,239,230,.35)';X.fillRect(-w/2,-h/2,w,h);
-    X.fillStyle=NAVY;X.beginPath();X.ellipse(w*.08,h*.62,w*.42,h*.42,0,Math.PI,0);X.fill();
-    X.fillStyle='#fff';X.beginPath();X.moveTo(w*.08-40,h*.2);X.lineTo(w*.08+40,h*.2);X.lineTo(w*.08,h*.34);X.fill();
-    X.fillStyle=RED;X.beginPath();X.moveTo(w*.08-12,h*.24);X.lineTo(w*.08+12,h*.24);X.lineTo(w*.08+22,h*.5);X.lineTo(w*.08-22,h*.5);X.fill();
-    circ(w*.08,-h*.05,h*.22,SKIN);X.fillStyle=HAIR;X.beginPath();X.ellipse(w*.08+10,-h*.22,h*.24,h*.1,-.15,Math.PI*.95,Math.PI*2.05);X.fill();}
-  // halftone dots overlay for explainer look
-  X.globalAlpha=.12;X.fillStyle=INK;for(let yy=-h/2;yy<h/2;yy+=10)for(let xx=-w/2+((yy/10)%2)*5;xx<w/2;xx+=10){X.beginPath();X.arc(xx,yy,1.6,0,7);X.fill();}
-  X.restore();
-  // tape
-  X.globalAlpha=.85;X.fillStyle='#EEDC9A';save(()=>{X.translate(-w/2+20,-h/2-6);X.rotate(-.5);X.fillRect(-50,-14,100,28);});save(()=>{X.translate(w/2-20,-h/2-6);X.rotate(.5);X.fillRect(-50,-14,100,28);});
- });}
+const LOGO=new Image();let logoOK=false;LOGO.onload=()=>logoOK=true;LOGO.src='logo.png';
+let NEWS=null; // pre-processed newsprint photo
+function buildNews(){if(!photoOK||NEWS)return;const w=1200,h=800,c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');
+  const ir=PHOTO.width/PHOTO.height;let dw=w,dh=w/ir;if(dh<h){dh=h;dw=h*ir;}
+  g.filter='grayscale(1) contrast(1.35) brightness(1.08)';g.drawImage(PHOTO,(w-dw)/2,(h-dh)/2,dw,dh);g.filter='none';
+  // halftone: sample luminance, draw dots over a lightened copy
+  const src=g.getImageData(0,0,w,h).data;g.fillStyle='#EDE7DA';g.globalAlpha=.55;g.fillRect(0,0,w,h);g.globalAlpha=1;
+  const step=7;g.fillStyle='#16140F';
+  for(let y=0;y<h;y+=step)for(let x=((y/step)%2)*step/2;x<w;x+=step){const i=((y|0)*w+(x|0))*4;const l=src[i]/255;const r=(1-l)*step*.62;if(r>.3){g.beginPath();g.arc(x,y,r,0,7);g.fill();}}
+  // paper grain
+  for(let k=0;k<9000;k++){g.fillStyle=`rgba(0,0,0,${Math.random()*.06})`;g.fillRect(Math.random()*w,Math.random()*h,1.5,1.5);}
+  NEWS=c;}
+// deterministic pseudo-random for torn edges
+const prand=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x);};
+function newsClip(x,y,w,rot,u,lt,mini){if(u<=0)return;buildNews();const h=mini?w*1.0:w*1.3;save(()=>{const k=back(u);X.translate(x,y);X.rotate(rot);X.scale(k,k);X.globalAlpha*=clamp(u*3);
+  // torn paper shape
+  const path=()=>{X.beginPath();X.moveTo(-w/2,-h/2);const n=40;for(let i=0;i<=n;i++)X.lineTo(-w/2+w*i/n,-h/2+(prand(i)-.5)*7);for(let i=0;i<=n;i++)X.lineTo(w/2+(prand(i+50)-.5)*7,-h/2+h*i/n);
+    for(let i=n;i>=0;i--)X.lineTo(-w/2+w*i/n,h/2+(prand(i+100)-.5)*12);for(let i=n;i>=0;i--)X.lineTo(-w/2+(prand(i+150)-.5)*7,-h/2+h*i/n);X.closePath();};
+  save(()=>{X.translate(14,18);path();X.fillStyle='rgba(0,0,0,.22)';X.fill();});
+  path();X.fillStyle='#EFEADF';X.fill();X.save();path();X.clip();
+  const m=w*.06,iw=w-2*m;let cy=-h/2+m*.9;
+  // masthead
+  txt('El Diario Global',0,cy+w*.055,{font:'Fraktur',w:'',size:w*.105,color:'#111'});cy+=w*.13;
+  X.fillStyle='#111';X.fillRect(-iw/2,cy,iw,3);X.fillRect(-iw/2,cy+7,iw,1.2);
+  txt('MIÉRCOLES 21 DE OCTUBRE DE 2026   ·   EDICIÓN INTERNACIONAL',0,cy+w*.03,{font:'OldStd',w:'',size:w*.024,color:'#222'});
+  X.fillRect(-iw/2,cy+w*.055,iw,1.2);cy+=w*.075;
+  // headline
+  const hs=mini?w*.075:w*.066;txt(mini?'¿Habrá contrapeso?':'El examen de mitad de mandato',0,cy+hs*.6,{font:'Playfair',w:900,size:hs,color:'#111'});cy+=hs*1.25;
+  if(!mini){txt('Las elecciones del 3 de noviembre definen cuánto poder le queda a Trump',0,cy+w*.02,{font:'OldStd',w:'',size:w*.03,color:'#333'});cy+=w*.055;}
+  // photo
+  const ph=iw*(mini?.58:.64);X.save();X.beginPath();X.rect(-iw/2,cy,iw,ph);X.clip();
+  if(NEWS){const z=1.04+.06*clamp(lt/6);const dw=iw*z,dh=dw*NEWS.height/NEWS.width;X.drawImage(NEWS,-dw/2+iw*.03*clamp(lt/6),cy+ph/2-dh/2,dw,dh);}
+  else{X.fillStyle='#CFC8B8';X.fillRect(-iw/2,cy,iw,ph);}
+  X.restore();X.strokeStyle='#111';X.lineWidth=1.5;X.strokeRect(-iw/2,cy,iw,ph);cy+=ph+w*.03;
+  txt('Donald Trump, presidente de Estados Unidos.',-iw/2,cy,{font:'OldStd',w:'',size:w*.024,color:'#333',align:'left'});cy+=w*.04;
+  // body columns
+  const cols=3,gap=w*.03,cw=(iw-gap*(cols-1))/cols;X.fillStyle='rgba(20,20,20,.55)';
+  for(let c=0;c<cols;c++)for(let r=0;cy+r*w*.026<h/2-m*.4;r++){const lw=cw*(r%7==6?.55:.92+prand(c*31+r)*.08);X.fillRect(-iw/2+c*(cw+gap),cy+r*w*.026,Math.min(lw,cw),w*.009);}
+  for(let c=1;c<cols;c++)X.fillRect(-iw/2+c*(cw+gap)-gap/2,cy,1,h/2-cy-m*.4);
+  X.restore();});}
+// backwards-compatible name used by scenes
+const photoCard=(x,y,w,h,rot,u)=>newsClip(x,y,w,rot,u,T-0,h<300);
 function lowerThird(x,y,u,name,role){if(u<=0)return;const k=eo(u);save(()=>{X.globalAlpha*=clamp(u*3);
   X.fillStyle=RED;X.fillRect(x,y,14,96);X.fillStyle=INK;X.fillRect(x+14,y,560*k,58);X.fillStyle='#fff';X.fillRect(x+14,y+58,420*k,38);
   X.save();X.beginPath();X.rect(x,y,600*k,100);X.clip();txt(name,x+36,y+31,{size:38,color:'#fff',align:'left'});txt(role,x+36,y+78,{size:24,w:800,color:INK,align:'left'});X.restore();});}
@@ -212,8 +238,10 @@ function background(t){X.fillStyle=PAPER;X.fillRect(0,0,W,H);
   X.fillStyle='rgba(29,29,34,.07)';for(let y=30;y<H;y+=48)for(let x=30+((y/48)%2)*24;x<W;x+=48){X.beginPath();X.arc(x,y,2.2,0,7);X.fill();}
   // ground line
   X.fillStyle='rgba(29,29,34,.06)';X.fillRect(0,760,W,6);}
-function chrome(t){// brand bug top-left
-  save(()=>{rr(40,36,330,56,10);X.fillStyle=INK;X.fill();X.fillStyle=RED;X.fillRect(40,36,14,56);txt('MIDTERMS · EE. UU.',62,66,{size:28,color:'#fff',align:'left'});});
+function chrome(t){// AI disclosure label top-left, channel logo below it at 50 %
+  save(()=>{X.font='800 27px Inter';X.letterSpacing='1.5px';const s='IMÁGENES CREADAS CON IA',w=X.measureText(s).width+48;
+    rr(40,34,w,54,12);X.fillStyle='rgba(52,52,58,.92)';X.fill();X.fillStyle='#fff';X.textAlign='left';X.textBaseline='middle';X.fillText(s,64,62);
+    if(logoOK){X.letterSpacing='0px';X.globalAlpha=.5;const lh=104,lw=lh*LOGO.width/LOGO.height;X.drawImage(LOGO,40+(w-lw)/2,102,lw,lh);}});
   // progress bar
   const p=t/DUR;X.fillStyle='rgba(29,29,34,.12)';X.fillRect(0,H-8,W,8);X.fillStyle=RED;X.fillRect(0,H-8,W*p,8);}
 function wrapLines(s,maxW,font){X.font=font;const words=s.split(' ');const lines=[];let cur='';for(const w of words){const tst=cur?cur+' '+w:w;if(X.measureText(tst).width>maxW&&cur){lines.push(cur);cur=w;}else cur=tst;}if(cur)lines.push(cur);return lines;}
@@ -231,7 +259,7 @@ SCN[0]=(t,d)=>{calendar(560,420,1.25,ap(t,.1));ballotBox(1300,540,1.2,ap(t,.4));
   title('3 DE NOVIEMBRE',960,150,ap(t,.3));
   if(t>2.2){chip('NO SE ELIGE PRESIDENTE',960,700,ap(t,2.2),RED);}};
 // 1 · Toma del presidente (foto + muñeco)
-SCN[1]=(t,d)=>{photoCard(620,430,620,520,-.045,ap(t,.05,.6));lowerThird(250,610,ap(t,.6,.6),'DONALD TRUMP','PRESIDENTE DE EE. UU.');
+SCN[1]=(t,d)=>{newsClip(700,480,560,-.035,ap(t,.05,.6),t,false);lowerThird(250,650,ap(t,.8,.6),'DONALD TRUMP','PRESIDENTE DE EE. UU.');
   trump(1350,770,{pose:t<2?'wave':'stand',t,s:1.35});
   // power battery draining
   pop(1640,380,ap(t,1.2),()=>{rr(-70,-150,140,300,18);X.fillStyle='#fff';X.fill();X.lineWidth=8;X.strokeStyle=INK;X.stroke();rr(-30,-172,60,22,6);X.fillStyle=INK;X.fill();
@@ -372,7 +400,7 @@ SCN[31]=(t,d)=>{title('POLÍTICA EXTERIOR',960,150,ap(t,0));whiteHouse(1300,720,
 // 32 · Cierre: ¿contrapeso?
 SCN[32]=(t,d)=>{const tilt=Math.sin(t*1.6)*.12*(1-ap(t,4,1));
   scaleBal(960,800,1.15,tilt,ap(t,0),(x,y)=>{X.save();X.translate(0,40);X.scale(.32,.32);capitol(0,0,1,'#fff',1);X.restore();},(x,y)=>{X.save();X.translate(0,40);X.scale(.36,.36);whiteHouse(0,0,1,1);X.restore();});
-  photoCard(1560,360,300,250,.05,ap(t,.4));trump(1560,770,{pose:'arms',t,s:.9});
+  newsClip(1600,330,300,.05,ap(t,.4),t,true);trump(1560,770,{pose:'arms',t,s:.9});
   calendar(330,400,.9,ap(t,.6));
   pop(960,170,ap(t,1.4),()=>{txt('¿CONTRAPESO EN EL CONGRESO?',0,0,{font:'Anton',w:'',size:84});});
   if(t>d-1.2){save(()=>{X.globalAlpha=clamp((t-(d-1.2))/1.2);X.fillStyle=PAPER;X.fillRect(0,0,W,H);title('3 DE NOVIEMBRE',960,480,1,{size:110});});}};
@@ -388,6 +416,6 @@ function render(t){T=t;background(t);
   // wipe between scenes
   const tin=clamp(lt/.3);if(tin<1&&i>0){X.fillStyle=[RED,BLUE,INK,GOLD][i%4];X.fillRect(W*eo(tin),0,W*(1-eo(tin))*.35,H);}
   chrome(t);subtitle(t);}
-window.render=render;window.ready=()=>Promise.all(['40px Anton','900 40px Inter','800 40px Inter','400 40px Inter'].map(f=>document.fonts.load(f))).then(()=>document.fonts.ready).then(()=>new Promise(r=>{if(PHOTO.complete)r();else{PHOTO.onload=()=>{photoOK=true;r()};PHOTO.onerror=()=>r();}}));
+window.render=render;window.ready=()=>Promise.all(['40px Fraktur','900 40px Playfair','40px OldStd','40px Anton','900 40px Inter','800 40px Inter','400 40px Inter'].map(f=>document.fonts.load(f))).then(()=>document.fonts.ready).then(()=>Promise.all([PHOTO,LOGO].map(im=>new Promise(r=>{if(im.complete)r();else{im.addEventListener('load',r);im.addEventListener('error',r);}})))).then(()=>{photoOK=PHOTO.naturalWidth>0;logoOK=LOGO.naturalWidth>0;buildNews();});
 render(0);
 </script></body></html>
