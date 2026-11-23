@@ -10,11 +10,15 @@ No necesita Python, Homebrew ni contraseña de administrador.
 4. Menú **Ventana > Extensiones > Multicam Sync**.
 
 ## Usar
-1. En el panel Proyecto selecciona los clips de las cámaras (Cmd + clic).
-2. En el panel, pulsa **Usar clips seleccionados en el Proyecto**.
-3. Marca la cámara maestra (la de mejor audio), pon el nombre y la duración mínima de plano (2 s por defecto).
-4. Pulsa **Sincronizar y crear secuencia**. Se crea la secuencia con el ponche por voz:
-   en cada momento queda activa la cámara de quien habla.
+1. En el panel Proyecto selecciona los clips de las cámaras (y audios aparte si hay), con Cmd + clic.
+2. **Usar clips seleccionados en el Proyecto**.
+3. **Sincronizar y analizar audio**: sincroniza por audio y muestra la calidad de cada canal
+   (verde = limpio, gris = solo referencia).
+4. En **Quién habla en cada canal** une cada canal limpio con la cámara de esa persona
+   (ej.: canal 1 = hombre → cámara del hombre; canal 2 = mujer → cámara de la mujer).
+   Si hay otro invitado con su micrófono: **+ Agregar voz**.
+5. Elige la cámara para cuando hablan a la vez (normalmente el plano general).
+6. **Crear secuencia ponchada**. Se escucha el audio limpio; las demás pistas de audio quedan silenciadas.
 
 ## Cambiar lo que no te guste
 - Pon el cabezal en el tramo y pulsa **Cámara 1 / 2 / 3** en el panel.

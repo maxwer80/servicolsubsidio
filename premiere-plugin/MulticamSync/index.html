@@ -4,50 +4,69 @@
 <meta charset="utf-8">
 <title>Multicam Sync</title>
 <style>
-  :root { --bg:#232323; --panel:#2d2d2d; --text:#d6d6d6; --muted:#8a8a8a; --accent:#2d8ceb; --line:#3a3a3a; }
+  :root { --bg:#232323; --panel:#2d2d2d; --text:#d6d6d6; --muted:#8a8a8a; --accent:#2d8ceb; --line:#3a3a3a; --ok:#3fb950; }
   * { box-sizing: border-box; }
   body { margin:0; padding:12px; background:var(--bg); color:var(--text); font:12px -apple-system, "Segoe UI", sans-serif; }
   h1 { font-size:13px; margin:0 0 10px; font-weight:600; }
-  .step { color:var(--muted); font-size:11px; margin:12px 0 4px; text-transform:uppercase; letter-spacing:.04em; }
+  .step { color:var(--muted); font-size:11px; margin:14px 0 4px; text-transform:uppercase; letter-spacing:.04em; }
   button { width:100%; padding:7px; border:1px solid var(--line); border-radius:4px; background:var(--panel); color:var(--text); cursor:pointer; font-size:12px; }
   button:hover { border-color:#555; }
   button.primary { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
+  button.small { width:auto; padding:4px 8px; }
   button:disabled { opacity:.45; cursor:default; }
-  ul { list-style:none; margin:6px 0 0; padding:0; max-height:140px; overflow:auto; border:1px solid var(--line); border-radius:4px; }
-  li { padding:5px 8px; border-bottom:1px solid var(--line); display:flex; gap:6px; align-items:center; }
+  ul { list-style:none; margin:6px 0 0; padding:0; max-height:120px; overflow:auto; border:1px solid var(--line); border-radius:4px; }
+  li { padding:5px 8px; border-bottom:1px solid var(--line); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   li:last-child { border-bottom:0; }
-  li label { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:pointer; }
-  .empty { color:var(--muted); padding:8px; }
-  .row { display:flex; gap:8px; align-items:center; margin-top:6px; }
-  .row label { flex:1; }
-  input[type=text], input[type=number] { width:100%; padding:5px 6px; background:var(--panel); color:var(--text); border:1px solid var(--line); border-radius:4px; font-size:12px; }
+  .empty { color:var(--muted); }
+  select, input[type=text], input[type=number] { width:100%; padding:5px 6px; background:var(--panel); color:var(--text); border:1px solid var(--line); border-radius:4px; font-size:12px; }
   input[type=number] { width:70px; }
+  .row { display:flex; gap:6px; align-items:center; margin-top:6px; }
+  .row label { flex:1; }
+  .voice { display:grid; grid-template-columns: 52px 1fr 24px; gap:4px 6px; align-items:center; margin-top:8px; padding:6px; border:1px solid var(--line); border-radius:4px; }
+  .voice .lbl { color:var(--muted); font-size:11px; }
+  .voice button { padding:4px 0; grid-row: span 2; align-self:stretch; }
+  table { width:100%; border-collapse:collapse; margin-top:6px; }
+  td { padding:3px 4px; border-bottom:1px solid var(--line); white-space:nowrap; }
+  td.q { text-align:right; font-variant-numeric:tabular-nums; }
+  .tag { font-size:10px; padding:1px 5px; border-radius:8px; border:1px solid var(--line); color:var(--muted); }
+  .tag.clean { color:var(--ok); border-color:var(--ok); }
+  .hint { color:var(--muted); font-size:11px; margin-top:4px; line-height:1.35; }
   .grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-top:6px; }
   .grid button { padding:9px 4px; font-weight:600; }
-  #log { margin-top:10px; background:#1b1b1b; border:1px solid var(--line); border-radius:4px; padding:6px 8px; height:150px; overflow:auto; white-space:pre-wrap; font:11px Menlo, monospace; color:#b9b9b9; }
-  .hint { color:var(--muted); font-size:11px; margin-top:4px; }
+  #log { margin-top:12px; background:#1b1b1b; border:1px solid var(--line); border-radius:4px; padding:6px 8px; height:130px; overflow:auto; white-space:pre-wrap; font:11px Menlo, monospace; color:#b9b9b9; }
+  .hidden { display:none; }
 </style>
 </head>
 <body>
-  <h1>Multicam Sync · sincronizar por audio</h1>
+  <h1>Multicam Sync · ponche por voz</h1>
 
-  <div class="step">1 · Clips de las cámaras</div>
+  <div class="step">1 · Cámaras</div>
   <button id="load">Usar clips seleccionados en el Proyecto</button>
-  <ul id="list"><li class="empty">Selecciona los clips en el panel Proyecto y pulsa el botón.</li></ul>
-  <div class="hint">Marca la cámara maestra (la de mejor audio).</div>
+  <ul id="list"><li class="empty">Selecciona los clips de las cámaras (y audios aparte) en el panel Proyecto y pulsa el botón.</li></ul>
 
-  <div class="step">2 · Opciones</div>
-  <div class="row"><label for="name">Nombre de la secuencia</label></div>
-  <input type="text" id="name" value="MULTICAM">
-  <div class="row">
-    <label for="shot">Ponche por voz: duración mínima de cada plano en segundos (0 = sin ponche)</label>
-    <input type="number" id="shot" value="2" min="0" step="0.5">
+  <div class="step">2 · Analizar audio</div>
+  <button id="analyze" disabled>Sincronizar y analizar audio</button>
+  <div id="chanBox" class="hidden">
+    <div class="hint">Calidad de cada canal (más alto = voz más limpia):</div>
+    <table id="chanTable"></table>
   </div>
 
-  <div class="step">3 · Crear</div>
-  <button id="go" class="primary" disabled>Sincronizar y crear secuencia</button>
+  <div id="mapBox" class="hidden">
+    <div class="step">3 · Quién habla en cada canal</div>
+    <div class="hint">Cuando suene la voz de ese canal, se poncha esa cámara.</div>
+    <div id="voices"></div>
+    <div class="row"><button id="addVoice" class="small">+ Agregar voz (otro invitado)</button></div>
+    <div class="row" style="margin-top:10px"><label for="wide">Si hablan a la vez → cámara</label></div>
+    <select id="wide"></select>
+    <div class="row"><label for="shot">Duración mínima de plano (segundos)</label><input type="number" id="shot" value="1.5" min="0.5" step="0.5"></div>
+    <div class="row"><label for="name">Nombre de la secuencia</label></div>
+    <input type="text" id="name" value="MULTICAM">
 
-  <div class="step">4 · Revisar el ponche</div>
+    <div class="step">4 · Crear</div>
+    <button id="go" class="primary">Crear secuencia ponchada</button>
+  </div>
+
+  <div class="step">5 · Revisar el ponche</div>
   <div class="hint">Pon el cabezal en el tramo que quieres cambiar y elige la cámara.</div>
   <div id="cams" class="grid"></div>
   <button id="cut" style="margin-top:6px">✂ Cortar aquí (en el cabezal)</button>

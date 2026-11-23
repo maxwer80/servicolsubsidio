@@ -42,6 +42,15 @@
         return x;
     }
 
+    // energía por canal en bloques de 100 ms -> dB
+    function toDb(sums, counts) {
+        var out = new Float32Array(sums.length);
+        for (var i = 0; i < sums.length; i++) {
+            out[i] = 10 * Math.log(sums[i] / Math.max(1, counts[i]) + 1e-3) / Math.LN10;
+        }
+        return out;
+    }
+
     function parseWav(buf) {
         if (buf.toString('ascii', 0, 4) !== 'RIFF' || buf.toString('ascii', 8, 12) !== 'WAVE') {
             throw new Error('WAV inválido');
@@ -61,14 +70,27 @@
             pos += 8 + size + (size % 2);
         }
         if (dataStart < 0 || bits !== 16) { throw new Error('WAV sin datos PCM de 16 bits'); }
+        var sr = SR;
+        try { sr = buf.readUInt32LE(buf.indexOf('fmt ') + 12) || SR; } catch (e) { sr = SR; }
         var n = Math.floor(dataLen / (2 * channels));
-        var x = new Float32Array(n), i, c, s;
+        var x = new Float32Array(n), i, c, s, v;
+        var blk = Math.round(sr / 10), nb = Math.ceil(n / blk) + 1;
+        var sums = [], cnts = new Float32Array(nb);
+        for (c = 0; c < channels; c++) { sums.push(new Float64Array(nb)); }
         for (i = 0; i < n; i++) {
             s = 0;
-            for (c = 0; c < channels; c++) { s += buf.readInt16LE(dataStart + 2 * (i * channels + c)); }
+            var b = Math.floor(i / blk);
+            for (c = 0; c < channels; c++) {
+                v = buf.readInt16LE(dataStart + 2 * (i * channels + c));
+                s += v;
+                sums[c][b] += v * v;
+            }
+            cnts[b]++;
             x[i] = s / channels;
         }
-        return removeMean(x);
+        x = removeMean(x);
+        x.chanLevels = sums.map(function (sm) { return toDb(sm, cnts); });
+        return x;
     }
 
     function tmpName(ext) {
@@ -236,6 +258,9 @@
             var out = new Float32Array(Math.ceil(info.totalFrames / ratio) + 1);
             var cnt = new Uint16Array(out.length);
             var frameIdx = 0, buf = Buffer.alloc(1 << 16), ch = 0, lastPct = -1;
+            var blkF = Math.round(info.rate / 10), nBlk = Math.ceil(info.totalFrames / blkF) + 1;
+            var eSums = [], eCnt = new Float32Array(nBlk);
+            for (var ec = 0; ec < channels; ec++) { eSums.push(new Float64Array(nBlk)); }
             var be = info.bigEndian;
             var readSample;
             if (info.isFloat) {
@@ -260,8 +285,13 @@
                             var got = fs.readSync(fd, buf, 0, len, info.offsets[ch]);
                             len = got - (got % frameBytes);
                             for (var f = 0; f < len; f += frameBytes, frameIdx++) {
-                                var s = 0;
-                                for (var c = 0; c < channels; c++) { s += readSample(buf, f + c * bps); }
+                                var s = 0, bi = Math.floor(frameIdx / blkF);
+                                for (var c = 0; c < channels; c++) {
+                                    var sv = readSample(buf, f + c * bps);
+                                    s += sv;
+                                    eSums[c][bi] += sv * sv;
+                                }
+                                eCnt[bi]++;
                                 var oi = Math.floor(frameIdx / ratio);
                                 out[oi] += s / channels; cnt[oi]++;
                             }
@@ -274,7 +304,9 @@
                     fs.closeSync(fd);
                     var n = Math.floor(frameIdx / ratio), x = new Float32Array(n);
                     for (var i = 0; i < n; i++) { x[i] = cnt[i] ? out[i] / cnt[i] : 0; }
-                    resolve(removeMean(x));
+                    x = removeMean(x);
+                    x.chanLevels = eSums.map(function (sm) { return toDb(sm, eCnt); });
+                    resolve(x);
                 } catch (e) {
                     try { fs.closeSync(fd); } catch (e2) { /* nada */ }
                     reject(e);
@@ -292,7 +324,7 @@
         if (tools.ffmpeg) {
             attempts.push(function () {
                 var out = tmpName('.wav');
-                return toWavThen(tools.ffmpeg, ['-v', 'error', '-y', '-i', file, '-vn', '-ac', '1', '-ar', String(SR),
+                return toWavThen(tools.ffmpeg, ['-v', 'error', '-y', '-i', file, '-vn', '-ar', String(SR),
                                                 '-acodec', 'pcm_s16le', '-f', 'wav', out], out);
             });
         }
@@ -304,7 +336,7 @@
         if (tools.afconvert) {
             attempts.push(function () {
                 var out = tmpName('.wav');
-                return toWavThen(tools.afconvert, ['-f', 'WAVE', '-d', 'LEI16@' + SR, '-c', '1', file, out], out);
+                return toWavThen(tools.afconvert, ['-f', 'WAVE', '-d', 'LEI16@' + SR, file, out], out);
             });
         }
         if (tools.avconvert && tools.afconvert) {
@@ -312,7 +344,7 @@
                 var m4a = tmpName('.m4a'), out = tmpName('.wav');
                 return run(tools.avconvert, ['--source', file, '--preset', 'PresetAppleM4A', '--output', m4a, '--replace'])
                     .then(function () {
-                        return toWavThen(tools.afconvert, ['-f', 'WAVE', '-d', 'LEI16@' + SR, '-c', '1', m4a, out], out);
+                        return toWavThen(tools.afconvert, ['-f', 'WAVE', '-d', 'LEI16@' + SR, m4a, out], out);
                     })
                     .then(function (x) { try { fs.unlinkSync(m4a); } catch (e) { /* nada */ } return x; },
                           function (err) { try { fs.unlinkSync(m4a); } catch (e) { /* nada */ } throw err; });
@@ -552,6 +584,112 @@
         return { cuts: cuts, segCams: cams, stats: { separacionDb: sepN ? sepSum / sepN : 0 } };
     }
 
+    function percentile(arr, p) {
+        var v = Array.prototype.filter.call(arr, function (x) { return !isNaN(x); }).sort(function (x, y) { return x - y; });
+        return v.length ? v[Math.min(v.length - 1, Math.floor(v.length * p))] : 0;
+    }
+
+    // Calidad de cada canal: diferencia entre la voz (percentil 90) y el ruido de fondo (percentil 15)
+    function channelStats(clips, chl) {
+        var list = [];
+        for (var i = 0; i < clips.length; i++) {
+            for (var c = 0; c < (chl[i] || []).length; c++) {
+                var floor = percentile(chl[i][c], 0.15), voice = percentile(chl[i][c], 0.9);
+                list.push({ clip: i, ch: c, name: clips[i].name, snr: Math.round(voice - floor), silent: voice < 20 });
+            }
+        }
+        list.sort(function (a, b) { return b.snr - a.snr; });
+        return list;
+    }
+
+    /**
+     * Ponche por CANALES DE VOZ (micrófonos de solapa / audio limpio).
+     * voices: [{clip, ch, cam}] -> cuando suena el canal ch del clip, ir a la cámara cam.
+     * wideCam: cámara para cuando hablan a la vez (o -1).
+     * Devuelve {cuts, segCams, stats}.
+     */
+    function planVoice(clips, chl, voices, wideCam, minShot) {
+        var HZ = 10, THR = 8, BOTH = 4, CONFIRM = 0.5, SMOOTH = 6;
+        var audioOnly = /\.(wav|m4a|mp3|aif|aiff)$/i;
+        var end = 0, i, t, k, q;
+        var dur = clips.map(function (c, ci) { return ((chl[ci] && chl[ci][0]) ? chl[ci][0].length : 0) / HZ; });
+        for (i = 0; i < clips.length; i++) { end = Math.max(end, clips[i].offset + dur[i]); }
+        var T = Math.ceil(end * HZ);
+        function covers(ci, tt) {
+            if (ci < 0 || ci >= clips.length || audioOnly.test(clips[ci].name)) { return false; }
+            var x = tt / HZ - clips[ci].offset;
+            return x >= 0 && x < dur[ci];
+        }
+        // actividad de cada voz = nivel suavizado sobre su propio ruido de fondo
+        var act = voices.map(function (v) {
+            var src = chl[v.clip][v.ch], off = Math.round(clips[v.clip].offset * HZ);
+            var raw = new Float32Array(T).fill(NaN), sm = new Float32Array(T).fill(NaN);
+            for (k = 0; k < src.length; k++) { if (off + k >= 0 && off + k < T) { raw[off + k] = src[k]; } }
+            for (t = 0; t < T; t++) {
+                var sum = 0, n = 0;
+                for (k = t - SMOOTH / 2; k < t + SMOOTH / 2; k++) { if (k >= 0 && k < T && !isNaN(raw[k])) { sum += raw[k]; n++; } }
+                sm[t] = n ? sum / n : NaN;
+            }
+            var floor = percentile(sm, 0.15);
+            for (t = 0; t < T; t++) { sm[t] = isNaN(sm[t]) ? -99 : sm[t] - floor; }
+            return sm;
+        });
+        function target(tt) {
+            var a0 = -99, a1 = -99, s0 = -1;
+            for (q = 0; q < act.length; q++) {
+                var a = act[q][tt];
+                if (a > a0) { a1 = a0; a0 = a; s0 = q; } else if (a > a1) { a1 = a; }
+            }
+            if (a0 < THR) { return null; }                         // nadie habla
+            if (a1 >= THR && a0 - a1 < BOTH) { return wideCam >= 0 ? wideCam : null; }  // hablan a la vez
+            return voices[s0].cam;
+        }
+        function loudness(tt) {
+            var m = -99;
+            for (q = 0; q < act.length; q++) { if (act[q][tt] > m) { m = act[q][tt]; } }
+            return m;
+        }
+        function quietest(a, b) {
+            var bi = b, bv = Infinity;
+            for (var z = Math.max(0, a); z <= b && z < T; z++) { var v = loudness(z); if (v < bv) { bv = v; bi = z; } }
+            return bi;
+        }
+        function anyCover(tt, prefer) {
+            if (covers(prefer, tt)) { return prefer; }
+            if (covers(wideCam, tt)) { return wideCam; }
+            for (var z = 0; z < clips.length; z++) { if (covers(z, tt)) { return z; } }
+            return -1;
+        }
+
+        var cuts = [], cams = [], cur = -1, lastCut = 0, pend = -1, since = 0;
+        for (t = 0; t < T; t++) {
+            var want = target(t);
+            if (!covers(cur, t)) {
+                var nb = anyCover(t, want !== null ? want : cur);
+                if (nb !== cur) {
+                    if (cams.length) { cuts.push(t / HZ); } else if (t > 0) { cuts.push(t / HZ); cams.push(-1); }
+                    cams.push(nb); cur = nb; lastCut = t; pend = -1;
+                }
+                continue;
+            }
+            if (want === null || want === cur || !covers(want, t)) {
+                if (want === cur) { pend = -1; }
+                continue;
+            }
+            if (pend !== want) { pend = want; since = t; }
+            if (t - since >= CONFIRM * HZ && t - lastCut >= minShot * HZ) {
+                var cutAt = quietest(Math.max(lastCut + Math.round(minShot * HZ / 2), since - 12), since + 2);
+                cuts.push(cutAt / HZ); cams.push(want);
+                cur = want; lastCut = cutAt; pend = -1;
+            }
+        }
+        if (!cams.length) { cams.push(anyCover(0, wideCam)); }
+        var usage = {};
+        var bounds = [0].concat(cuts, [end]);
+        for (i = 0; i < cams.length; i++) { usage[cams[i]] = (usage[cams[i]] || 0) + (bounds[i + 1] - bounds[i]); }
+        return { cuts: cuts, segCams: cams, stats: { usage: usage } };
+    }
+
     /**
      * clips: [{name, path, ...}]  masterIndex: índice de la maestra
      * log: función(texto)   -> Promise<{clips: [...con offset], dropped: [nombres]}>
@@ -560,7 +698,7 @@
         log = log || function () {};
         var decoder = findDecoder(extraDirs);
         log('Lector de audio: ' + decoder.kind);
-        var results = {}, dropped = [], ref, lv = {};
+        var results = {}, dropped = [], ref, lv = {}, chl = {};
         var master = clips[masterIndex];
         log('Leyendo audio de la maestra: ' + master.name + ' ...');
         var progress = function (pct) { log('   leyendo audio ' + pct + ' %'); };
@@ -569,6 +707,7 @@
             ref = x;
             results[masterIndex] = 0;
             lv[masterIndex] = levels(x);
+            chl[masterIndex] = x.chanLevels || [];
             var chain = Promise.resolve();
             clips.forEach(function (clip, idx) {
                 if (idx === masterIndex) { return; }
@@ -582,6 +721,7 @@
                         if (r.confidence >= THRESHOLD) {
                             results[idx] = r.offset;
                             lv[idx] = levels(cam);
+                            chl[idx] = cam.chanLevels || [];
                             log('   ' + (r.offset >= 0 ? '+' : '') + r.offset.toFixed(3) + ' s  (confianza ' + Math.round(r.confidence) + ')');
                         } else {
                             dropped.push(clip.name);
@@ -597,7 +737,7 @@
         }).then(function () {
             var min = Infinity, k;
             for (k in results) { if (results[k] < min) { min = results[k]; } }
-            var out = [], outLv = [];
+            var out = [], outLv = [], outCh = [];
             clips.forEach(function (clip, idx) {
                 if (results.hasOwnProperty(idx)) {
                     var o = {};
@@ -606,13 +746,14 @@
                     o.master = (idx === masterIndex);
                     out.push(o);
                     outLv.push(lv[idx]);
+                    outCh.push(chl[idx]);
                 }
             });
-            return { clips: out, dropped: dropped, levels: outLv };
+            return { clips: out, dropped: dropped, levels: outLv, chanLevels: outCh, channels: channelStats(out, outCh) };
         });
     }
 
-    var api = { syncClips: syncClips, planCuts: planCuts, offset: offset, extractAudio: extractAudio, findDecoder: findDecoder };
+    var api = { syncClips: syncClips, planCuts: planCuts, planVoice: planVoice, offset: offset, extractAudio: extractAudio, findDecoder: findDecoder };
     if (typeof module !== 'undefined' && module.exports) { module.exports = api; }
     root.MulticamSync = api;
 })(typeof window !== 'undefined' ? window : this);
