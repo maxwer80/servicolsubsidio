@@ -184,3 +184,84 @@ function MC_build(json) {
         return 'ERROR|' + e.toString() + (e.line ? ' (línea ' + e.line + ')' : '');
     }
 }
+
+// ---------------------------------------------------------------- revisión
+// Info de la secuencia activa: nombres de las cámaras (una por pista de video)
+function MC_seqInfo() {
+    try {
+        var seq = app.project.activeSequence;
+        if (!seq) { return '{"error":"No hay secuencia abierta."}'; }
+        var names = [];
+        for (var v = 0; v < seq.videoTracks.numTracks; v++) {
+            var cl = seq.videoTracks[v].clips;
+            names.push(cl.numItems ? MC_str(cl[0].name) : '""');
+        }
+        return '{"names":[' + names.join(',') + ']}';
+    } catch (e) {
+        return '{"error":' + MC_str(e.toString()) + '}';
+    }
+}
+
+// Pone en pantalla la cámara (pista) cam en el tramo donde está el cabezal
+function MC_switchAt(cam) {
+    try {
+        var seq = app.project.activeSequence;
+        if (!seq) { return 'ERROR|No hay secuencia abierta.'; }
+        var t = MC_sec(seq.getPlayerPosition().ticks);
+        if (cam >= seq.videoTracks.numTracks) { return 'ERROR|La secuencia no tiene la cámara ' + (cam + 1) + '.'; }
+        var found = null, v, k, cl;
+        cl = seq.videoTracks[cam].clips;
+        for (k = 0; k < cl.numItems; k++) {
+            if (t >= MC_sec(cl[k].start.ticks) && t < MC_sec(cl[k].end.ticks)) { found = cl[k]; break; }
+        }
+        if (!found) { return 'ERROR|La cámara ' + (cam + 1) + ' no tiene imagen en este punto.'; }
+        var a = MC_sec(found.start.ticks), b = MC_sec(found.end.ticks), mid = (a + b) / 2;
+        // si otra cámara tiene un tramo más largo, cortarla en los bordes para no dejar huecos negros
+        var fps = MC_TICKS / parseFloat(seq.timebase), df = false, qeSeq = null;
+        try { var vf = seq.getSettings().videoDisplayFormat; df = (vf === 102 || vf === 106); } catch (e1) { df = false; }
+        var eps = 0.5 / fps;
+        for (v = 0; v < seq.videoTracks.numTracks; v++) {
+            if (v === cam) { continue; }
+            cl = seq.videoTracks[v].clips;
+            for (k = 0; k < cl.numItems; k++) {
+                var s0 = MC_sec(cl[k].start.ticks), s1 = MC_sec(cl[k].end.ticks);
+                if (s0 < b && s1 > a && (s0 < a - eps || s1 > b + eps)) {
+                    if (!qeSeq) { app.enableQE(); qeSeq = qe.project.getActiveSequence(); }
+                    var zero = MC_sec(seq.zeroPoint);
+                    if (s0 < a - eps) { qeSeq.getVideoTrackAt(v).razor(MC_tc(a + zero, fps, df)); }
+                    if (s1 > b + eps) { qeSeq.getVideoTrackAt(v).razor(MC_tc(b + zero, fps, df)); }
+                    break;
+                }
+            }
+        }
+        for (v = 0; v < seq.videoTracks.numTracks; v++) {
+            cl = seq.videoTracks[v].clips;
+            for (k = 0; k < cl.numItems; k++) {
+                var c0 = MC_sec(cl[k].start.ticks), c1 = MC_sec(cl[k].end.ticks);
+                if (mid >= c0 && mid < c1) { cl[k].disabled = (v !== cam); }
+            }
+        }
+        return 'OK|Cámara ' + (cam + 1) + ' en ' + a.toFixed(1) + '–' + b.toFixed(1) + ' s.';
+    } catch (e) {
+        return 'ERROR|' + e.toString();
+    }
+}
+
+// Corta todas las cámaras donde está el cabezal
+function MC_cutHere() {
+    try {
+        app.enableQE();
+        var seq = app.project.activeSequence;
+        if (!seq) { return 'ERROR|No hay secuencia abierta.'; }
+        var qeSeq = qe.project.getActiveSequence();
+        var fps = MC_TICKS / parseFloat(seq.timebase);
+        var df = false;
+        try { var vf = seq.getSettings().videoDisplayFormat; df = (vf === 102 || vf === 106); } catch (e1) { df = false; }
+        var t = MC_sec(seq.getPlayerPosition().ticks);
+        var tc = MC_tc(t, fps, df);
+        for (var v = 0; v < seq.videoTracks.numTracks; v++) { qeSeq.getVideoTrackAt(v).razor(tc); }
+        return 'OK|Corte en ' + tc + '. Ahora elige la cámara para el tramo nuevo.';
+    } catch (e) {
+        return 'ERROR|' + e.toString();
+    }
+}

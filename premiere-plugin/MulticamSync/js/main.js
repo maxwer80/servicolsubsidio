@@ -75,12 +75,47 @@
         }).then(function (out) {
             var parts = String(out).split('|');
             log(parts[0] === 'OK' ? '✔ ' + parts.slice(1).join('|') : '✖ ' + (parts.slice(1).join('|') || out));
+            refreshCams();
         }).catch(function (err) {
             log('✖ ' + err.message);
         }).then(function () {
             $('go').disabled = clips.length < 2; $('load').disabled = false;
         });
     });
+
+    // ------------------------------------------------ revisar el ponche
+    function renderCams(names) {
+        var box = $('cams');
+        box.innerHTML = '';
+        var n = Math.max(3, names.length);
+        for (var i = 0; i < n; i++) {
+            var b = document.createElement('button');
+            b.textContent = 'Cámara ' + (i + 1);
+            if (names[i]) { b.title = names[i]; }
+            b.addEventListener('click', (function (cam) {
+                return function () {
+                    evalScript('MC_switchAt(' + cam + ')').then(function (out) {
+                        var p = String(out).split('|');
+                        log(p[0] === 'OK' ? '✔ ' + p.slice(1).join('|') : '✖ ' + p.slice(1).join('|'));
+                    });
+                };
+            })(i));
+            box.appendChild(b);
+        }
+    }
+    $('cut').addEventListener('click', function () {
+        evalScript('MC_cutHere()').then(function (out) {
+            var p = String(out).split('|');
+            log(p[0] === 'OK' ? '✔ ' + p.slice(1).join('|') : '✖ ' + p.slice(1).join('|'));
+        });
+    });
+    function refreshCams() {
+        evalScript('MC_seqInfo()').then(function (res) {
+            try { var d = JSON.parse(res); renderCams(d.names || []); } catch (e) { renderCams([]); }
+        });
+    }
+    renderCams([]);
+    refreshCams();
 
     render();
 })();
