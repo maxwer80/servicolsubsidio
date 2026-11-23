@@ -1,34 +1,28 @@
 // ============================================================================
-//  MULTICAM AUTOMÁTICO PARA ADOBE PREMIERE PRO  (ExtendScript .jsx)
+//  MULTICAM PARA ADOBE PREMIERE PRO — PASO 2 de 2  (ExtendScript .jsx)
 // ----------------------------------------------------------------------------
-//  Qué hace:
-//    1. Toma los clips seleccionados en el panel Proyecto (una cámara por clip).
-//    2. Los sincroniza por TIMECODE (o los alinea todos al inicio).
-//    3. Crea una secuencia nueva con cada cámara en su propia pista (V1..Vn / A1..An).
-//    4. Deja sonando solo el audio de la cámara "maestra" (silencia las demás pistas).
-//    5. OPCIONAL: hace un corte automático, cambiando de cámara cada N segundos
-//       (con algo de variación) y deshabilitando las cámaras que no están "al aire".
+//  PASO 1 (en el Mac): doble clic en "Sincronizar Multicam.command".
+//         Sincroniza las cámaras por AUDIO y crea  multicam_sync.json.
+//  PASO 2 (en Premiere): ejecuta este script y elige ese multicam_sync.json.
 //
-//  Cómo usarlo:
-//    - Premiere Pro 2020 o superior.
-//    - Selecciona en el panel Proyecto los clips de las cámaras (Ctrl/Cmd + clic).
-//      Se ordenan por nombre: CAM_A, CAM_B, CAM_C... => V1, V2, V3...
-//    - Ejecuta el script con:
-//        * VS Code + extensión "ExtendScript Debugger" (destino: Premiere Pro), o
-//        * File > Scripts (si tienes un panel tipo "JSX Launcher"/"Commander").
-//    - Responde las preguntas que aparecen.
+//  Qué hace este script:
+//    1. Importa los videos al proyecto (si no estaban ya) en una carpeta nueva.
+//    2. Crea una secuencia con cada cámara en su pista (V1..Vn / A1..An),
+//       colocada en el punto exacto que calculó la sincronización por audio.
+//    3. Deja sonando solo el audio de la cámara maestra.
+//    4. OPCIONAL: corte automático, cambiando de cámara cada N segundos.
 //
-//  Para editar a mano después (multicámara "de verdad" con el monitor de 4 ángulos):
-//    selecciona todos los clips de la secuencia > clic derecho > Anidar (Nest)
+//  Si cancelas la elección del .json, el script usa los clips que tengas
+//  seleccionados en el panel Proyecto y los sincroniza por TIMECODE.
+//
+//  Cómo ejecutarlo en Mac:
+//    - VS Code + extensión "ExtendScript Debugger" (de Adobe): abre este
+//      archivo, abajo elige "Adobe Premiere Pro" como destino y pulsa F5
+//      (o comando "ExtendScript: Evaluate Script in Attached Host").
+//
+//  Para editar a mano con el monitor multicámara (4 ángulos):
+//    selecciona todos los clips de la secuencia > clic derecho > Anidar
 //    > clic derecho sobre el anidado > Multicámara > Habilitar.
-//
-//  Notas:
-//    - Si tus cámaras no tienen timecode en común, usa sincronización por audio
-//      nativa: clic derecho sobre los clips > "Crear secuencia de origen multicámara"
-//      > Sincronizar por Audio. ExtendScript no puede analizar audio.
-//    - El corte automático usa el objeto QE (no documentado oficialmente por Adobe,
-//      pero muy usado). Con timecode drop-frame (29.97 DF) los cortes pueden
-//      quedar desplazados unos cuadros.
 // ============================================================================
 
 #target premierepro
@@ -38,82 +32,144 @@
 
     // ---------------------------------------------------------------- utilidades
     function ticksToSec(t) { return parseFloat(t) / TICKS_PER_SECOND; }
-
     function pad(n) { return (n < 10 ? "0" : "") + n; }
+    function randInt(n) { return Math.floor(Math.random() * n); }
 
     function secToTimecode(sec, fps) {
         var fpsInt = Math.round(fps);
         var totalFrames = Math.round(sec * fps);
         var ff = totalFrames % fpsInt;
         var totalSec = Math.floor(totalFrames / fpsInt);
-        var ss = totalSec % 60;
-        var mm = Math.floor(totalSec / 60) % 60;
-        var hh = Math.floor(totalSec / 3600);
-        return pad(hh) + ":" + pad(mm) + ":" + pad(ss) + ":" + pad(ff);
+        return pad(Math.floor(totalSec / 3600)) + ":" + pad(Math.floor(totalSec / 60) % 60) + ":" +
+               pad(totalSec % 60) + ":" + pad(ff);
     }
 
-    function randInt(n) { return Math.floor(Math.random() * n); }
+    function baseName(p) {
+        p = String(p).replace(/\\/g, "/");
+        return p.substring(p.lastIndexOf("/") + 1).toLowerCase();
+    }
+
+    // Recorre todo el proyecto buscando clips
+    function allClips(item, out) {
+        for (var i = 0; i < item.children.numItems; i++) {
+            var ch = item.children[i];
+            if (ch.type === ProjectItemType.BIN) { allClips(ch, out); }
+            else if (ch.type === ProjectItemType.CLIP) { out.push(ch); }
+        }
+        return out;
+    }
+
+    function findByPath(clips, path) {
+        var i, mp;
+        var lower = String(path).toLowerCase();
+        for (i = 0; i < clips.length; i++) {
+            mp = clips[i].getMediaPath ? clips[i].getMediaPath() : "";
+            if (mp && String(mp).toLowerCase() === lower) { return clips[i]; }
+        }
+        // respaldo: mismo nombre de archivo (acentos con otra normalización, etc.)
+        for (i = 0; i < clips.length; i++) {
+            mp = clips[i].getMediaPath ? clips[i].getMediaPath() : "";
+            if (mp && baseName(mp) === baseName(path)) { return clips[i]; }
+        }
+        return null;
+    }
 
     // ---------------------------------------------------------- comprobaciones
     if (!app.project) { alert("Abre un proyecto primero."); return; }
     app.enableQE();
 
-    var selection = app.getCurrentProjectViewSelection ? app.getCurrentProjectViewSelection() : null;
-    var cams = [];
-    if (selection) {
-        for (var s = 0; s < selection.length; s++) {
-            var it = selection[s];
-            if (it && it.type === ProjectItemType.CLIP) { cams.push(it); }
+    var cams = [];      // ProjectItems
+    var offsets = [];   // segundos
+    var master = 0;
+    var defaultName = "MULTICAM";
+
+    var jsonFile = File.openDialog("Elige multicam_sync.json (Cancelar = usar clips seleccionados + timecode)");
+
+    if (jsonFile) {
+        // ------------------------------------------- modo AUDIO (desde el .json)
+        jsonFile.encoding = "UTF-8";
+        jsonFile.open("r");
+        var txt = jsonFile.read();
+        jsonFile.close();
+        var data;
+        try { data = eval("(" + txt + ")"); } catch (e) { alert("El archivo no es un multicam_sync.json válido."); return; }
+        if (!data || !data.clips || data.clips.length < 2) { alert("El .json tiene menos de 2 cámaras."); return; }
+
+        var existing = allClips(app.project.rootItem, []);
+        var missing = [];
+        var c;
+        for (c = 0; c < data.clips.length; c++) {
+            if (!findByPath(existing, data.clips[c].path)) {
+                if (!new File(data.clips[c].path).exists) {
+                    alert("No encuentro el archivo:\n" + data.clips[c].path + "\n¿Moviste la carpeta? Vuelve a sincronizar.");
+                    return;
+                }
+                missing.push(data.clips[c].path);
+            }
         }
-    }
-    if (cams.length < 2) {
-        alert("Selecciona al menos 2 clips (una cámara por clip) en el panel Proyecto.");
-        return;
-    }
-    cams.sort(function (a, b) { return a.name < b.name ? -1 : (a.name > b.name ? 1 : 0); });
+        defaultName = "MULTICAM_" + decodeURI(jsonFile.parent.name);
+        if (missing.length) {
+            var bin = app.project.rootItem.createBin("Cámaras " + decodeURI(jsonFile.parent.name));
+            app.project.importFiles(missing, true, bin, false);
+            existing = allClips(app.project.rootItem, []);
+        }
+        for (c = 0; c < data.clips.length; c++) {
+            var pi = findByPath(existing, data.clips[c].path);
+            if (!pi) { alert("No se pudo importar:\n" + data.clips[c].path); return; }
+            cams.push(pi);
+            offsets.push(parseFloat(data.clips[c].offset));
+            if (data.clips[c].name === data.master) { master = c; }
+        }
+    } else {
+        // --------------------------------- modo TIMECODE (clips seleccionados)
+        var selection = app.getCurrentProjectViewSelection ? app.getCurrentProjectViewSelection() : null;
+        if (selection) {
+            for (var s = 0; s < selection.length; s++) {
+                if (selection[s] && selection[s].type === ProjectItemType.CLIP) { cams.push(selection[s]); }
+            }
+        }
+        if (cams.length < 2) {
+            alert("Sin .json: selecciona al menos 2 clips en el panel Proyecto y vuelve a ejecutar.");
+            return;
+        }
+        cams.sort(function (a, b) { return a.name < b.name ? -1 : (a.name > b.name ? 1 : 0); });
+        var syncByTC = confirm("¿Sincronizar por TIMECODE?\n\nSí = por timecode\nNo = todos empiezan en 0");
+        var minStart = null, i0;
+        for (i0 = 0; i0 < cams.length; i0++) {
+            var st = syncByTC ? ticksToSec(cams[i0].startTime().ticks) : 0;
+            offsets.push(st);
+            if (minStart === null || st < minStart) { minStart = st; }
+        }
+        for (i0 = 0; i0 < offsets.length; i0++) { offsets[i0] -= minStart; }
 
-    // ---------------------------------------------------------------- preguntas
-    var camList = "";
-    for (var c = 0; c < cams.length; c++) { camList += "  " + (c + 1) + " = " + cams[c].name + "\n"; }
+        var camList = "";
+        for (i0 = 0; i0 < cams.length; i0++) { camList += "  " + (i0 + 1) + " = " + cams[i0].name + "\n"; }
+        var masterAns = prompt("Cámara MAESTRA de audio (número):\n" + camList, "1");
+        if (masterAns === null) { return; }
+        master = parseInt(masterAns, 10) - 1;
+        if (isNaN(master) || master < 0 || master >= cams.length) { master = 0; }
+    }
 
-    var seqName = prompt("Nombre de la secuencia multicámara:", "MULTICAM_" + cams.length + "cams");
+    var i;
+    var seqName = prompt("Nombre de la secuencia multicámara:", defaultName);
     if (seqName === null) { return; }
 
-    var syncByTC = confirm("¿Sincronizar por TIMECODE?\n\nSí = por timecode\nNo = todos empiezan en 0");
-
-    var masterAns = prompt("Cámara MAESTRA de audio (número):\n" + camList, "1");
-    if (masterAns === null) { return; }
-    var master = parseInt(masterAns, 10) - 1;
-    if (isNaN(master) || master < 0 || master >= cams.length) { master = 0; }
-
-    var cutAns = prompt("Corte automático: segundos promedio por plano\n(0 = no cortar, solo apilar y sincronizar)", "4");
+    var cutAns = prompt("Corte automático: segundos promedio por plano\n(0 = no cortar, solo sincronizar y apilar)", "4");
     if (cutAns === null) { return; }
     var shotLen = parseFloat(cutAns);
     if (isNaN(shotLen) || shotLen < 0) { shotLen = 0; }
 
-    // ------------------------------------------------------- calcular offsets
-    var offsets = [];
-    var minStart = null;
-    for (var i = 0; i < cams.length; i++) {
-        var st = syncByTC ? ticksToSec(cams[i].startTime().ticks) : 0;
-        offsets.push(st);
-        if (minStart === null || st < minStart) { minStart = st; }
-    }
-    for (i = 0; i < offsets.length; i++) { offsets[i] -= minStart; }
-
-    var maxOff = 0;
-    for (i = 0; i < offsets.length; i++) { if (offsets[i] > maxOff) { maxOff = offsets[i]; } }
-    if (maxOff > 3 * 3600) {
-        if (!confirm("Los timecodes difieren más de 3 horas (" + Math.round(maxOff / 60) +
-                     " min). Probablemente no comparten timecode.\n¿Continuar de todos modos?")) { return; }
-    }
-
     // ------------------------------------------------------- crear secuencia
-    var seq = app.project.createNewSequenceFromClips(seqName, [cams[0]], app.project.getInsertionBin());
+    // La secuencia toma formato (tamaño/fps) de la primera cámara con video
+    var seed = cams[master];
+    var audioExt = /\.(wav|m4a|mp3|aif|aiff)$/i;
+    if (audioExt.test(seed.name)) {
+        for (i = 0; i < cams.length; i++) { if (!audioExt.test(cams[i].name)) { seed = cams[i]; break; } }
+    }
+    var seq = app.project.createNewSequenceFromClips(seqName, [seed], app.project.getInsertionBin());
     if (!seq) { alert("No se pudo crear la secuencia."); return; }
     app.project.activeSequence = seq;
 
-    // vaciar lo que createNewSequenceFromClips puso
     function clearTracks(tracks) {
         for (var t = 0; t < tracks.numTracks; t++) {
             var clips = tracks[t].clips;
@@ -123,19 +179,18 @@
     clearTracks(seq.videoTracks);
     clearTracks(seq.audioTracks);
 
-    // asegurar suficientes pistas
     var qeSeq = qe.project.getActiveSequence();
     var needV = cams.length - seq.videoTracks.numTracks;
     var needA = cams.length - seq.audioTracks.numTracks;
     if (needV > 0) { qeSeq.addTracks(needV, seq.videoTracks.numTracks, 0); }
     if (needA > 0) { qeSeq.addTracks(0, 0, needA, 1, seq.audioTracks.numTracks); }
 
-    // --------------------------------------------- colocar cada cámara en su pista
+    // ------------------------------------------- colocar cada cámara en su pista
     for (i = 0; i < cams.length; i++) {
         seq.videoTracks[i].overwriteClip(cams[i], offsets[i]);
     }
 
-    // solo el audio de la cámara maestra queda sonando
+    // Solo suena la cámara maestra
     for (i = 0; i < seq.audioTracks.numTracks; i++) {
         seq.audioTracks[i].setMute(i === master ? 0 : 1);
     }
@@ -146,41 +201,35 @@
         var zero = ticksToSec(seq.zeroPoint);
         var endSec = ticksToSec(seq.end);
 
-        // puntos de corte con variación de ±35 %
         var cuts = [];
         var t0 = 0;
         while (true) {
-            t0 += shotLen * (0.65 + Math.random() * 0.7);
+            t0 += shotLen * (0.65 + Math.random() * 0.7);   // variación ±35 %
             if (t0 >= endSec - 0.5) { break; }
             cuts.push(t0);
         }
 
-        // cortar todas las pistas de video en cada punto
-        for (var v = 0; v < cams.length; v++) {
+        var v, ci;
+        for (v = 0; v < cams.length; v++) {
             var qTrack = qeSeq.getVideoTrackAt(v);
-            for (var ci = 0; ci < cuts.length; ci++) {
-                qTrack.razor(secToTimecode(cuts[ci] + zero, fps));
-            }
+            for (ci = 0; ci < cuts.length; ci++) { qTrack.razor(secToTimecode(cuts[ci] + zero, fps)); }
         }
 
         var bounds = [0].concat(cuts).concat([endSec]);
-
-        function segmentOf(sec) {
+        var segmentOf = function (sec) {
             for (var b = 0; b < bounds.length - 1; b++) {
                 if (sec >= bounds[b] && sec < bounds[b + 1]) { return b; }
             }
             return bounds.length - 2;
-        }
-
-        function camCovers(camIdx, sec) {
+        };
+        var camCovers = function (camIdx, sec) {
             var clips = seq.videoTracks[camIdx].clips;
             for (var k = 0; k < clips.numItems; k++) {
                 if (sec >= ticksToSec(clips[k].start.ticks) && sec < ticksToSec(clips[k].end.ticks)) { return true; }
             }
             return false;
-        }
+        };
 
-        // elegir cámara por segmento (distinta a la anterior y con material)
         var chosen = [];
         var prev = -1;
         for (var sg = 0; sg < bounds.length - 1; sg++) {
@@ -190,12 +239,11 @@
                 if (cc !== prev && camCovers(cc, mid)) { options.push(cc); }
             }
             if (options.length === 0 && prev >= 0 && camCovers(prev, mid)) { options.push(prev); }
-            var pick = options.length ? options[randInt(options.length)] : 0;
+            var pick = options.length ? options[randInt(options.length)] : master;
             chosen.push(pick);
             prev = pick;
         }
 
-        // habilitar solo la cámara elegida en cada segmento
         for (v = 0; v < cams.length; v++) {
             var vClips = seq.videoTracks[v].clips;
             for (var k = 0; k < vClips.numItems; k++) {
@@ -208,6 +256,6 @@
 
     alert("Listo: secuencia '" + seqName + "' con " + cams.length + " cámaras.\n" +
           "Audio maestro: " + cams[master].name + "\n" +
-          (shotLen > 0 ? "Corte automático aplicado. Reactiva cualquier clip con Shift+E para cambiar de plano."
+          (shotLen > 0 ? "Corte automático aplicado. Activa/desactiva un clip con Shift+E para cambiar de plano."
                        : "Para editar en vivo: selecciona todo > Anidar > Multicámara > Habilitar."));
 })();
