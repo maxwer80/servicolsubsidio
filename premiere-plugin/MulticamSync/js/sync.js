@@ -457,73 +457,99 @@
     }
 
     /**
-     * Ponche automático: corta en las pausas y va a la cámara de quien habla.
-     * clips: resultado de syncClips (con offset), lv: niveles alineados con clips.
-     * Devuelve {cuts: [segundos], segCams: [índice de clip por tramo]}.
+     * Ponche por VOZ: en cada momento elige la cámara que mejor oye a quien habla.
+     * clips: resultado de syncClips (con offset), lv: niveles (dB cada 100 ms) alineados con clips.
+     * minShot: duración mínima de cada plano en segundos.
+     * Devuelve {cuts: [segundos], segCams: [índice de clip por tramo], stats}.
      */
-    function planCuts(clips, lv, shotLen) {
-        var HZ = 10, end = 0, mi = 0, i;
+    function planCuts(clips, lv, minShot) {
+        var HZ = 10, HYST = 1.0, CONFIRM = 0.5, SMOOTH = 8;
         var audioOnly = /\.(wav|m4a|mp3|aif|aiff)$/i;
-        var med = [];
+        var end = 0, mi = 0, i, t, k;
         for (i = 0; i < clips.length; i++) {
             end = Math.max(end, clips[i].offset + lv[i].length / HZ);
             if (clips[i].master) { mi = i; }
-            var sorted = Array.prototype.slice.call(lv[i]).sort(function (a, b) { return a - b; });
-            med.push(sorted.length ? sorted[Math.floor(sorted.length / 2)] : 0);
         }
-        function at(ci, t) {
-            var k = Math.floor((t - clips[ci].offset) * HZ + 1e-6), a = lv[ci];
-            return (k >= 0 && k < a.length) ? a[k] : null;
+        var T = Math.ceil(end * HZ);
+        function pct(arr, p) {
+            var v = Array.prototype.filter.call(arr, function (x) { return !isNaN(x); }).sort(function (x, y) { return x - y; });
+            return v.length ? v[Math.min(v.length - 1, Math.floor(v.length * p))] : 0;
         }
-        function covers(ci, t) { return !audioOnly.test(clips[ci].name) && at(ci, t) !== null; }
-
-        // puntos de corte: cerca del objetivo, en el momento más silencioso
-        var cuts = [], t = 0;
-        while (true) {
-            var target = t + shotLen * (0.7 + Math.random() * 0.6);
-            if (target >= end - 1) { break; }
-            var w = Math.min(2, shotLen * 0.5), best = target, bv = Infinity;
-            for (var kk = Math.round((target - w) * HZ); kk <= Math.round((target + w) * HZ); kk++) {
-                var u = kk / HZ, v = 0, nv = 0;
-                for (var d = -1; d <= 1; d++) { var x = at(mi, u + d / HZ); if (x !== null) { v += x; nv++; } }
-                if (nv && v / nv < bv) { bv = v / nv; best = u; }
-            }
-            if (best - t >= 1) { cuts.push(Math.round(best * 10) / 10); }
-            t = Math.max(best, t + 1);
-        }
-
-        // cámara por tramo
-        var bounds = [0].concat(cuts, [end]), segCams = [], prev = -1;
-        for (var sg = 0; sg < bounds.length - 1; sg++) {
-            var a = bounds[sg], b = bounds[sg + 1], mid = (a + b) / 2, opts = [];
-            for (i = 0; i < clips.length; i++) {
-                if (!covers(i, mid)) { continue; }
+        // nivel suavizado (~0,8 s) de cada clip sobre la línea de tiempo común
+        var line = [], video = [];
+        for (i = 0; i < clips.length; i++) {
+            var raw = new Float32Array(T).fill(NaN), sm = new Float32Array(T).fill(NaN);
+            var off = Math.round(clips[i].offset * HZ);
+            for (k = 0; k < lv[i].length; k++) { if (off + k >= 0 && off + k < T) { raw[off + k] = lv[i][k]; } }
+            for (t = 0; t < T; t++) {
+                if (isNaN(raw[t])) { continue; }
                 var sum = 0, n = 0;
-                for (var q = a; q < b; q += 0.1) { var y = at(i, q); if (y !== null) { sum += y; n++; } }
-                opts.push({ i: i, score: n ? sum / n - med[i] : -99 });
+                for (k = t - SMOOTH / 2; k < t + SMOOTH / 2; k++) { if (k >= 0 && k < T && !isNaN(raw[k])) { sum += raw[k]; n++; } }
+                sm[t] = sum / n;
             }
-            var pick = -1;
-            if (opts.length) {
-                opts.sort(function (p1, p2) { return p2.score - p1.score; });
-                if (opts.length > 1 && opts[0].score - opts[1].score >= 4) {
-                    pick = opts[0].i;                       // alguien habla claramente más cerca de esta cámara
-                } else {
-                    var others = opts.filter(function (o) { return o.i !== prev; });
-                    var pool = others.length ? others : opts;
-                    pick = pool[Math.floor(Math.random() * pool.length)].i;
+            // normalizar por el nivel típico de cada cámara (cada una tiene distinta ganancia)
+            var ref = pct(sm, 0.5);
+            for (t = 0; t < T; t++) { if (!isNaN(sm[t])) { sm[t] -= ref; } }
+            line.push({ raw: raw, rel: sm });
+            if (!audioOnly.test(clips[i].name)) { video.push(i); }
+        }
+        // ¿hay voz? (maestra por encima de su ruido de fondo)
+        var floor = pct(line[mi].raw, 0.2);
+        function speaking(tt) { var v = line[mi].raw[tt]; return !isNaN(v) && v > floor + 6; }
+        function best(tt) {
+            var b = -1, bv = -Infinity;
+            for (var q = 0; q < video.length; q++) {
+                var v = line[video[q]].rel[tt];
+                if (!isNaN(v) && v > bv) { bv = v; b = video[q]; }
+            }
+            return b;
+        }
+        function covers(ci, tt) { return ci >= 0 && !isNaN(line[ci].raw[tt]); }
+        // momento más silencioso entre a y b (índices) para cortar
+        function quietest(a, b) {
+            var bi = b, bv = Infinity;
+            for (var q = Math.max(0, a); q <= b && q < T; q++) {
+                var v = line[mi].raw[q];
+                if (!isNaN(v) && v < bv) { bv = v; bi = q; }
+            }
+            return bi;
+        }
+
+        var cuts = [], cams = [], cur = -1, lastCut = 0, pend = -1, since = 0, margins = [];
+        for (t = 0; t < T; t++) {
+            if (cur < 0 || !covers(cur, t)) {            // inicio o la cámara se acabó
+                var nb = best(t);
+                if (nb >= 0 && nb !== cur) {
+                    if (cur >= 0 || cams.length) { cuts.push(t / HZ); } else if (t > 0) { cuts.push(t / HZ); cams.push(-1); }
+                    cams.push(nb); cur = nb; lastCut = t; pend = -1;
                 }
+                continue;
             }
-            segCams.push(pick);
-            prev = pick;
+            if (!speaking(t)) { continue; }
+            var c = best(t);
+            if (c >= 0 && c !== cur && line[c].rel[t] - line[cur].rel[t] >= HYST) {
+                if (pend !== c) { pend = c; since = t; }
+                if (t - since >= CONFIRM * HZ && t - lastCut >= minShot * HZ) {
+                    // cortar en la pausa justo antes de que empiece a hablar
+                    var cutAt = quietest(Math.max(lastCut + Math.round(minShot * HZ / 2), since - 12), since + 2);
+                    cuts.push(cutAt / HZ); cams.push(c);
+                    margins.push(line[c].rel[t] - line[cur].rel[t]);
+                    cur = c; lastCut = cutAt; pend = -1;
+                }
+            } else if (pend >= 0 && c === cur) {
+                pend = -1;
+            }
         }
-        // unir tramos seguidos con la misma cámara (sin corte innecesario)
-        var outCuts = [], outCams = [segCams[0]];
-        for (sg = 1; sg < segCams.length; sg++) {
-            if (segCams[sg] === outCams[outCams.length - 1]) { continue; }
-            outCuts.push(cuts[sg - 1]);
-            outCams.push(segCams[sg]);
+        if (!cams.length) { cams.push(video.length ? video[0] : -1); }
+        // separación típica de voz entre cámaras (diagnóstico)
+        var sepSum = 0, sepN = 0;
+        for (t = 0; t < T; t += 5) {
+            if (!speaking(t)) { continue; }
+            var vals = [];
+            for (k = 0; k < video.length; k++) { var v = line[video[k]].rel[t]; if (!isNaN(v)) { vals.push(v); } }
+            if (vals.length > 1) { vals.sort(function (x, y) { return y - x; }); sepSum += vals[0] - vals[1]; sepN++; }
         }
-        return { cuts: outCuts, segCams: outCams };
+        return { cuts: cuts, segCams: cams, stats: { separacionDb: sepN ? sepSum / sepN : 0 } };
     }
 
     /**

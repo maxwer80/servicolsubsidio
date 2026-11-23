@@ -66,7 +66,10 @@
                 var plan = window.MulticamSync.planCuts(res.clips, res.levels, shot);
                 payload.cuts = plan.cuts;
                 payload.segCams = plan.segCams;
-                log('Ponche: ' + (plan.cuts.length + 1) + ' planos (cortes en pausas, prioridad a quien habla).');
+                log('Ponche por voz: ' + plan.segCams.length + ' planos.');
+                var sep = plan.stats.separacionDb;
+                log('Diferencia de voz entre cámaras: ' + sep.toFixed(1) + ' dB' +
+                    (sep < 1.5 ? '  (BAJA: las cámaras oyen casi igual; el ponche puede fallar)' : '  (bien)'));
             }
             return evalScript('MC_build(' + JSON.stringify(JSON.stringify(payload)) + ')');
         }).then(function (out) {
