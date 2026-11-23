@@ -50,12 +50,22 @@ function MC_findNode(item, nodeId) {
 
 function MC_sec(t) { return parseFloat(t) / MC_TICKS; }
 function MC_pad(n) { return (n < 10 ? '0' : '') + n; }
-function MC_tc(sec, fps) {
+function MC_tc(sec, fps, df) {
     var fpsInt = Math.round(fps);
-    var tf = Math.round(sec * fps);
-    var ts = Math.floor(tf / fpsInt);
+    var f = Math.round(sec * fps);
+    var sep = ':';
+    if (df) {
+        // timecode drop-frame (29,97 / 59,94 DF)
+        var drop = Math.round(fps * 0.066666);
+        var per10 = Math.round(fps * 600);
+        var perMin = fpsInt * 60 - drop;
+        var d = Math.floor(f / per10), m = f % per10;
+        f += 9 * drop * d + (m > drop ? drop * Math.floor((m - drop) / perMin) : 0);
+        sep = ';';
+    }
+    var ts = Math.floor(f / fpsInt);
     return MC_pad(Math.floor(ts / 3600)) + ':' + MC_pad(Math.floor(ts / 60) % 60) + ':' +
-           MC_pad(ts % 60) + ':' + MC_pad(tf % fpsInt);
+           MC_pad(ts % 60) + sep + MC_pad(f % fpsInt);
 }
 
 // data = {name, shotLen, clips:[{nodeId, name, offset, master}]}
@@ -102,25 +112,18 @@ function MC_build(json) {
         for (i = 0; i < seq.audioTracks.numTracks; i++) { seq.audioTracks[i].setMute(i === master ? 0 : 1); }
 
         var shotLen = parseFloat(data.shotLen) || 0;
+        var nCuts = 0;
         if (shotLen > 0) {
             var fps = MC_TICKS / parseFloat(seq.timebase);
             var zero = MC_sec(seq.zeroPoint);
             var endSec = MC_sec(seq.end);
-            var cuts = [], t0 = 0, v, ci, k;
-            while (true) {
-                t0 += shotLen * (0.65 + Math.random() * 0.7);
-                if (t0 >= endSec - 0.5) { break; }
-                cuts.push(t0);
-            }
-            for (v = 0; v < cams.length; v++) {
-                var qTrack = qeSeq.getVideoTrackAt(v);
-                for (ci = 0; ci < cuts.length; ci++) { qTrack.razor(MC_tc(cuts[ci] + zero, fps)); }
-            }
-            var bounds = [0].concat(cuts).concat([endSec]);
-            var segmentOf = function (s) {
-                for (var b = 0; b < bounds.length - 1; b++) { if (s >= bounds[b] && s < bounds[b + 1]) { return b; } }
-                return bounds.length - 2;
-            };
+            var df = false;
+            try {
+                var vf = seq.getSettings().videoDisplayFormat;
+                df = (vf === 102 || vf === 106);
+            } catch (eDf) { df = false; }
+            var cuts = [], chosen = [], v, ci, k;
+
             var covers = function (ci2, s) {
                 var cl = seq.videoTracks[ci2].clips;
                 for (var q = 0; q < cl.numItems; q++) {
@@ -128,15 +131,45 @@ function MC_build(json) {
                 }
                 return false;
             };
-            var chosen = [], prev = -1;
+
+            if (data.cuts && data.segCams) {
+                cuts = data.cuts;                 // ponche planificado en el panel
+                chosen = data.segCams;
+            } else {
+                var t0 = 0;
+                while (true) {
+                    t0 += shotLen * (0.65 + Math.random() * 0.7);
+                    if (t0 >= endSec - 0.5) { break; }
+                    cuts.push(t0);
+                }
+            }
+            var bounds = [0].concat(cuts).concat([endSec]);
+
+            // si falta la cámara elegida en un tramo, usar otra que tenga imagen
+            var prev = -1;
             for (var sg = 0; sg < bounds.length - 1; sg++) {
-                var mid = (bounds[sg] + bounds[sg + 1]) / 2, opts = [];
-                for (var cc = 0; cc < cams.length; cc++) { if (cc !== prev && covers(cc, mid)) { opts.push(cc); } }
-                if (!opts.length && prev >= 0 && covers(prev, mid)) { opts.push(prev); }
-                var pick = opts.length ? opts[Math.floor(Math.random() * opts.length)] : master;
-                chosen.push(pick);
+                var mid = (bounds[sg] + bounds[sg + 1]) / 2;
+                var pick = (sg < chosen.length) ? chosen[sg] : -1;
+                if (pick < 0 || pick >= cams.length || !covers(pick, mid)) {
+                    var opts = [];
+                    for (var cc = 0; cc < cams.length; cc++) { if (cc !== prev && covers(cc, mid)) { opts.push(cc); } }
+                    if (!opts.length && prev >= 0 && covers(prev, mid)) { opts.push(prev); }
+                    pick = opts.length ? opts[Math.floor(Math.random() * opts.length)] : master;
+                }
+                chosen[sg] = pick;
                 prev = pick;
             }
+
+            for (v = 0; v < cams.length; v++) {
+                var qTrack = qeSeq.getVideoTrackAt(v);
+                for (ci = 0; ci < cuts.length; ci++) { qTrack.razor(MC_tc(cuts[ci] + zero, fps, df)); }
+            }
+            nCuts = cuts.length;
+
+            var segmentOf = function (s) {
+                for (var b = 0; b < bounds.length - 1; b++) { if (s >= bounds[b] && s < bounds[b + 1]) { return b; } }
+                return bounds.length - 2;
+            };
             for (v = 0; v < cams.length; v++) {
                 var vc = seq.videoTracks[v].clips;
                 for (k = 0; k < vc.numItems; k++) {
@@ -145,7 +178,8 @@ function MC_build(json) {
                 }
             }
         }
-        return 'OK|Secuencia "' + data.name + '" creada con ' + cams.length + ' cámaras.';
+        return 'OK|Secuencia "' + data.name + '" creada con ' + cams.length + ' cámaras' +
+               (nCuts ? ' y ' + (nCuts + 1) + ' planos ponchados.' : '.');
     } catch (e) {
         return 'ERROR|' + e.toString() + (e.line ? ' (línea ' + e.line + ')' : '');
     }

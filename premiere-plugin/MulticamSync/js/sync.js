@@ -96,8 +96,8 @@
 
     // ---------------- lector propio de audio PCM dentro de .MP4 / .MOV
     // (cámaras Sony XAVC S, Panasonic, Canon, etc. guardan el audio sin comprimir)
-    function readMp4Pcm(file) {
-        var fd = fs.openSync(file, 'r');
+    // Analiza la estructura del MP4/MOV (rápido; no lee el audio todavía)
+    function parseMp4Pcm(fd) {
         try {
             var fileSize = fs.fstatSync(fd).size;
             var head = Buffer.alloc(16), pos = 0, moov = null;
@@ -203,58 +203,89 @@
                 sc.push({ first: moov.readUInt32BE(stsc.start + 8 + 12 * i), spc: moov.readUInt32BE(stsc.start + 12 + 12 * i) });
             }
             var uniform = moov.readUInt32BE(stsz.start + 4), szCount = moov.readUInt32BE(stsz.start + 8);
-            var chunkBytes = [], sIdx = 0;
+            var chunkBytes = new Array(offsets.length), sIdx = 0, scPos = 0, totalFrames = 0;
             for (var ch = 0; ch < offsets.length; ch++) {
-                var spc = 0;
-                for (i = sc.length - 1; i >= 0; i--) { if (ch + 1 >= sc[i].first) { spc = sc[i].spc; break; } }
+                // avanzar en la tabla stsc (lineal, sin recorrerla entera cada vez)
+                while (scPos + 1 < sc.length && ch + 1 >= sc[scPos + 1].first) { scPos++; }
+                var spc = sc.length ? sc[scPos].spc : 0;
                 var bytes = 0;
                 if (uniform) {
                     bytes = spc * (uniform === 1 ? frameBytes : uniform);
                 } else {
                     for (i = 0; i < spc && sIdx < szCount; i++, sIdx++) { bytes += moov.readUInt32BE(stsz.start + 12 + 4 * sIdx); }
                 }
-                chunkBytes.push(bytes);
+                bytes -= bytes % frameBytes;
+                chunkBytes[ch] = bytes;
+                totalFrames += bytes / frameBytes;
             }
-
-            // --- leer, mezclar a mono y bajar a SR Hz
-            var totalFrames = 0;
-            for (ch = 0; ch < chunkBytes.length; ch++) { totalFrames += Math.floor(chunkBytes[ch] / frameBytes); }
-            var ratio = rate / SR;
-            var out = new Float32Array(Math.ceil(totalFrames / ratio) + 1);
-            var cnt = new Float32Array(out.length);
-            var frameIdx = 0, buf = Buffer.alloc(0);
-            var readSample;
-            if (isFloat) {
-                readSample = bps === 4 ? (bigEndian ? function (b, p) { return b.readFloatBE(p); } : function (b, p) { return b.readFloatLE(p); })
-                                       : (bigEndian ? function (b, p) { return b.readDoubleBE(p); } : function (b, p) { return b.readDoubleLE(p); });
-            } else if (bps === 1) {
-                readSample = signed ? function (b, p) { return b.readInt8(p); } : function (b, p) { return b[p] - 128; };
-            } else {
-                readSample = bigEndian ? function (b, p) { return b.readIntBE(p, bps); } : function (b, p) { return b.readIntLE(p, bps); };
-            }
-            for (ch = 0; ch < offsets.length; ch++) {
-                var len = chunkBytes[ch] - (chunkBytes[ch] % frameBytes);
-                if (len <= 0) { continue; }
-                if (buf.length < len) { buf = Buffer.alloc(len); }
-                fs.readSync(fd, buf, 0, len, offsets[ch]);
-                for (var f = 0; f < len; f += frameBytes, frameIdx++) {
-                    var s = 0;
-                    for (var c = 0; c < channels; c++) { s += readSample(buf, f + c * bps); }
-                    var oi = Math.floor(frameIdx / ratio);
-                    out[oi] += s; cnt[oi] += channels;
-                }
-            }
-            var n = Math.floor(frameIdx / ratio);
-            var x = new Float32Array(n);
-            for (i = 0; i < n; i++) { x[i] = cnt[i] ? out[i] / cnt[i] : 0; }
-            return removeMean(x);
-        } finally {
+            return { offsets: offsets, chunkBytes: chunkBytes, totalFrames: totalFrames, rate: rate, channels: channels,
+                     bps: bps, bigEndian: bigEndian, isFloat: isFloat, signed: signed, frameBytes: frameBytes };
+        } catch (e) {
             fs.closeSync(fd);
+            throw e;
         }
     }
 
+    // Lee el audio por partes, cediendo el control al panel cada ~100 ms
+    function readMp4Pcm(file, onProgress) {
+        return new Promise(function (resolve, reject) {
+            var fd = fs.openSync(file, 'r');
+            var info = parseMp4Pcm(fd);          // cierra fd si falla
+            var channels = info.channels, bps = info.bps, frameBytes = info.frameBytes;
+            var ratio = info.rate / SR;
+            var out = new Float32Array(Math.ceil(info.totalFrames / ratio) + 1);
+            var cnt = new Uint16Array(out.length);
+            var frameIdx = 0, buf = Buffer.alloc(1 << 16), ch = 0, lastPct = -1;
+            var be = info.bigEndian;
+            var readSample;
+            if (info.isFloat) {
+                readSample = bps === 4 ? (be ? function (b, p) { return b.readFloatBE(p) * 32768; } : function (b, p) { return b.readFloatLE(p) * 32768; })
+                                       : (be ? function (b, p) { return b.readDoubleBE(p) * 32768; } : function (b, p) { return b.readDoubleLE(p) * 32768; });
+            } else if (bps === 1) {
+                readSample = info.signed ? function (b, p) { return b.readInt8(p); } : function (b, p) { return b[p] - 128; };
+            } else if (bps === 2) {
+                readSample = be ? function (b, p) { return ((b[p] << 24) >> 16) | b[p + 1]; }
+                                : function (b, p) { return ((b[p + 1] << 24) >> 16) | b[p]; };
+            } else {
+                readSample = be ? function (b, p) { return b.readIntBE(p, bps); } : function (b, p) { return b.readIntLE(p, bps); };
+            }
+
+            function slice() {
+                try {
+                    var t0 = Date.now();
+                    while (ch < info.offsets.length && Date.now() - t0 < 100) {
+                        var len = info.chunkBytes[ch];
+                        if (len > 0) {
+                            if (buf.length < len) { buf = Buffer.alloc(len); }
+                            var got = fs.readSync(fd, buf, 0, len, info.offsets[ch]);
+                            len = got - (got % frameBytes);
+                            for (var f = 0; f < len; f += frameBytes, frameIdx++) {
+                                var s = 0;
+                                for (var c = 0; c < channels; c++) { s += readSample(buf, f + c * bps); }
+                                var oi = Math.floor(frameIdx / ratio);
+                                out[oi] += s / channels; cnt[oi]++;
+                            }
+                        }
+                        ch++;
+                    }
+                    var pct = Math.floor(100 * ch / info.offsets.length / 20) * 20;
+                    if (onProgress && pct !== lastPct && pct < 100) { lastPct = pct; onProgress(pct); }
+                    if (ch < info.offsets.length) { setTimeout(slice, 0); return; }
+                    fs.closeSync(fd);
+                    var n = Math.floor(frameIdx / ratio), x = new Float32Array(n);
+                    for (var i = 0; i < n; i++) { x[i] = cnt[i] ? out[i] / cnt[i] : 0; }
+                    resolve(removeMean(x));
+                } catch (e) {
+                    try { fs.closeSync(fd); } catch (e2) { /* nada */ }
+                    reject(e);
+                }
+            }
+            slice();
+        });
+    }
+
     // Prueba varios lectores hasta que uno funcione
-    function extractAudio(file, tools) {
+    function extractAudio(file, tools, onProgress) {
         var ext = path.extname(file).toLowerCase();
         var attempts = [];
         var errors = [];
@@ -267,7 +298,7 @@
         }
         if (['.mp4', '.mov', '.m4v', '.3gp'].indexOf(ext) >= 0) {
             attempts.push(function () {
-                return new Promise(function (resolve) { resolve(readMp4Pcm(file)); });
+                return readMp4Pcm(file, onProgress);
             });
         }
         if (tools.afconvert) {
@@ -414,6 +445,87 @@
         return { offset: (bestJ + aStart - b0) / SR, confidence: bestV / (std + 1e-12) };
     }
 
+    // Nivel de audio en dB cada 100 ms (para el ponche)
+    function levels(x) {
+        var hop = SR / 10, n = Math.floor(x.length / hop), e = new Float32Array(n), i, k, s, v;
+        for (i = 0; i < n; i++) {
+            s = 0;
+            for (k = 0; k < hop; k++) { v = x[i * hop + k]; s += v * v; }
+            e[i] = 10 * Math.log(s / hop + 1e-3) / Math.LN10;
+        }
+        return e;
+    }
+
+    /**
+     * Ponche automático: corta en las pausas y va a la cámara de quien habla.
+     * clips: resultado de syncClips (con offset), lv: niveles alineados con clips.
+     * Devuelve {cuts: [segundos], segCams: [índice de clip por tramo]}.
+     */
+    function planCuts(clips, lv, shotLen) {
+        var HZ = 10, end = 0, mi = 0, i;
+        var audioOnly = /\.(wav|m4a|mp3|aif|aiff)$/i;
+        var med = [];
+        for (i = 0; i < clips.length; i++) {
+            end = Math.max(end, clips[i].offset + lv[i].length / HZ);
+            if (clips[i].master) { mi = i; }
+            var sorted = Array.prototype.slice.call(lv[i]).sort(function (a, b) { return a - b; });
+            med.push(sorted.length ? sorted[Math.floor(sorted.length / 2)] : 0);
+        }
+        function at(ci, t) {
+            var k = Math.floor((t - clips[ci].offset) * HZ + 1e-6), a = lv[ci];
+            return (k >= 0 && k < a.length) ? a[k] : null;
+        }
+        function covers(ci, t) { return !audioOnly.test(clips[ci].name) && at(ci, t) !== null; }
+
+        // puntos de corte: cerca del objetivo, en el momento más silencioso
+        var cuts = [], t = 0;
+        while (true) {
+            var target = t + shotLen * (0.7 + Math.random() * 0.6);
+            if (target >= end - 1) { break; }
+            var w = Math.min(2, shotLen * 0.5), best = target, bv = Infinity;
+            for (var kk = Math.round((target - w) * HZ); kk <= Math.round((target + w) * HZ); kk++) {
+                var u = kk / HZ, v = 0, nv = 0;
+                for (var d = -1; d <= 1; d++) { var x = at(mi, u + d / HZ); if (x !== null) { v += x; nv++; } }
+                if (nv && v / nv < bv) { bv = v / nv; best = u; }
+            }
+            if (best - t >= 1) { cuts.push(Math.round(best * 10) / 10); }
+            t = Math.max(best, t + 1);
+        }
+
+        // cámara por tramo
+        var bounds = [0].concat(cuts, [end]), segCams = [], prev = -1;
+        for (var sg = 0; sg < bounds.length - 1; sg++) {
+            var a = bounds[sg], b = bounds[sg + 1], mid = (a + b) / 2, opts = [];
+            for (i = 0; i < clips.length; i++) {
+                if (!covers(i, mid)) { continue; }
+                var sum = 0, n = 0;
+                for (var q = a; q < b; q += 0.1) { var y = at(i, q); if (y !== null) { sum += y; n++; } }
+                opts.push({ i: i, score: n ? sum / n - med[i] : -99 });
+            }
+            var pick = -1;
+            if (opts.length) {
+                opts.sort(function (p1, p2) { return p2.score - p1.score; });
+                if (opts.length > 1 && opts[0].score - opts[1].score >= 4) {
+                    pick = opts[0].i;                       // alguien habla claramente más cerca de esta cámara
+                } else {
+                    var others = opts.filter(function (o) { return o.i !== prev; });
+                    var pool = others.length ? others : opts;
+                    pick = pool[Math.floor(Math.random() * pool.length)].i;
+                }
+            }
+            segCams.push(pick);
+            prev = pick;
+        }
+        // unir tramos seguidos con la misma cámara (sin corte innecesario)
+        var outCuts = [], outCams = [segCams[0]];
+        for (sg = 1; sg < segCams.length; sg++) {
+            if (segCams[sg] === outCams[outCams.length - 1]) { continue; }
+            outCuts.push(cuts[sg - 1]);
+            outCams.push(segCams[sg]);
+        }
+        return { cuts: outCuts, segCams: outCams };
+    }
+
     /**
      * clips: [{name, path, ...}]  masterIndex: índice de la maestra
      * log: función(texto)   -> Promise<{clips: [...con offset], dropped: [nombres]}>
@@ -422,27 +534,34 @@
         log = log || function () {};
         var decoder = findDecoder(extraDirs);
         log('Lector de audio: ' + decoder.kind);
-        var results = {}, dropped = [], ref;
+        var results = {}, dropped = [], ref, lv = {};
         var master = clips[masterIndex];
         log('Leyendo audio de la maestra: ' + master.name + ' ...');
-        return extractAudio(master.path, decoder).then(function (x) {
+        var progress = function (pct) { log('   leyendo audio ' + pct + ' %'); };
+        var pause = function (v) { return new Promise(function (r) { setTimeout(function () { r(v); }, 30); }); };
+        return extractAudio(master.path, decoder, progress).then(function (x) {
             ref = x;
             results[masterIndex] = 0;
+            lv[masterIndex] = levels(x);
             var chain = Promise.resolve();
             clips.forEach(function (clip, idx) {
                 if (idx === masterIndex) { return; }
                 chain = chain.then(function () {
                     log('Sincronizando ' + clip.name + ' ...');
-                    return extractAudio(clip.path, decoder).then(function (cam) {
+                    return extractAudio(clip.path, decoder, progress).then(function (cam) {
+                        log('   comparando con la maestra...');
+                        return pause(cam);
+                    }).then(function (cam) {
                         var r = offset(ref, cam);
                         if (r.confidence >= THRESHOLD) {
                             results[idx] = r.offset;
+                            lv[idx] = levels(cam);
                             log('   ' + (r.offset >= 0 ? '+' : '') + r.offset.toFixed(3) + ' s  (confianza ' + Math.round(r.confidence) + ')');
                         } else {
                             dropped.push(clip.name);
                             log('   NO coincide con la maestra (confianza ' + Math.round(r.confidence) + '): se omite');
                         }
-                    }, function (err) {
+                    }).catch(function (err) {
                         dropped.push(clip.name);
                         log('   ERROR: ' + err.message);
                     });
@@ -452,7 +571,7 @@
         }).then(function () {
             var min = Infinity, k;
             for (k in results) { if (results[k] < min) { min = results[k]; } }
-            var out = [];
+            var out = [], outLv = [];
             clips.forEach(function (clip, idx) {
                 if (results.hasOwnProperty(idx)) {
                     var o = {};
@@ -460,13 +579,14 @@
                     o.offset = Math.round((results[idx] - min) * 10000) / 10000;
                     o.master = (idx === masterIndex);
                     out.push(o);
+                    outLv.push(lv[idx]);
                 }
             });
-            return { clips: out, dropped: dropped };
+            return { clips: out, dropped: dropped, levels: outLv };
         });
     }
 
-    var api = { syncClips: syncClips, offset: offset, extractAudio: extractAudio, findDecoder: findDecoder };
+    var api = { syncClips: syncClips, planCuts: planCuts, offset: offset, extractAudio: extractAudio, findDecoder: findDecoder };
     if (typeof module !== 'undefined' && module.exports) { module.exports = api; }
     root.MulticamSync = api;
 })(typeof window !== 'undefined' ? window : this);

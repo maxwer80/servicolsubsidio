@@ -62,6 +62,12 @@
             }
             log('\nCreando secuencia en Premiere...');
             var payload = { name: name, shotLen: shot, clips: res.clips };
+            if (shot > 0) {
+                var plan = window.MulticamSync.planCuts(res.clips, res.levels, shot);
+                payload.cuts = plan.cuts;
+                payload.segCams = plan.segCams;
+                log('Ponche: ' + (plan.cuts.length + 1) + ' planos (cortes en pausas, prioridad a quien habla).');
+            }
             return evalScript('MC_build(' + JSON.stringify(JSON.stringify(payload)) + ')');
         }).then(function (out) {
             var parts = String(out).split('|');
