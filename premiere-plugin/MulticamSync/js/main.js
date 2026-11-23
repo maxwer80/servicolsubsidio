@@ -68,9 +68,9 @@
             if (res.clips.length < 2) { throw new Error('No se pudo sincronizar las cámaras entre sí.'); }
             if (res.dropped.length) { log('\nQuedaron fuera (su audio no coincide): ' + res.dropped.join(', ')); }
             analysis = res;
+            analysis.baseChannels = res.chanLevels.map(function (c) { return c.length; });
             renderChannels();
-            renderMapping();
-            log('\nListo. Revisa el paso 3 y pulsa "Crear secuencia ponchada".');
+            return identify();
         }).catch(function (err) {
             log('✖ ' + err.message);
         }).then(function () {
@@ -82,9 +82,90 @@
         return c.name + ' · canal ' + (c.ch + 1);
     }
 
+    // ------------------------------------------- identificar hablantes
+    function voiceType(hz) {
+        if (!hz) { return 'voz'; }
+        return (hz < 150 ? 'grave' : hz < 185 ? 'media' : 'aguda') + ' ' + hz + ' Hz';
+    }
+
+    function identify() {
+        var K = Math.max(1, Math.min(6, parseInt($('nspk').value, 10) || 2));
+        var cleanClip = parseInt($('cleanSel').value, 10);
+        if (isNaN(cleanClip)) { cleanClip = analysis.channels.length ? analysis.channels[0].clip : 0; }
+        var clip = analysis.clips[cleanClip];
+        // quitar hablantes de un análisis anterior
+        analysis.chanLevels.forEach(function (c, i) { c.length = analysis.baseChannels[i]; });
+        analysis.speakers = [];
+        if (analysis.cleanClip !== cleanClip) { analysis.cleanAudio = null; }
+        var getAudio = analysis.cleanAudio ? Promise.resolve(analysis.cleanAudio)
+            : (log('\nLeyendo el audio limpio (' + clip.name + ') para identificar voces...'),
+               window.MulticamSync.extractAudio(clip.path, window.MulticamSync.findDecoder(), function (p) { log('   leyendo ' + p + ' %'); }));
+        return getAudio.then(function (x) {
+            analysis.cleanAudio = x;
+            analysis.cleanClip = cleanClip;
+            log('Identificando ' + K + ' hablante(s)...');
+            var last = -1;
+            return window.MulticamSync.diarize(x, K, function (p) {
+                p = Math.floor(p / 25) * 25; if (p !== last && p < 100) { last = p; log('   analizando voces ' + p + ' %'); }
+            });
+        }).then(function (dz) {
+            if (!dz.speakers.length) {
+                log('✖ No hay suficiente voz para separar hablantes. Puedes usar los canales directamente.');
+            }
+            var base = analysis.baseChannels[cleanClip];
+            dz.speakers.forEach(function (sp, k) {
+                analysis.chanLevels[cleanClip].push(dz.levels[k]);
+                analysis.speakers.push({
+                    key: cleanClip + ':' + (base + k),
+                    label: 'Voz ' + 'ABCDEF'.charAt(k) + ' · ' + voiceType(sp.pitch),
+                    examples: sp.examples, seconds: sp.seconds
+                });
+                log('   Voz ' + 'ABCDEF'.charAt(k) + ': ' + voiceType(sp.pitch) + ', habla ' + sp.seconds + ' s');
+            });
+            renderMapping();
+            log('\nListo. Escucha cada hablante con ▶, elige su cámara y pulsa "Crear secuencia ponchada".');
+        });
+    }
+
+    $('cleanSel').addEventListener('change', function () { if (analysis) { $('rediar').click(); } });
+    $('rediar').addEventListener('click', function () {
+        if (!analysis) { return; }
+        $('rediar').disabled = true;
+        identify().catch(function (err) { log('✖ ' + err.message); }).then(function () { $('rediar').disabled = false; });
+    });
+
+    // ▶ escuchar un ejemplo de un hablante (4 s)
+    var audioCtx = null, playing = null, exampleTurn = {};
+    function playExample(key) {
+        var sp = (analysis.speakers || []).filter(function (o) { return o.key === key; })[0];
+        if (!sp || !sp.examples.length || !analysis.cleanAudio) { log('Solo se pueden escuchar los hablantes identificados.'); return; }
+        try {
+            if (playing) { playing.stop(); playing = null; }
+            audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+            var n = exampleTurn[key] = ((exampleTurn[key] || 0) + 1) % sp.examples.length;
+            var x = analysis.cleanAudio, sr = 8000;
+            var a = Math.max(0, Math.floor(sp.examples[n] * sr)), len = Math.min(4 * sr, x.length - a);
+            var peak = 1;
+            for (var i = 0; i < len; i++) { peak = Math.max(peak, Math.abs(x[a + i])); }
+            var buf = audioCtx.createBuffer(1, len, sr), ch = buf.getChannelData(0);
+            for (i = 0; i < len; i++) { ch[i] = 0.8 * x[a + i] / peak; }
+            var src = audioCtx.createBufferSource();
+            src.buffer = buf; src.connect(audioCtx.destination); src.start();
+            playing = src;
+            log('▶ ' + sp.label + ' (ejemplo en ' + Math.floor(sp.examples[n] / 60) + ':' + ('0' + Math.floor(sp.examples[n] % 60)).slice(-2) + ' de ' + analysis.clips[analysis.cleanClip].name + ')');
+        } catch (e) { log('No se pudo reproducir: ' + e.message); }
+    }
+
     function renderChannels() {
         var tb = $('chanTable');
         tb.innerHTML = '';
+        var sel = $('cleanSel'); sel.innerHTML = '';
+        var seen = {};
+        analysis.channels.forEach(function (c) {
+            if (seen[c.clip]) { return; }
+            seen[c.clip] = true;
+            opt(sel, c.clip, c.name + (Object.keys(seen).length === 1 ? '  (el más limpio)' : ''), Object.keys(seen).length === 1);
+        });
         var best = analysis.channels.length ? analysis.channels[0].snr : 0;
         analysis.channels.forEach(function (c) {
             var tr = document.createElement('tr');
@@ -113,16 +194,20 @@
         var row = document.createElement('div');
         row.className = 'voice';
         var src = document.createElement('select'), cam = document.createElement('select');
+        (analysis.speakers || []).forEach(function (sp) { opt(src, sp.key, sp.label, sp.key === srcKey); });
         analysis.channels.forEach(function (c) {
             var key = c.clip + ':' + c.ch;
             opt(src, key, chanLabel(c) + ' (' + c.snr + ' dB)', key === srcKey);
         });
         videoClips().forEach(function (i) { opt(cam, i, camLabel(i), i === camIdx); });
-        var l1 = document.createElement('span'); l1.className = 'lbl'; l1.textContent = 'Voz';
+        cam.className = 'cam';
+        var play = document.createElement('button'); play.className = 'play'; play.textContent = '▶'; play.title = 'Escuchar';
+        play.addEventListener('click', function () { playExample(src.value); });
+        var l1 = document.createElement('span'); l1.className = 'lbl'; l1.textContent = 'Quién';
         var l2 = document.createElement('span'); l2.className = 'lbl'; l2.textContent = '→ Cámara';
         var del = document.createElement('button'); del.textContent = '×'; del.title = 'Quitar';
         del.addEventListener('click', function () { row.parentNode.removeChild(row); });
-        row.appendChild(l1); row.appendChild(src); row.appendChild(del);
+        row.appendChild(l1); row.appendChild(src); row.appendChild(play); row.appendChild(del);
         row.appendChild(l2); row.appendChild(cam);
         $('voices').appendChild(row);
     }
@@ -131,11 +216,13 @@
         $('voices').innerHTML = '';
         var vids = videoClips();
         // por defecto: los 2 canales más limpios -> las cámaras que no tienen el audio limpio
-        var top = analysis.channels.slice(0, 2);
-        var cleanClip = top.length ? top[0].clip : 0;
+        var cleanClip = analysis.cleanClip !== undefined ? analysis.cleanClip : (analysis.channels.length ? analysis.channels[0].clip : 0);
         var others = vids.filter(function (i) { return i !== cleanClip; });
-        top.forEach(function (c, n) {
-            addVoiceRow(c.clip + ':' + c.ch, others[n] !== undefined ? others[n] : vids[n]);
+        var keys = (analysis.speakers && analysis.speakers.length)
+            ? analysis.speakers.map(function (sp) { return sp.key; })
+            : analysis.channels.slice(0, 2).map(function (c) { return c.clip + ':' + c.ch; });
+        keys.forEach(function (key, n) {
+            addVoiceRow(key, others[n] !== undefined ? others[n] : vids[n % vids.length]);
         });
         var wide = $('wide');
         wide.innerHTML = '';
@@ -169,8 +256,8 @@
         var shot = parseFloat($('shot').value) || 1.5;
         var name = $('name').value.trim() || 'MULTICAM';
 
-        // el audio que se escucha = el clip del canal de voz más limpio
-        var cleanClip = analysis.channels.length ? analysis.channels[0].clip : 0;
+        // el audio que se escucha = el audio limpio elegido
+        var cleanClip = analysis.cleanClip !== undefined ? analysis.cleanClip : (analysis.channels.length ? analysis.channels[0].clip : 0);
         var plan = window.MulticamSync.planVoice(analysis.clips, analysis.chanLevels, voices, wide, shot);
         var payloadClips = analysis.clips.map(function (c, i) {
             return { name: c.name, nodeId: c.nodeId, offset: c.offset, master: i === cleanClip };

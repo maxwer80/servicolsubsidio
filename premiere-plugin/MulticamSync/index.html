@@ -22,7 +22,9 @@
   input[type=number] { width:70px; }
   .row { display:flex; gap:6px; align-items:center; margin-top:6px; }
   .row label { flex:1; }
-  .voice { display:grid; grid-template-columns: 52px 1fr 24px; gap:4px 6px; align-items:center; margin-top:8px; padding:6px; border:1px solid var(--line); border-radius:4px; }
+  .voice { display:grid; grid-template-columns: 52px 1fr 28px 24px; gap:4px 6px; align-items:center; margin-top:8px; padding:6px; border:1px solid var(--line); border-radius:4px; }
+  .voice .play { grid-row: span 2; align-self:stretch; padding:0; }
+  .voice .cam { grid-column: 2 / span 1; }
   .voice .lbl { color:var(--muted); font-size:11px; }
   .voice button { padding:4px 0; grid-row: span 2; align-self:stretch; }
   table { width:100%; border-collapse:collapse; margin-top:6px; }
@@ -45,15 +47,19 @@
   <ul id="list"><li class="empty">Selecciona los clips de las cámaras (y audios aparte) en el panel Proyecto y pulsa el botón.</li></ul>
 
   <div class="step">2 · Analizar audio</div>
-  <button id="analyze" disabled>Sincronizar y analizar audio</button>
+  <button id="analyze" disabled>Sincronizar e identificar hablantes</button>
   <div id="chanBox" class="hidden">
     <div class="hint">Calidad de cada canal (más alto = voz más limpia):</div>
     <table id="chanTable"></table>
+    <div class="row" style="margin-top:10px"><label for="cleanSel">Audio limpio (donde están las voces)</label></div>
+    <select id="cleanSel"></select>
+    <div class="row"><label for="nspk">Personas que hablan</label><input type="number" id="nspk" value="2" min="1" max="6" step="1"></div>
+    <button id="rediar" class="small" style="margin-top:6px">Identificar hablantes de nuevo</button>
   </div>
 
   <div id="mapBox" class="hidden">
-    <div class="step">3 · Quién habla en cada canal</div>
-    <div class="hint">Cuando suene la voz de ese canal, se poncha esa cámara.</div>
+    <div class="step">3 · Cada hablante con su cámara</div>
+    <div class="hint">Pulsa ▶ para escuchar a cada hablante y elige la cámara que lo muestra.</div>
     <div id="voices"></div>
     <div class="row"><button id="addVoice" class="small">+ Agregar voz (otro invitado)</button></div>
     <div class="row" style="margin-top:10px"><label for="wide">Si hablan a la vez → cámara</label></div>

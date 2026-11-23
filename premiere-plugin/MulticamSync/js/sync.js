@@ -690,6 +690,211 @@
         return { cuts: cuts, segCams: cams, stats: { usage: usage } };
     }
 
+    // ================================================================
+    //  IDENTIFICAR HABLANTES en un solo audio (mono o estéreo mezclado)
+    //  Rasgos por fragmento de 1 s: timbre (MFCC) + tono (pitch).
+    //  Se agrupan en K hablantes con k-means.
+    // ================================================================
+    function melBank(nBands, nfft, sr, fmin, fmax) {
+        function hz2mel(h) { return 2595 * Math.log(1 + h / 700) / Math.LN10; }
+        function mel2hz(m) { return 700 * (Math.pow(10, m / 2595) - 1); }
+        var pts = [], i, k, bank = [];
+        for (i = 0; i < nBands + 2; i++) {
+            pts.push(Math.floor((nfft / 2) * mel2hz(hz2mel(fmin) + (hz2mel(fmax) - hz2mel(fmin)) * i / (nBands + 1)) / (sr / 2)));
+        }
+        for (i = 0; i < nBands; i++) {
+            var w = new Float64Array(nfft / 2 + 1);
+            for (k = pts[i]; k < pts[i + 1]; k++) { w[k] = (k - pts[i]) / Math.max(1, pts[i + 1] - pts[i]); }
+            for (k = pts[i + 1]; k < pts[i + 2]; k++) { w[k] = (pts[i + 2] - k) / Math.max(1, pts[i + 2] - pts[i + 1]); }
+            bank.push(w);
+        }
+        return bank;
+    }
+
+    function kmeans(data, K, iters) {
+        var n = data.length, d = data[0].length, best = null;
+        for (var restart = 0; restart < 6; restart++) {
+            // k-means++
+            var cent = [data[Math.floor(Math.random() * n)].slice()];
+            while (cent.length < K) {
+                var dist = data.map(function (x) {
+                    var m = Infinity;
+                    cent.forEach(function (c) { var s = 0; for (var j = 0; j < d; j++) { s += (x[j] - c[j]) * (x[j] - c[j]); } m = Math.min(m, s); });
+                    return m;
+                });
+                var tot = dist.reduce(function (a, b) { return a + b; }, 0), r = Math.random() * tot, idx = 0;
+                while (idx < n - 1 && (r -= dist[idx]) > 0) { idx++; }
+                cent.push(data[idx].slice());
+            }
+            var lab = new Int32Array(n), inertia = 0;
+            for (var it = 0; it < iters; it++) {
+                inertia = 0;
+                for (var i = 0; i < n; i++) {
+                    var bi = 0, bv = Infinity;
+                    for (var c = 0; c < K; c++) {
+                        var s2 = 0;
+                        for (var j2 = 0; j2 < d; j2++) { var df = data[i][j2] - cent[c][j2]; s2 += df * df; }
+                        if (s2 < bv) { bv = s2; bi = c; }
+                    }
+                    lab[i] = bi; inertia += bv;
+                }
+                var sum = [], cnt = [];
+                for (c = 0; c < K; c++) { sum.push(new Float64Array(d)); cnt.push(0); }
+                for (i = 0; i < n; i++) { cnt[lab[i]]++; for (j2 = 0; j2 < d; j2++) { sum[lab[i]][j2] += data[i][j2]; } }
+                for (c = 0; c < K; c++) { if (cnt[c]) { for (j2 = 0; j2 < d; j2++) { cent[c][j2] = sum[c][j2] / cnt[c]; } } }
+            }
+            if (!best || inertia < best.inertia) { best = { labels: lab, inertia: inertia }; }
+        }
+        return best.labels;
+    }
+
+    /**
+     * x: audio mono a SR Hz. K: número de hablantes.
+     * Devuelve Promise<{speakers:[{pitch, seconds, examples:[s]}], levels:[Float32Array 10 Hz por hablante]}>
+     */
+    function diarize(x, K, onProgress) {
+        var N = 256, NF = 512, HOP = 160;                  // 32 ms de ventana, 20 ms de salto
+        var nFr = Math.max(0, Math.floor((x.length - N) / HOP));
+        var win = new Float64Array(N), i, k;
+        for (i = 0; i < N; i++) { win[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1)); }
+        var bank = melBank(24, NF, SR, 90, 3800);
+        var energy = new Float32Array(nFr);
+        for (var f = 0; f < nFr; f++) {
+            var s = 0;
+            for (i = 0; i < N; i += 2) { var v = x[f * HOP + i]; s += v * v; }
+            energy[f] = 10 * Math.log(s / (N / 2) + 1e-3) / Math.LN10;
+        }
+        var floorDb = percentile(energy, 0.15), peakDb = percentile(energy, 0.95);
+        var thr = floorDb + Math.max(8, (peakDb - floorDb) * 0.35);
+        var mfcc = new Array(nFr), pitch = new Float32Array(nFr);
+        var re = new Float64Array(NF), im = new Float64Array(NF), mel = new Float64Array(24);
+        var f0 = 0;
+
+        return new Promise(function (resolve) {
+            function slice() {
+                var t0 = Date.now();
+                for (; f0 < nFr && Date.now() - t0 < 100; f0++) {
+                    if (energy[f0] < thr) { continue; }
+                    re.fill(0); im.fill(0);
+                    for (i = 0; i < N; i++) { re[i] = x[f0 * HOP + i] * win[i]; }
+                    fft(re, im, false);
+                    for (k = 0; k <= NF / 2; k++) { re[k] = re[k] * re[k] + im[k] * im[k]; }
+                    // MFCC
+                    for (var b = 0; b < 24; b++) {
+                        var e = 0, w = bank[b];
+                        for (k = 0; k <= NF / 2; k++) { if (w[k]) { e += w[k] * re[k]; } }
+                        mel[b] = Math.log(e + 1e-6);
+                    }
+                    var cc = new Float32Array(12);
+                    for (var c = 1; c <= 12; c++) {
+                        var acc = 0;
+                        for (b = 0; b < 24; b++) { acc += mel[b] * Math.cos(Math.PI * c * (b + 0.5) / 24); }
+                        cc[c - 1] = acc;
+                    }
+                    mfcc[f0] = cc;
+                    // tono: autocorrelación = IFFT(|X|²)
+                    for (k = 1; k < NF / 2; k++) { re[NF - k] = re[k]; }
+                    im.fill(0);
+                    fft(re, im, true);
+                    var r0 = re[0] || 1, bl = 0, bvv = 0.3;
+                    for (var lag = 20; lag <= 100; lag++) {          // 400 Hz .. 80 Hz
+                        var rv = re[lag] / r0;
+                        if (rv > bvv && re[lag] >= re[lag - 1] && re[lag] >= re[lag + 1]) { bvv = rv; bl = lag; }
+                    }
+                    pitch[f0] = bl ? SR / bl : 0;
+                }
+                if (onProgress) { onProgress(Math.floor(100 * f0 / Math.max(1, nFr))); }
+                if (f0 < nFr) { setTimeout(slice, 0); return; }
+                resolve(cluster());
+            }
+            slice();
+        });
+
+        function cluster() {
+            // fragmentos de 1 s cada 0,5 s
+            var WIN = 50, STEP = 25, feats = [], centers = [];
+            var allP = [];
+            for (var st = 0; st + WIN <= nFr; st += STEP) {
+                var m = new Float64Array(12), n = 0, ps = [];
+                for (var q = st; q < st + WIN; q++) {
+                    if (!mfcc[q]) { continue; }
+                    for (var j = 0; j < 12; j++) { m[j] += mfcc[q][j]; }
+                    n++;
+                    if (pitch[q] > 0) { ps.push(pitch[q]); }
+                }
+                if (n < WIN * 0.3) { continue; }
+                for (j = 0; j < 12; j++) { m[j] /= n; }
+                ps.sort(function (a, b2) { return a - b2; });
+                var p = ps.length >= 3 ? ps[Math.floor(ps.length / 2)] : 0;
+                if (p) { allP.push(p); }
+                feats.push({ v: Array.prototype.slice.call(m), p: p });
+                centers.push(st + WIN / 2);
+            }
+            var empty = { speakers: [], levels: [], labels: null };
+            if (feats.length < K * 3) { return empty; }
+            allP.sort(function (a, b2) { return a - b2; });
+            var medP = allP.length ? allP[Math.floor(allP.length / 2)] : 150;
+            var data = feats.map(function (o) { return o.v.concat([Math.log(o.p || medP)]); });
+            // normalizar cada rasgo y dar más peso al tono
+            var d = data[0].length;
+            for (var j3 = 0; j3 < d; j3++) {
+                var mu = 0, sd = 0;
+                data.forEach(function (r) { mu += r[j3]; }); mu /= data.length;
+                data.forEach(function (r) { sd += (r[j3] - mu) * (r[j3] - mu); }); sd = Math.sqrt(sd / data.length) || 1;
+                var wgt = (j3 === d - 1) ? 3 : 1;
+                data.forEach(function (r) { r[j3] = wgt * (r[j3] - mu) / sd; });
+            }
+            var lab = kmeans(data, K, 25);
+
+            // a 10 Hz: etiqueta del fragmento más cercano, solo donde hay voz
+            var T = Math.ceil(nFr * HOP / SR * 10), label = new Int8Array(T).fill(-1), lvl = new Float32Array(T).fill(-99);
+            var fi = 0;
+            for (var t = 0; t < T; t++) {
+                var fr = Math.floor(t * SR / 10 / HOP);
+                var eMax = -99, speech = false;
+                for (q = fr; q < fr + 5 && q < nFr; q++) { if (energy[q] > eMax) { eMax = energy[q]; } if (energy[q] >= thr) { speech = true; } }
+                lvl[t] = eMax;
+                if (!speech) { continue; }
+                while (fi + 1 < centers.length && Math.abs(centers[fi + 1] - fr) <= Math.abs(centers[fi] - fr)) { fi++; }
+                if (Math.abs(centers[fi] - fr) <= WIN) { label[t] = lab[fi]; }
+            }
+            // suavizar: mayoría en ±0,7 s
+            var sm = new Int8Array(T).fill(-1), votes = new Int32Array(K);
+            for (t = 0; t < T; t++) {
+                if (label[t] < 0) { continue; }
+                votes.fill(0);
+                for (q = Math.max(0, t - 7); q <= Math.min(T - 1, t + 7); q++) { if (label[q] >= 0) { votes[label[q]]++; } }
+                var bk = 0;
+                for (var c2 = 1; c2 < K; c2++) { if (votes[c2] > votes[bk]) { bk = c2; } }
+                sm[t] = bk;
+            }
+            // niveles por hablante (para el ponche) e info para la interfaz
+            var levels = [], speakers = [];
+            for (var c3 = 0; c3 < K; c3++) {
+                var L = new Float32Array(T).fill(floorDb - 20), secs = 0, pv = [], runs = [], runStart = -1;
+                for (t = 0; t <= T; t++) {
+                    var on = t < T && sm[t] === c3;
+                    if (on) { L[t] = lvl[t]; secs += 0.1; }
+                    if (on && runStart < 0) { runStart = t; }
+                    if (!on && runStart >= 0) { runs.push([runStart, t]); runStart = -1; }
+                }
+                for (var w2 = 0; w2 < feats.length; w2++) { if (lab[w2] === c3 && feats[w2].p) { pv.push(feats[w2].p); } }
+                pv.sort(function (a, b2) { return a - b2; });
+                runs.sort(function (a, b2) { return (b2[1] - b2[0]) - (a[1] - a[0]); });
+                levels.push(L);
+                speakers.push({
+                    pitch: pv.length ? Math.round(pv[Math.floor(pv.length / 2)]) : 0,
+                    seconds: Math.round(secs),
+                    examples: runs.slice(0, 3).map(function (r) { return r[0] / 10; })
+                });
+            }
+            // orden estable: de la voz más grave a la más aguda
+            var order = speakers.map(function (sp, i) { return i; })
+                .sort(function (a, b2) { return (speakers[a].pitch || 999) - (speakers[b2].pitch || 999); });
+            return { speakers: order.map(function (i) { return speakers[i]; }), levels: order.map(function (i) { return levels[i]; }) };
+        }
+    }
+
     /**
      * clips: [{name, path, ...}]  masterIndex: índice de la maestra
      * log: función(texto)   -> Promise<{clips: [...con offset], dropped: [nombres]}>
@@ -753,7 +958,7 @@
         });
     }
 
-    var api = { syncClips: syncClips, planCuts: planCuts, planVoice: planVoice, offset: offset, extractAudio: extractAudio, findDecoder: findDecoder };
+    var api = { syncClips: syncClips, planCuts: planCuts, planVoice: planVoice, diarize: diarize, offset: offset, extractAudio: extractAudio, findDecoder: findDecoder };
     if (typeof module !== 'undefined' && module.exports) { module.exports = api; }
     root.MulticamSync = api;
 })(typeof window !== 'undefined' ? window : this);
