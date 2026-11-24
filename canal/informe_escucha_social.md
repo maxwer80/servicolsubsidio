@@ -7,7 +7,7 @@
 | **Corpus** | 1.732 comentarios públicos de 18 videos de YouTube (12 de la competencia y 6 propios) |
 | **Analizados** | **1.434 comentarios del público**. Se excluyeron 298 escritos por los creadores. |
 | **Método** | Análisis de contenido con un libro de códigos de 11 categorías, más emoción, polaridad y nivel del usuario. Codificación asistida por IA en 4 lotes paralelos con el mismo protocolo. |
-| **Validación** | ⏳ **Pendiente.** Hay una muestra aleatoria de 100 comentarios en `datos/muestra_validacion.csv` para que la codifiques a mano y calculemos el kappa de Cohen. |
+| **Validación** | **No realizada** (decisión del 24-nov-2026, por tiempo). Los hallazgos sirven para decidir contenido; **antes de usarlos en la tesis hay que validarlos** con la muestra de `datos/muestra_validacion.csv`. |
 | **Archivos** | `datos/comentarios.csv` (datos crudos) · `datos/comentarios_codificados.csv` (datos codificados) |
 
 ### Limitaciones (léelas antes de citar cifras)
