@@ -219,6 +219,59 @@ Basados en la fórmula de los shorts ganadores del canal (análisis del 24-nov-2
 
 ---
 
+## 12. "Sé hacer el video, pero no sé venderlo" (hallazgo #1 de la escucha social)
+- **Fórmula:** Lenguaje textual del público + tu diferencial (marketing)
+- **Video relacionado:** el próximo video largo del pilar "Cómo vender a negocios"; mientras tanto, *4K Commercials for Restaurants* (`zivWrdkGjnQ`)
+- **Duración:** ~30 s
+
+| Gancho | Visual (0–2 s) | Texto en pantalla | Voz |
+|---|---|---|---|
+| **A – Cita del público** | Captura real (anónima) del comentario *"No soy bueno a la hora de saber venderlo"*. | "¿Te pasa esto?" | "Esto me lo escriben todo el tiempo…" |
+| **B – Promesa** | Tú, frente a un local comercial. | "Así le vendí un video con IA a un negocio de barrio" | — |
+
+**Desarrollo**
+- 3–22 s: **3 pasos con base en el comportamiento del consumidor**:
+  1. No vendas "videos con IA"; vende **más clientes** para el negocio.
+  2. Llega con un **video de muestra de SU negocio** ya hecho (reciprocidad).
+  3. Pon un **precio de entrada bajo** y cobra mensualidad después (reduce el riesgo percibido).
+- **Cierre:** *"¿A qué negocio le venderías primero? El método completo, abajo 👇"*
+
+---
+
+## 13. "No me guardo nada" (hallazgo #2: tutorial incompleto = desconfianza)
+- **Fórmula:** Transparencia frente a la competencia
+- **Video relacionado:** *Cómo crear una influencer con IA realista paso a paso* (`i661BMXFHRI`)
+- **Duración:** ~25 s
+
+| Gancho | Visual (0–2 s) | Texto en pantalla | Voz |
+|---|---|---|---|
+| **A – Dolor** | Pantalla de un tutorial con la parte clave tapada o pixelada. | "¿Seguiste el tutorial y no te salió igual?" | — |
+| **B – Promesa** | Tú, abriendo una carpeta con todos los prompts y archivos. | "Aquí están TODOS mis prompts. No me guardo nada." | "No me guardo nada." |
+
+**Desarrollo**
+- 2–18 s: muestras el resultado (la influencer consistente) y el documento con los prompts, abierto y completo.
+- **Cierre:** *"¿Qué tutorial seguiste que no te funcionó? Te lo hago completo. Los prompts están en el video de abajo 👇"*
+- **Nota:** pon de verdad los prompts en la descripción o en un enlace. Si no, el efecto se invierte.
+
+---
+
+## 14. "¿La gente se da cuenta de que es IA?" (hallazgo #6, conecta con tu tesis)
+- **Fórmula:** Experimento con el público (genera comentarios y te da datos)
+- **Video relacionado:** *Cómo hacer YouTube Shorts con IA usando tu propia cara y voz* (`Fs_HfDE-Rv4`)
+- **Duración:** ~25 s
+
+| Gancho | Visual (0–2 s) | Texto en pantalla | Voz |
+|---|---|---|---|
+| **A – Reto** | Dos anuncios del mismo producto, lado a lado. | "Uno lo hizo una IA. ¿Cuál?" | — |
+| **B – Pregunta de negocio** | Un anuncio hecho con IA. | "¿Comprarías algo con un anuncio hecho por IA?" | — |
+
+**Desarrollo**
+- 2–18 s: los dos anuncios completos. Pide que respondan **"1" o "2"** en los comentarios.
+- **Cierre:** *"En 3 días te muestro qué respondió la mayoría y qué dice la investigación. Cómo hice el anuncio con IA, abajo 👇"*
+- **Nota:** las respuestas son **datos para tu tesis** (registra los conteos) y material para un short de seguimiento.
+
+---
+
 ## Calendario sugerido (ajustado con la investigación de mercado)
 El cambio se debe a que los **créditos quemados** y los **personajes inconsistentes** son los dos dolores más repetidos en la escucha social, y a que el Black Friday es esta semana. Ver `investigacion_mercado.md`.
 
