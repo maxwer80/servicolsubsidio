@@ -1,0 +1,32 @@
+RESUMEN DE LA DESCARGA
+Fecha: 2026-11-24
+Herramienta: yt-dlp 2026.10.26 (extractor de comentarios de YouTube, sin iniciar sesión)
+Competencia (1-12): hasta 500 comentarios principales por video, orden «Más relevantes» (top), hasta 20 respuestas por comentario.
+Propio (13-18): todos los comentarios y sus respuestas.
+Fechas: YouTube solo muestra fechas relativas («hace 3 meses»); la fecha se calculó a partir de ellas y es aproximada (más precisa en comentarios recientes).
+Autores anonimizados (A001…); sin nombres, fotos ni enlaces de perfil.
+
+video_id | canal | principales | respuestas | total | nota
+ldhp1WwVM2s | Scalboost | 100 | 20 | 120 | 
+cYC_LVan4TA | Scalboost | 156 | 48 | 204 | 
+fJzUnSEnKNs | Adrián Sáenz | 270 | 43 | 313 | 
+Or8neoE7Z4c | Adrián Sáenz | 238 | 56 | 294 | 
+U9K18ikCQvY | No es X es Y | 87 | 105 | 192 | 
+mGHGYPjb61s | Lorena Bordonaba | 164 | 131 | 295 | 
+vUr95tjMedQ | Metics Media | 79 | 55 | 134 | 
+MTKzhzw-JmE | Laura Blago | 15 | 6 | 21 | 
+pNQCnkzCULk | Camilo Barbosa | 28 | 7 | 35 | 
+-nuDDAjUmy4 | Álvaro Pareja | 20 | 23 | 43 | 
+8rGycvMVbBg | Tutoriales Informáticos + IA | 11 | 5 | 16 | 
+oH8Tdk8p1bQ | Affiliation | 11 | 0 | 11 | 
+dsR0c-g-AaE | John Balcázar | 10 | 0 | 10 | 
+sJ7kmkisGNU | John Balcázar | 9 | 4 | 13 | 
+9WggOn_hRDE | John Balcázar | 16 | 13 | 29 | 
+bToOvn9cGlg | John Balcázar | 0 | 0 | 0 | 0 comentarios: YouTube muestra 0 en este Short
+-x4-DQftbGw | John Balcázar | 1 | 0 | 1 | 
+i661BMXFHRI | John Balcázar | 1 | 0 | 1 | 
+
+Verificación: el total de cada video coincide con el contador de comentarios que muestra YouTube; ningún video de la competencia llegó al tope de 500 principales, así que se bajaron todos.
+
+Total de filas: 1732
+Autores distintos: 1317
